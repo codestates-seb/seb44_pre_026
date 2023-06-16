@@ -5,6 +5,7 @@ export const InputBodyLayout = styled.div`
   width: 100%;
   padding: 15px;
   margin: 20px 0px;
+  background-color: #fff;
 `;
 
 export const SubHeading = styled.div`

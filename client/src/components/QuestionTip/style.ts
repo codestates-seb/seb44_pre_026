@@ -2,37 +2,36 @@ import { styled } from "styled-components";
 import pencil from "../../assets/pencil.png";
 
 export const Article = styled.article`
-  width: 50%;
+  width: 20%;
+  height: 170px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 450px;
+  /* padding-top: 450px; */
   @media screen and (max-width: 1000px) {
     display: none;
   }
 `;
 
 export const TipLayout = styled.div`
-  width: 80%;
-  height: 200px;
-  border: 1px solid var(--black-400);
+  width: 340px;
+  border: 1px solid var(--black-100);
   border-radius: 5px;
   flex-shrink: 0;
-  float: right;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
   margin: 10px;
+
   @media screen and (max-width: 1000px) {
     display: none;
   }
-  padding: 0px;
 `;
 
 export const TipTitle = styled.div`
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 200;
   height: 40px;
   padding: 10px;
-  border-bottom: 1px solid var(--black);
+  border-bottom: 1px solid var(--black-075);
   background-color: var(--black-050);
 `;
 
@@ -42,6 +41,8 @@ export const TipTextBox = styled.div`
   display: flex;
   align-items: center;
   padding: 10px;
+  background-color: #fff;
+  border: 1px solid var(--black-075);
 `;
 
 export const TipIcon = styled.div`

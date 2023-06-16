@@ -3,13 +3,13 @@ import * as S from "./style";
 function QuestionNotice() {
   return (
     <>
-      <S.QuestionTitle>Ask a public question</S.QuestionTitle>
       <S.QuestionNotice>
         <S.SubHeading>Writing a good question</S.SubHeading>
         <S.SubContent>
           You’re ready to ask a programming-related question and this form will
-          help guide you through the process. Looking to ask a non-programming
-          question? See the topics here to find a relevant site.
+          help guide you through the process.
+          <br /> Looking to ask a non-programming question? See the topics here
+          to find a relevant site.
         </S.SubContent>
         <S.SubStep>Steps</S.SubStep>
         <ul>
