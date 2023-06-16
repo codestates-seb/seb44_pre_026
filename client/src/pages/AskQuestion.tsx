@@ -11,6 +11,7 @@ function AskQuestion() {
   const [bodyValue, setBodyValue] = useState<string>("");
 
   const submitHandler = (e: React.FocusEvent<HTMLInputElement>) => {
+    e.preventDefault();
     console.log("titleValue = ", titleValue);
     console.log("bodyValue = ", bodyValue);
   };
@@ -21,7 +22,7 @@ function AskQuestion() {
         <QuestionNotice />
         <form onSubmit={e => submitHandler(e)}>
           <QuestionTitle setTitleValue={setTitleValue} />
-          <QuestionBody />
+          <QuestionBody setBodyValue={setBodyValue} />
           <div>
             <button type="submit">Post your question</button>
             {/* <Link to="#">
