@@ -1,10 +1,10 @@
 import "./App.css";
-import QuestionTip from "./components/QuestionTip/QuestionTip";
+import AskQuestion from "./pages/AskQuestion";
 
 function App() {
   return (
     <>
-      <QuestionTip />
+      <AskQuestion />
     </>
   );
 }
