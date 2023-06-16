@@ -3,12 +3,15 @@ package preproject.server.question.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import preproject.server.answer.entity.Answer;
+import preproject.server.member.entity.Member;
 
 import javax.persistence.Entity;
 import javax.persistence.*;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,7 +27,7 @@ public class Question {
     private String content;
     @Column(nullable = false, name = "CREATED_AT")
     private LocalDateTime createdAt = LocalDateTime.now();
-    @Column(nullable = false, name = "UPDATED_AT")
+    @Column(nullable = false, name = "MODIFYED_AT")
     private LocalDateTime updatedAt = LocalDateTime.now();
     @OneToMany(mappedBy = "question", cascade = {CascadeType.ALL})
     private List<Answer> answerList = new ArrayList<>();
@@ -35,10 +38,10 @@ public class Question {
     public void setMember(Member member) {
         this.member = member;
         }
-    }
+
 
     public void setAnswer(Answer answer) {
         this.getAnswerList().add(answer);
         }
     }
-}
+
