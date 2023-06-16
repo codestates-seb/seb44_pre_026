@@ -10,7 +10,7 @@ function TextEditor({ setBodyValue }: EditorProps) {
     setBodyValue(e);
   };
 
-  return <ReactQuill onChange={onChangeHandler} />;
+  return <ReactQuill onChange={onChangeHandler} style={{ height: "210px" }} />;
 }
 
 export default TextEditor;

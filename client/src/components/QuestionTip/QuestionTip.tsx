@@ -1,17 +1,18 @@
 import * as S from "./style";
 
-function QuestionTip() {
+interface TipProps {
+  TipTitle: string;
+  TipText: string;
+}
+
+function QuestionTip({ TipTitle, TipText }: TipProps) {
   return (
     <S.Article>
       <S.TipLayout>
-        <S.TipTitle>Writing a good title</S.TipTitle>
+        <S.TipTitle>{TipTitle}</S.TipTitle>
         <S.TipTextBox>
           <S.TipIcon />
-          <S.TipText>
-            Your title should summarize the problem.
-            <br /> You might find that you have a better idea of your title
-            after writing out the rest of the question.
-          </S.TipText>
+          <S.TipText>{TipText}</S.TipText>
         </S.TipTextBox>
       </S.TipLayout>
     </S.Article>

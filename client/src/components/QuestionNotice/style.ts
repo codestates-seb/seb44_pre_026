@@ -6,10 +6,14 @@ export const QuestionNotice = styled.div`
   background-color: var(--blue-050);
   border: 1px solid var(--blue-200);
   border-radius: 5px;
-  /* width: 460.6px; */
   padding: 24px;
-  width: 70%;
+  width: 65%;
   margin: 16px 0;
+  color: var(--black-800);
+
+  & ul {
+    padding-left: 30px;
+  }
 
   & li {
     font-size: 14px;
@@ -18,15 +22,15 @@ export const QuestionNotice = styled.div`
 
 export const SubHeading = styled.div`
   font-size: 20px;
-  font-weight: bold;
 `;
 
 export const SubStep = styled.span`
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 10px;
 `;
 
 export const SubContent = styled.div`
-  margin: 10px 0px;
+  margin: 15px 0px;
   font-size: 15px;
 `;
