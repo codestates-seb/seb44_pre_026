@@ -1,4 +1,4 @@
-package preproject.answer.dto;
+package preproject.server.answer.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package preproject.answer.entity;
+package preproject.server.answer.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
