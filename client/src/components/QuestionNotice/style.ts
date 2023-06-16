@@ -11,7 +11,7 @@ export const QuestionTitle = styled.div`
 export const QuestionNotice = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: var(--blue-100);
+  background-color: var(--blue-050);
   border: 1px solid var(--blue-200);
   border-radius: 5px;
   width: 460.6px;

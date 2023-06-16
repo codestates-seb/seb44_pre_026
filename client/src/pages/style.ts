@@ -14,3 +14,9 @@ export const QuestionLayout = styled.article`
     align-items: center;
   }
 `;
+
+export const ButtonLayout = styled.button`
+  display: flex;
+  width: 50%;
+  margin: 20px 0px;
+`;
