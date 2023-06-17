@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import backgroundImage from "../assets/background.svg";
+import backgroundImage from "../../assets/background.svg";
 
 export const Section = styled.section`
   display: flex;
@@ -56,10 +56,10 @@ export const ButtonLayout = styled.div`
   & > button {
     margin-left: calc(4px * 1);
     display: inline-block;
-    background-color: var(--blue-button);
+    background-color: var(--blue-500);
     color: var(--white);
     font-size: 13px;
-    padding: 6.5px 9px;
+    padding: 10px 9px;
     border-radius: 4px;
     box-shadow: inset 0 1px 0 0 hsla(0, 0%, 100%, 0.4);
     border: 1px solid hsl(205, 41%, 63%);

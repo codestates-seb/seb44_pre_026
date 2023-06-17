@@ -1,10 +1,9 @@
-import QuestionBody from "../components/QuestionBody/QuestionBody";
-import QuestionNotice from "../components/QuestionNotice/QuestionNotice";
-import QuestionTitle from "../components/QuestionTitle/QuestionTitle";
+import QuestionBody from "../../components/QuestionBody/QuestionBody";
+import QuestionNotice from "../../components/QuestionNotice/QuestionNotice";
+import QuestionTitle from "../../components/QuestionTitle/QuestionTitle";
 
 import * as S from "./style";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 
 // TODO: Submit API 통신
 // TODO: 텍스트 에디터 focus
