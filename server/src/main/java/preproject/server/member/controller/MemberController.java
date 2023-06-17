@@ -8,6 +8,7 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import preproject.server.member.dto.MemberPatchDto;
 import preproject.server.member.dto.MemberPostDto;
+import preproject.server.member.dto.MemberResponseDto;
 import preproject.server.member.entity.Member;
 import preproject.server.member.mapper.MemberMapper;
 import preproject.server.member.response.PageInfo;
@@ -61,15 +62,26 @@ public class MemberController {
         return new ResponseEntity(mapper.memberToMemberResponseDto(findMember), HttpStatus.OK);
     }
 
+//    @GetMapping
+//    public ResponseEntity getMembers(@Positive @RequestParam int page,
+//                                     @Positive @RequestParam int size) {
+//        Page<Member> pageMembers = memberService.findMembers(page - 1, size);
+//        List<Member> members = pageMembers.getContent();
+//        PageInfo pageInfo = new PageInfo(pageMembers.getNumber() + 1, pageMembers.getSize(), (int) pageMembers.getTotalElements(), pageMembers.getTotalPages());
+//
+//        return new ResponseEntity(new PageResponseDto(members,pageInfo), HttpStatus.OK);
+//    } todo : 회원의 질문과 답변 리스트까지 리턴
+
     @GetMapping
     public ResponseEntity getMembers(@Positive @RequestParam int page,
                                      @Positive @RequestParam int size) {
         Page<Member> pageMembers = memberService.findMembers(page - 1, size);
         List<Member> members = pageMembers.getContent();
+        List<MemberResponseDto> response = mapper.membersToMemberResponseDtos(members);
         PageInfo pageInfo = new PageInfo(pageMembers.getNumber() + 1, pageMembers.getSize(), (int) pageMembers.getTotalElements(), pageMembers.getTotalPages());
 
-        return new ResponseEntity(new PageResponseDto(members,pageInfo), HttpStatus.OK);
-    }
+        return new ResponseEntity(new PageResponseDto(response,pageInfo), HttpStatus.OK);
+    } // todo : 순수 회원 정보만 리턴
 
     @DeleteMapping("/{member-id}")
     public ResponseEntity deleteMember(@PathVariable("member-id") @Positive long memberId) {
