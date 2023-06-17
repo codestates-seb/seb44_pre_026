@@ -3,6 +3,8 @@ package preproject.server.member.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import preproject.server.answer.entity.Answer;
+import preproject.server.question.entity.Question;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -26,6 +28,9 @@ public class Member {
 
     @Column(length = 100, nullable = false)
     private String password;
+
+    @Enumerated(value = EnumType.STRING)
+    private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
 
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
