@@ -3,6 +3,7 @@ package preproject.server.member.controller;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -15,12 +16,14 @@ import preproject.server.member.response.PageInfo;
 import preproject.server.member.response.PageResponseDto;
 import preproject.server.member.service.MemberService;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.net.URI;
 import java.util.List;
 
 @RestController
 @RequestMapping("/members")
+@Validated
 public class MemberController {
     private final String MEMBER_DEFAULT_URL = "/members";
     private final MemberService memberService;
@@ -32,7 +35,7 @@ public class MemberController {
     }
 
     @PostMapping
-    public ResponseEntity postMember(@RequestBody MemberPostDto memberPostDto) {
+    public ResponseEntity postMember(@Valid @RequestBody MemberPostDto memberPostDto) {
         Member member = mapper.memberPostDtoToMember(memberPostDto);
         Member createdMember = memberService.createMember(member);
 
@@ -56,7 +59,7 @@ public class MemberController {
     }
 
     @GetMapping("/{member-id}")
-    public ResponseEntity getMember(@PathVariable("member-id") long memberId) {
+    public ResponseEntity getMember(@PathVariable("member-id") @Positive long memberId) {
         Member findMember = memberService.findMember(memberId);
 
         return new ResponseEntity(mapper.memberToMemberResponseDto(findMember), HttpStatus.OK);
@@ -70,7 +73,7 @@ public class MemberController {
 //        PageInfo pageInfo = new PageInfo(pageMembers.getNumber() + 1, pageMembers.getSize(), (int) pageMembers.getTotalElements(), pageMembers.getTotalPages());
 //
 //        return new ResponseEntity(new PageResponseDto(members,pageInfo), HttpStatus.OK);
-//    } todo : 회원의 질문과 답변 리스트까지 리턴
+//    } 회원의 질문과 답변 리스트까지 리턴
 
     @GetMapping
     public ResponseEntity getMembers(@Positive @RequestParam int page,
@@ -81,7 +84,7 @@ public class MemberController {
         PageInfo pageInfo = new PageInfo(pageMembers.getNumber() + 1, pageMembers.getSize(), (int) pageMembers.getTotalElements(), pageMembers.getTotalPages());
 
         return new ResponseEntity(new PageResponseDto(response,pageInfo), HttpStatus.OK);
-    } // todo : 순수 회원 정보만 리턴
+    } // 순수 회원 정보만 리턴
 
     @DeleteMapping("/{member-id}")
     public ResponseEntity deleteMember(@PathVariable("member-id") @Positive long memberId) {
