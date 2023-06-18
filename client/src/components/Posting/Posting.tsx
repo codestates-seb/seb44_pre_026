@@ -1,13 +1,14 @@
 import * as S from "./style";
 import arrowUp from "../../assets/arrowup.png";
 import arrowDown from "../../assets/arrowdown.png";
-import { DetailProps } from "../../pages/Detail/Detail";
+import { AnswerProps, DetailProps } from "../../pages/Detail/Detail";
 
 interface PostingProps {
-  content: DetailProps;
+  content?: DetailProps;
+  answer: AnswerProps;
 }
 
-function Posting({ content }: PostingProps) {
+function Posting({ content, answer }: PostingProps) {
   return (
     <S.PostLayout>
       <S.VoteBox>
@@ -20,23 +21,27 @@ function Posting({ content }: PostingProps) {
         </button>
       </S.VoteBox>
       <div>
-        <S.Content dangerouslySetInnerHTML={{ __html: content.content }} />
+        <S.Content
+          dangerouslySetInnerHTML={{
+            __html: content ? content.content : answer.content,
+          }}
+        />
         <S.ContentFooter>
           <S.FooterMenu>
             <span>Edit</span>
             <span>Delete</span>
           </S.FooterMenu>
           <S.UserInfo>
-            <div>
+            <div style={{ backgroundColor: content && "var(--powder-100)" }}>
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Stack_Overflow_icon.svg"
                 style={{ width: "36px", height: "36px" }}
               />
               <span>
-                <a href="#">{content.username}</a>
+                <a href="#">{content ? content.username : answer.username}</a>
               </span>
             </div>
-            <div>👋 New Contributor</div>
+            {/* <div>👋 New Contributor</div> */}
           </S.UserInfo>
         </S.ContentFooter>
       </div>

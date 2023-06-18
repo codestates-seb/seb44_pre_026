@@ -2,7 +2,16 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import * as S from "./style";
 import Posting from "../../components/Posting/Posting";
+import Answer from "../../components/Answer/Answer";
 
+export interface AnswerProps {
+  username: string;
+  question_id: number;
+  answer_id: string;
+  content: string;
+  created_at: string;
+  modified_at: string;
+}
 export interface DetailProps {
   username: string;
   question_id: number;
@@ -22,15 +31,26 @@ function Detail() {
     modified_at: "",
   };
 
+  const [answerData, setAnswerData] = useState<AnswerProps[]>([]);
   const [askData, setAskData] = useState<DetailProps>(initialState);
+
+  const fetch = async () => {
+    const response = await axios.get(
+      "http://localhost:5173/src/moks/question.json"
+    );
+    setAskData(response?.data);
+  };
 
   useEffect(() => {
     axios
-      .get("http://localhost:5173/src/moks/question.json")
-      .then(res => setAskData(res.data));
+      .get("http://localhost:5173/src/moks/answer.json")
+      .then(res => setAnswerData(res.data));
+
+    fetch();
   }, []);
 
   console.log(askData);
+  console.log(answerData);
 
   return (
     <S.Section>
@@ -56,6 +76,7 @@ function Detail() {
         />
         <Posting content={askData} />
       </S.DetailLayout>
+      {answerData.length > 0 && <Answer answerData={answerData} />}
     </S.Section>
   );
 }

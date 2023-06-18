@@ -77,9 +77,9 @@ export const UserInfo = styled.div`
     justify-content: center;
     align-items: center;
     padding: 11px 11px 11px 4px;
-    background-color: var(--powder-100);
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
+    border-radius: 3px;
+    /* border-top-left-radius: 3px;
+    border-top-right-radius: 3px; */
 
     & > span {
       width: 127px;
@@ -90,7 +90,7 @@ export const UserInfo = styled.div`
     }
   }
 
-  & > div:nth-child(2) {
+  /* & > div:nth-child(2) {
     font-size: 14px;
     padding: 7px;
     background-color: var(--powder-200);
@@ -98,5 +98,5 @@ export const UserInfo = styled.div`
     border-bottom-right-radius: 3px;
     width: 178px;
     color: var(--fc-medium);
-  }
+  } */
 `;
