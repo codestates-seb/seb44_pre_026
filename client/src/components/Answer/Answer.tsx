@@ -10,7 +10,7 @@ function Answer({ answerData }: Props) {
   return (
     <S.AnswerLayout>
       <S.Header>
-        <div>0 Answer</div>
+        <div>{answerData.length} Answer</div>
         <S.SortMenu>
           <label htmlFor="sort_answer">Sorted by: </label>
           <select name="sort" id="sort_answer" defaultValue="score">

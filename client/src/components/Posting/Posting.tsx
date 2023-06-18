@@ -8,9 +8,11 @@ interface PostingProps {
   answer: AnswerProps;
 }
 
-function Posting({ content, answer }: PostingProps) {
+function Posting({ content, answer }: PostingProps | any) {
   return (
-    <S.PostLayout>
+    <S.PostLayout
+      style={{ borderBottom: answer && "1px solid var(--black-075)" }}
+    >
       <S.VoteBox>
         <button>
           <img src={arrowUp} />

@@ -4,8 +4,10 @@ export const PostLayout = styled.div`
   display: flex;
   margin-top: 24px;
   padding-right: 16px;
+  padding-bottom: 12px;
   width: 70%;
   min-width: 0;
+  /* border-bottom: 1px solid var(--black-075); */
 `;
 
 export const VoteBox = styled.div`
