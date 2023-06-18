@@ -7,10 +7,6 @@ interface BodyProps {
 }
 
 function QuestionBody({ setBodyValue }: BodyProps) {
-  const TipTitle = "Introduce the problem";
-  const TipText =
-    "Explain how you encountered the problem you’re trying to solve, and any difficulties that have prevented you from solving it yourself.";
-
   return (
     <S.Container>
       <S.InputBodyLayout>
@@ -21,7 +17,7 @@ function QuestionBody({ setBodyValue }: BodyProps) {
         </S.SubContent>
         <TextEditor setBodyValue={setBodyValue} />
       </S.InputBodyLayout>
-      <QuestionTip TipTitle={TipTitle} TipText={TipText} />
+      <QuestionTip isTitle={false} />
     </S.Container>
   );
 }
