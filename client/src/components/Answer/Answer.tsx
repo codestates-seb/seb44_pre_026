@@ -31,7 +31,7 @@ function Answer({ answerData }: Props) {
           </S.SortMenu>
         </S.Header>
         {answerData.map(e => (
-          <Posting key={e.answer_id} answer={e} />
+          <Posting key={e.answer_id} content={e} isAsk={false} />
         ))}
       </S.AnswerLayout>
       <S.FormLayout>

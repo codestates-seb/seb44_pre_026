@@ -11,6 +11,7 @@ export interface AnswerProps {
   content: string;
   created_at: string;
   modified_at: string;
+  isAsk: boolean;
 }
 export interface DetailProps {
   username: string;
@@ -74,7 +75,7 @@ function Detail() {
           src="https://tpc.googlesyndication.com/simgad/13962158573275624079"
           style={{ width: "850px", height: "90px" }}
         />
-        <Posting content={askData} />
+        <Posting content={askData} isAsk={true} />
       </S.DetailLayout>
       {answerData.length > 0 && <Answer answerData={answerData} />}
     </S.Section>

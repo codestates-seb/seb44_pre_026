@@ -4,14 +4,16 @@ import arrowDown from "../../assets/arrowdown.png";
 import { AnswerProps, DetailProps } from "../../pages/Detail/Detail";
 
 interface PostingProps {
-  content?: DetailProps;
-  answer: AnswerProps;
+  content: DetailProps | AnswerProps;
+  isAsk: boolean;
 }
 
-function Posting({ content, answer }: PostingProps | any) {
+function Posting({ content, isAsk }: PostingProps) {
   return (
     <S.PostLayout
-      style={{ borderBottom: answer && "1px solid var(--black-075)" }}
+      style={{
+        borderBottom: isAsk ? 0 : "1px solid var(--black-075)",
+      }}
     >
       <S.VoteBox>
         <button>
@@ -25,7 +27,7 @@ function Posting({ content, answer }: PostingProps | any) {
       <div>
         <S.Content
           dangerouslySetInnerHTML={{
-            __html: content ? content.content : answer.content,
+            __html: content.content,
           }}
         />
         <S.ContentFooter>
@@ -34,13 +36,17 @@ function Posting({ content, answer }: PostingProps | any) {
             <span>Delete</span>
           </S.FooterMenu>
           <S.UserInfo>
-            <div style={{ backgroundColor: content && "var(--powder-100)" }}>
+            <div
+              style={{
+                backgroundColor: isAsk ? "var(--powder-100)" : "#fff",
+              }}
+            >
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Stack_Overflow_icon.svg"
                 style={{ width: "36px", height: "36px" }}
               />
               <span>
-                <a href="#">{content ? content.username : answer.username}</a>
+                <a href="#">{content.username}</a>
               </span>
             </div>
             {/* <div>👋 New Contributor</div> */}
