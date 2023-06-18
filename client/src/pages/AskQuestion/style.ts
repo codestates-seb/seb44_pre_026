@@ -6,9 +6,10 @@ export const Section = styled.section`
   width: 100%;
   justify-content: center;
   background-color: hsl(210deg 10.63% 97.52%);
+  padding: 24px;
 `;
 
-export const Header = styled.div`
+export const Header = styled.header`
   display: flex;
   width: 100%;
   height: 130px;
@@ -20,14 +21,10 @@ export const QuestionLayout = styled.article`
   padding-top: 20px;
   display: flex;
   flex-direction: column;
-  margin-left: 5%;
-
-  @media screen and (max-width: 1000px) {
-    align-items: center;
-  }
+  /* margin-left: 5%; */
 `;
 
-export const QuestionTitle = styled.div`
+export const QuestionTitle = styled.h1`
   font-size: 27px;
   font-weight: 500;
   width: 100%;
@@ -66,6 +63,23 @@ export const ButtonLayout = styled.div`
 
     &:hover {
       background-color: var(--blue-button-hover);
+    }
+  }
+
+  & > a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & > button {
+      background: none;
+      border: none;
+      margin-left: 15px;
+      color: var(--red-500);
+
+      &:hover {
+        color: var(--red-900);
+      }
     }
   }
 `;
