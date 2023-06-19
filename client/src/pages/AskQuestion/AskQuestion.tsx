@@ -1,7 +1,7 @@
 import QuestionBody from "../../components/QuestionBody/QuestionBody";
 import QuestionNotice from "../../components/QuestionNotice/QuestionNotice";
 import QuestionTitle from "../../components/QuestionTitle/QuestionTitle";
-
+import { Link } from "react-router-dom";
 import * as S from "./style";
 import { useState } from "react";
 
@@ -32,9 +32,9 @@ function AskQuestion() {
           <QuestionBody setBodyValue={setBodyValue} />
           <S.ButtonLayout>
             <button type="submit">Post your question</button>
-            {/* <Link to="/">
+            <Link to="/questions">
               <button>Discard draft</button>
-            </Link> */}
+            </Link>
           </S.ButtonLayout>
         </S.FormLayout>
       </S.QuestionLayout>

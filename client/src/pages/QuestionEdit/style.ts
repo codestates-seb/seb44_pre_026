@@ -1,54 +1,61 @@
 import { styled } from "styled-components";
-import backgroundImage from "../../assets/background.svg";
 
 export const Section = styled.section`
   display: flex;
   width: 100%;
   justify-content: center;
-  background-color: hsl(210deg 10.63% 97.52%);
   padding: 24px;
 `;
 
-export const Header = styled.header`
-  display: flex;
-  width: 100%;
-  height: 130px;
-`;
-
-export const QuestionLayout = styled.article`
+export const EditLayout = styled.article`
   width: 100%;
   max-width: 1264px;
   padding-top: 20px;
   display: flex;
-  flex-direction: column;
-  /* margin-left: 5%; */
-`;
-
-export const QuestionTitle = styled.h1`
-  font-size: 27px;
-  font-weight: 500;
-  width: 100%;
-  margin-bottom: 10px;
-  text-align: start;
-  line-height: 100px;
-`;
-
-export const TitleImage = styled.img.attrs({
-  src: `${backgroundImage}`,
-})`
-  width: 60%;
+  align-items: start;
 `;
 
 export const FormLayout = styled.form`
   display: flex;
   flex-direction: column;
+  width: 70%;
+
+  & > div:first-child {
+    padding-bottom: 15px;
+    width: 835px;
+  }
+`;
+
+export const SubHeading = styled.div`
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 4px;
+`;
+
+export const TitleBox = styled.div`
+  padding: 10px 0 15px;
+`;
+
+export const InputTitle = styled.input`
   width: 100%;
+  padding: 8px 9px;
+  border: 1px solid var(--black-200);
+  border-radius: 5px;
+
+  &:focus {
+    outline: 1px solid rgba(0, 195, 255, 0.2);
+    box-shadow: 0 0 6px 2px rgba(4, 137, 247, 0.555);
+  }
+`;
+
+export const Viewer = styled.div`
+  margin-top: 50px;
 `;
 
 export const ButtonLayout = styled.div`
   display: flex;
   width: 50%;
-  margin: 20px 0px;
+  margin-top: 20px;
 
   & > button {
     margin-left: calc(4px * 1);
@@ -74,11 +81,13 @@ export const ButtonLayout = styled.div`
     & > button {
       background: none;
       border: none;
+      border-radius: 3px;
+      padding: 10px 9px;
       margin-left: 15px;
-      color: var(--red-500);
+      color: var(--blue-600);
 
       &:hover {
-        color: var(--red-900);
+        background-color: var(--powder-050);
       }
     }
   }
