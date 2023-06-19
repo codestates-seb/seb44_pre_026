@@ -3,6 +3,8 @@ package preproject.server.question.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import preproject.server.exception.BusinessLogicException;
+import preproject.server.exception.ExceptionCode;
 import preproject.server.member.entity.Member;
 import preproject.server.member.repository.MemberRepository;
 import preproject.server.question.entity.Question;
@@ -50,10 +52,11 @@ public class QuestionService {
         Optional<Member> verifiedMember = memberRepository.findById(member.getMemberId());
         questionRepository.deleteById(questionId);
     }
+
     public Question findVerifiedQuestion(long questionId) {
         Optional<Question> optionalQuestion = questionRepository.findById(questionId);
         Question findQuestion = optionalQuestion.orElseThrow(()
-                -> new NullPointerException("질문을 조회할 수 없습니다."));
+                -> new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
         return findQuestion;
     }
 }
