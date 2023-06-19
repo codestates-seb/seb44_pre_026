@@ -3,6 +3,8 @@ package preproject.server.member.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import preproject.server.answer.entity.Answer;
+import preproject.server.question.entity.Question;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

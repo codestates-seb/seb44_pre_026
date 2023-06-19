@@ -3,12 +3,15 @@ package preproject.server.question.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import preproject.server.answer.entity.Answer;
+import preproject.server.member.entity.Member;
 
 import javax.persistence.Entity;
 import javax.persistence.*;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -34,11 +37,9 @@ public class Question {
 
     public void setMember(Member member) {
         this.member = member;
-        }
     }
 
     public void setAnswer(Answer answer) {
         this.getAnswerList().add(answer);
-        }
     }
 }
