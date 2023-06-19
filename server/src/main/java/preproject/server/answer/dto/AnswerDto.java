@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 public class AnswerDto {
 
     @Getter
-    @AllArgsConstructor
     public static class Post {
         @NotBlank(message = "답변의 내용은 공백이 아니어야 합니다.")
         private String content;
@@ -37,6 +36,6 @@ public class AnswerDto {
         private Long userId;
         private String content;
         private LocalDateTime createdAt;
-        private LocalDateTime updatedAt;
+        private LocalDateTime modifiedAt;
     }
 }
