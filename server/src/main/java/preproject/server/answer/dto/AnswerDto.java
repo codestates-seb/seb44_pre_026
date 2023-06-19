@@ -33,7 +33,7 @@ public class AnswerDto {
     public static class Response {
         private Long answerId;
         private Long questionId;
-        private Long userId;
+        private Long memberId;
         private String content;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
