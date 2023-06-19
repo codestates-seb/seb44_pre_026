@@ -2,6 +2,7 @@ import * as S from "./style";
 import arrowUp from "../../assets/arrowup.png";
 import arrowDown from "../../assets/arrowdown.png";
 import { AnswerProps, DetailProps } from "../../pages/Detail/Detail";
+import { Link } from "react-router-dom";
 
 interface PostingProps {
   content: DetailProps | AnswerProps;
@@ -32,7 +33,9 @@ function Posting({ content, isAsk }: PostingProps) {
         />
         <S.ContentFooter>
           <S.FooterMenu>
-            <span>Edit</span>
+            <Link to={isAsk ? "/questions/1/edit" : "/answer/1/edit"}>
+              <span>Edit</span>
+            </Link>
             <span>Delete</span>
           </S.FooterMenu>
           <S.UserInfo>

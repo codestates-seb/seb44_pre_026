@@ -59,11 +59,12 @@ export const ContentFooter = styled.div`
 
 export const FooterMenu = styled.div`
   font-size: 14px;
-  color: var(--fc-light);
 
-  & > span {
+  & > span,
+  a {
     margin-right: 10px;
     cursor: pointer;
+    color: var(--fc-light);
   }
 `;
 
