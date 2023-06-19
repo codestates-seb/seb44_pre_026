@@ -1,5 +1,6 @@
 package preproject.server.answer.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -39,4 +40,9 @@ public class Answer {
     @ManyToOne
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
+
+    public Answer(long answerId, String content) {
+        this.answerId = answerId;
+        this.content = content;
+    }
 }
