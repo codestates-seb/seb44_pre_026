@@ -4,6 +4,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import preproject.server.exception.BusinessLogicException;
+import preproject.server.exception.ExceptionCode;
 import preproject.server.member.entity.Member;
 import preproject.server.member.repository.MemberRepository;
 
@@ -60,7 +62,7 @@ public class MemberService {
     public Member findVerifiedMember(long memberId) {
         Optional<Member> optionalMember = memberRepository.findById(memberId);
 
-        Member findMember = optionalMember.orElseThrow(() -> new NullPointerException("회원을 조회할 수 없습니다."));
+        Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
 
         return findMember;
     }
@@ -68,6 +70,6 @@ public class MemberService {
         Optional<Member> optionalMember = memberRepository.findByEmail(email);
 
         if(optionalMember.isPresent())
-            throw new RuntimeException("존재하는 회원입니다.");
+            throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
     }
 }
