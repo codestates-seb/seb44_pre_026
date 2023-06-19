@@ -7,6 +7,7 @@ import preproject.server.answer.entity.Answer;
 import preproject.server.question.entity.Question;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class Member {
     private String email;
 
     @Column(length = 50, nullable = false)
+    @NotBlank
     private String name;
 
     @Column(length = 100, nullable = false)

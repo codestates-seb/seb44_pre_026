@@ -23,6 +23,11 @@ public class Question {
     private Long questionId;
     @Column(nullable = false)
     private String title;
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     @Column(nullable = false, columnDefinition="TEXT")
     private String content;
     @Column(nullable = false, name = "CREATED_AT")
