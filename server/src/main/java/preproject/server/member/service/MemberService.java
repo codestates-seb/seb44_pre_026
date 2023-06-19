@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import preproject.server.exception.BusinessLogicException;
 import preproject.server.exception.ExceptionCode;
 import preproject.server.member.entity.Member;
@@ -34,6 +35,8 @@ public class MemberService {
                 .ifPresent(name -> findMember.setName(name));
         Optional.ofNullable(member.getPassword())
                 .ifPresent(password -> findMember.setPassword(password));
+        Optional.ofNullable(member.getNickName())
+                        .ifPresent(nickName -> findMember.setNickName(nickName));
         Optional.ofNullable(member.getMemberStatus())
                 .ifPresent(status -> findMember.setMemberStatus(status));
         findMember.setModifiedAt(LocalDateTime.now());

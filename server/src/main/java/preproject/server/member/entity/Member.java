@@ -29,6 +29,9 @@ public class Member {
     @Column(length = 100, nullable = false)
     private String password;
 
+    @Column(length = 20, nullable = false, unique = true)
+    private String nickName;
+
     @Enumerated(value = EnumType.STRING)
     private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
 
