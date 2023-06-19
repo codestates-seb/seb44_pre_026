@@ -1,12 +1,7 @@
 import { styled } from "styled-components";
 
 export const EditTip = styled.article`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 365px;
-  margin-left: 24px;
   position: sticky;
 
   & > div {

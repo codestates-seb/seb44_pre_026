@@ -12,27 +12,29 @@ function QuestionEdit() {
       <S.EditLayout>
         <S.FormLayout>
           <div>
-            <S.SubHeading>Title</S.SubHeading>
-            <S.InputTitle
-              type="text"
-              placeholder="e.g. Is ther R function for finding the index of an element in a vector?"
-            />
+            <S.TitleBox>
+              <S.SubHeading>Title</S.SubHeading>
+              <S.InputTitle
+                type="text"
+                placeholder="e.g. Is ther R function for finding the index of an element in a vector?"
+              />
+            </S.TitleBox>
+            <div>
+              <S.SubHeading>Body</S.SubHeading>
+              <TextEditor setBodyValue={setBodyValue} />
+              <S.Viewer
+                dangerouslySetInnerHTML={{
+                  __html: bodyValue,
+                }}
+              />
+            </div>
+            <S.ButtonLayout>
+              <button>Save edits</button>
+              <Link to="/questions">
+                <button>Cancel</button>
+              </Link>
+            </S.ButtonLayout>
           </div>
-          <div>
-            <S.SubHeading>Body</S.SubHeading>
-            <TextEditor setBodyValue={setBodyValue} />
-            <S.Viewer
-              dangerouslySetInnerHTML={{
-                __html: bodyValue,
-              }}
-            />
-          </div>
-          <S.ButtonLayout>
-            <button>Save edits</button>
-            <Link to="/questions">
-              <button>Cancel</button>
-            </Link>
-          </S.ButtonLayout>
         </S.FormLayout>
         <EditTip />
       </S.EditLayout>

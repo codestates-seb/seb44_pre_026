@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import styled from "styled-components";
 
 export const Section = styled.section`
   display: flex;
@@ -17,35 +17,34 @@ export const EditLayout = styled.article`
 
 export const FormLayout = styled.form`
   display: flex;
-  flex-direction: column;
   width: 70%;
 
-  & > div:first-child {
-    padding-bottom: 15px;
-    width: 835px;
+  & h2 {
+    font-size: 17px;
+    font-weight: 400;
+    margin: 20px 0;
   }
+
+  & div:nth-child(2) {
+    font-size: 15px;
+    color: var(--black-700);
+  }
+`;
+
+export const Grippie = styled.div`
+  background-position: calc(50% + 34px) -364px;
+  border: 1px solid var(--bc-darker);
+  border-width: 0 1px 1px;
+  cursor: s-resize;
+  height: 11px;
+  overflow: hidden;
+  background-color: var(--black-050);
 `;
 
 export const SubHeading = styled.div`
-  font-size: 15px;
-  font-weight: bold;
-  margin-bottom: 4px;
-`;
-
-export const TitleBox = styled.div`
-  padding: 10px 0 15px;
-`;
-
-export const InputTitle = styled.input`
-  width: 100%;
-  padding: 8px 9px;
-  border: 1px solid var(--black-200);
-  border-radius: 5px;
-
-  &:focus {
-    outline: 1px solid rgba(0, 195, 255, 0.2);
-    box-shadow: 0 0 6px 2px rgba(4, 137, 247, 0.555);
-  }
+  font-size: 19px;
+  font-weight: 400;
+  margin: 16px 0 19px 0;
 `;
 
 export const Viewer = styled.div`
