@@ -2,10 +2,11 @@ import * as S from "./style";
 import QuestionTip from "../QuestionTip/QuestionTip";
 
 interface TitleProps {
+  titleValue: string;
   setTitleValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function QuestionTitle({ setTitleValue }: TitleProps) {
+function QuestionTitle({ titleValue, setTitleValue }: TitleProps) {
   return (
     <>
       <S.Container>
@@ -18,6 +19,7 @@ function QuestionTitle({ setTitleValue }: TitleProps) {
             type="text"
             placeholder="e.g. Is ther R function for finding the index of an element in a vector?"
             onChange={e => setTitleValue(e.target.value)}
+            value={titleValue}
             autoFocus
           />
         </S.InputTitleLayout>

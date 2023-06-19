@@ -14,7 +14,9 @@ function Answer({ answerData }: Props) {
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("bodyValue = ", bodyValue);
+    setBodyValue("");
   };
+
   return (
     <>
       <S.AnswerLayout>
@@ -37,7 +39,7 @@ function Answer({ answerData }: Props) {
       <S.FormLayout>
         <S.FormBox onSubmit={e => submitHandler(e)}>
           <div>Your Answer</div>
-          <TextEditor setBodyValue={setBodyValue} />
+          <TextEditor bodyValue={bodyValue} setBodyValue={setBodyValue} />
           <S.ButtonLayout>
             <button type="submit">Post your answer</button>
           </S.ButtonLayout>

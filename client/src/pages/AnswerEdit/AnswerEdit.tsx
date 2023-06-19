@@ -18,6 +18,12 @@ function AnswerEdit() {
 
   const [bodyValue, setBodyValue] = useState("");
 
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("bodyValue = ", bodyValue);
+    setBodyValue("");
+  };
+
   useEffect(() => {
     axios
       .get("http://localhost:5173/src/moks/question.json")
@@ -27,7 +33,7 @@ function AnswerEdit() {
   return (
     <S.Section>
       <S.EditLayout>
-        <S.FormLayout>
+        <S.FormLayout onSubmit={e => submitHandler(e)}>
           <div>
             <h2>{question.title}</h2>
             <div>
@@ -39,7 +45,7 @@ function AnswerEdit() {
               <S.Grippie></S.Grippie>
             </div>
             <S.SubHeading>Answer</S.SubHeading>
-            <TextEditor setBodyValue={setBodyValue} />
+            <TextEditor bodyValue={bodyValue} setBodyValue={setBodyValue} />
             <S.Viewer
               dangerouslySetInnerHTML={{
                 __html: bodyValue,

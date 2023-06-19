@@ -17,6 +17,8 @@ function AskQuestion() {
     e.preventDefault();
     console.log("titleValue = ", titleValue);
     console.log("bodyValue = ", bodyValue);
+    setTitleValue("");
+    setBodyValue("");
   };
 
   return (
@@ -28,8 +30,11 @@ function AskQuestion() {
         </S.Header>
         <QuestionNotice />
         <S.FormLayout onSubmit={e => submitHandler(e)}>
-          <QuestionTitle setTitleValue={setTitleValue} />
-          <QuestionBody setBodyValue={setBodyValue} />
+          <QuestionTitle
+            titleValue={titleValue}
+            setTitleValue={setTitleValue}
+          />
+          <QuestionBody bodyValue={bodyValue} setBodyValue={setBodyValue} />
           <S.ButtonLayout>
             <button type="submit">Post your question</button>
             <Link to="/questions">

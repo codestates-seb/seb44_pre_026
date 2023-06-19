@@ -1,13 +1,13 @@
-import { useMemo, useRef } from "react";
+import { useMemo } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 interface EditorProps {
+  bodyValue: string;
   setBodyValue: React.Dispatch<React.SetStateAction<string>>;
-  setOnFocus?: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function TextEditor({ setBodyValue }: EditorProps) {
+function TextEditor({ bodyValue, setBodyValue }: EditorProps) {
   const onChangeHandler = (e: any) => {
     setBodyValue(e);
   };
@@ -32,7 +32,10 @@ function TextEditor({ setBodyValue }: EditorProps) {
     <ReactQuill
       modules={modules}
       onChange={onChangeHandler}
-      style={{ height: "210px" }}
+      value={bodyValue}
+      style={{
+        height: "210px",
+      }}
     />
   );
 }
