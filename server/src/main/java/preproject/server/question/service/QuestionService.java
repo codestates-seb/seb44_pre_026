@@ -8,6 +8,7 @@ import preproject.server.member.repository.MemberRepository;
 import preproject.server.question.entity.Question;
 import preproject.server.question.repository.QuestionRepository;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -32,7 +33,7 @@ public class QuestionService {
                 .ifPresent(title -> findQuestion.setTitle(title));
         Optional.ofNullable(question.getContent())
                 .ifPresent(content -> findQuestion.setContent(content));
-
+        findQuestion.setModifiedAt(LocalDateTime.now());
         return questionRepository.save(findQuestion);
     }
 

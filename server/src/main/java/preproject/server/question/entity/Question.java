@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import preproject.server.answer.entity.Answer;
+import preproject.server.audit.Auditable;
 import preproject.server.member.entity.Member;
 
 import javax.persistence.Entity;
@@ -17,7 +18,7 @@ import java.util.List;
 @Setter
 @Entity
 @NoArgsConstructor
-public class Question {
+public class Question extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long questionId;
@@ -32,12 +33,12 @@ public class Question {
     private String content;
     @Column(nullable = false, name = "CREATED_AT")
     private LocalDateTime createdAt = LocalDateTime.now();
-    @Column(nullable = false, name = "MODIFYED_AT")
-    private LocalDateTime updatedAt = LocalDateTime.now();
+    @Column(nullable = false, name = "MODIFIED_AT")
+    private LocalDateTime modifiedAt = LocalDateTime.now();
     @OneToMany(mappedBy = "question", cascade = {CascadeType.ALL})
     private List<Answer> answerList = new ArrayList<>();
     @ManyToOne
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
     public void setMember(Member member) {

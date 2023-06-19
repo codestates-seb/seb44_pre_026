@@ -12,6 +12,7 @@ public class QuestionDto {
     @Setter
     @Getter
     @NoArgsConstructor
+    @AllArgsConstructor
     public static class QuestionPostDto {
         @NotBlank(message = "질문 제목을 작성해야 합니다.")
         private String title;
