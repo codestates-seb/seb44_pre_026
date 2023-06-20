@@ -31,11 +31,13 @@ public class AnswerDto {
     @Setter // Test
     @Builder
     public static class Response {
+        private String name;
         private Long answerId;
         private Long questionId;
         private Long memberId;
         private String content;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
+
     }
 }

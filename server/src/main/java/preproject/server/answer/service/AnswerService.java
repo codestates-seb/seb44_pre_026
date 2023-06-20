@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import preproject.server.answer.entity.Answer;
 import preproject.server.answer.repository.AnswerRepository;
+import preproject.server.member.entity.Member;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,6 +20,9 @@ public class AnswerService {
     }
 
     public Answer createAnswer(Answer answer) {
+        Member member = answer.getMember();
+        answer.setMember(member);
+
         LocalDateTime currentTime = LocalDateTime.now();
         answer.setCreatedAt(currentTime);
         answer.setModifiedAt(currentTime);
@@ -26,6 +30,8 @@ public class AnswerService {
     }
 
     public Answer updateAnswer(Answer updatedAnswer) {
+        Member member = updatedAnswer.getMember();
+
         Answer findAnswer = findAnswer(updatedAnswer.getAnswerId());
         findAnswer.setContent(updatedAnswer.getContent());
         findAnswer.setModifiedAt(LocalDateTime.now());
