@@ -12,7 +12,7 @@ function App() {
         <Route path="/questions/ask" element={<AskQuestion />} />
         <Route path="/questions/:id" element={<Detail />} />
         <Route path="/questions/:id/edit" element={<QuestionEdit />} />
-        <Route path="/answer/:id/edit" element={<AnswerEdit />} />
+        <Route path="/questions/:qid/:id" element={<AnswerEdit />} />
       </Routes>
     </BrowserRouter>
   );

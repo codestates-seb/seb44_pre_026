@@ -7,11 +7,11 @@ import { Link, useParams } from "react-router-dom";
 interface PostingProps {
   content: DetailProps | AnswerProps;
   isAsk: boolean;
+  answerId?: string;
 }
 
-function Posting({ content, isAsk }: PostingProps) {
+function Posting({ content, isAsk, answerId }: PostingProps) {
   const { id } = useParams();
-  console.log("posing component id = ", id);
 
   return (
     <S.PostLayout
@@ -36,7 +36,11 @@ function Posting({ content, isAsk }: PostingProps) {
         />
         <S.ContentFooter>
           <S.FooterMenu>
-            <Link to={isAsk ? `/questions/${id}/edit` : `/answer/${id}/edit`}>
+            <Link
+              to={
+                isAsk ? `/questions/${id}/edit` : `/questions/${id}/${answerId}`
+              }
+            >
               <span>Edit</span>
             </Link>
             <span>Delete</span>

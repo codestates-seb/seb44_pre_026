@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import * as S from "./style";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { DetailProps } from "../Detail/Detail";
+import { AnswerProps, DetailProps } from "../Detail/Detail";
 import TextEditor from "../../components/TextEditor/TextEditor";
 import EditTip from "../../components/EditTip/EditTip";
+import useInput from "../../hooks/useInput";
 
 function AnswerEdit() {
   const [question, setQuestion] = useState<DetailProps>({
@@ -16,19 +17,36 @@ function AnswerEdit() {
     modifiedAt: "",
   });
 
-  const [bodyValue, setBodyValue] = useState("");
+  const [initialBody, setInitialBody] = useState("");
+  const [bodyValue, changeBodyHandler, bodyReset] = useInput(initialBody);
+
+  const { qid, id } = useParams();
+  const navigate = useNavigate();
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("bodyValue = ", bodyValue);
-    setBodyValue("");
+
+    axios.patch(`/api/answers/${id}`, {
+      content: bodyValue,
+    });
+
+    navigate(-1);
+  };
+
+  const fetch = async () => {
+    const response = await axios.get(`/api/questions/${qid}`);
+    setQuestion(response?.data.data);
   };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5173/src/moks/question.json")
-      .then(res => setQuestion(res.data));
-  }, []);
+    axios.get(`/api/answers/${id}`).then(res => {
+      setInitialBody(res.data.data.content);
+      bodyReset();
+      fetch();
+    });
+
+    fetch();
+  }, [initialBody]);
 
   return (
     <S.Section>
@@ -45,7 +63,10 @@ function AnswerEdit() {
               <S.Grippie></S.Grippie>
             </div>
             <S.SubHeading>Answer</S.SubHeading>
-            <TextEditor bodyValue={bodyValue} setBodyValue={setBodyValue} />
+            <TextEditor
+              bodyValue={bodyValue}
+              changeHandler={changeBodyHandler}
+            />
             <S.Viewer
               dangerouslySetInnerHTML={{
                 __html: bodyValue,

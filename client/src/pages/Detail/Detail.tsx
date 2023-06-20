@@ -45,9 +45,7 @@ function Detail() {
   };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5173/src/moks/answer.json")
-      .then(res => setAnswerData(res.data));
+    axios.get("/api/answers").then(res => setAnswerData(res.data.data));
 
     fetch();
   }, []);
