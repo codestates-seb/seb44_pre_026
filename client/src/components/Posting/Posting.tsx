@@ -3,6 +3,7 @@ import arrowUp from "../../assets/arrowup.png";
 import arrowDown from "../../assets/arrowdown.png";
 import { AnswerProps, DetailProps } from "../../pages/Detail/Detail";
 import { Link, useParams } from "react-router-dom";
+import axios from "axios";
 
 interface PostingProps {
   content: DetailProps | AnswerProps;
@@ -12,6 +13,14 @@ interface PostingProps {
 
 function Posting({ content, isAsk, answerId }: PostingProps) {
   const { id } = useParams();
+
+  const deleteHandler = () => {
+    const url = isAsk ? `/api/questions/${id}` : `/api/answers/${answerId}`;
+    if (window.confirm("삭제하시겠습니까?")) {
+      axios.delete(url);
+      window.location.reload();
+    }
+  };
 
   return (
     <S.PostLayout
@@ -43,7 +52,7 @@ function Posting({ content, isAsk, answerId }: PostingProps) {
             >
               <span>Edit</span>
             </Link>
-            <span>Delete</span>
+            <span onClick={deleteHandler}>Delete</span>
           </S.FooterMenu>
           <S.UserInfo>
             <div
