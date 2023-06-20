@@ -5,9 +5,16 @@ spring:
       path: /h2 # h2 ?? ?? ex)localhost/h2
   datasource:
     url: jdbc:h2:mem:test #h2 ?? url
+  #  datasource:
+  #    url: jdbc:mysql://database-seb44pre026.csggyq8nma3x.ap-northeast-2.rds.amazonaws.com:3306/pre026?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
+  #    username:
+  #    password:
+  #    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
+    #    database: mysql
+    #    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: create #jpa? ???? DB? ???? ??
+      ddl-auto: create # create
     show-sql: true #jpa API? ??? ???? SQL??? ??? ????
 logging:
   level:
