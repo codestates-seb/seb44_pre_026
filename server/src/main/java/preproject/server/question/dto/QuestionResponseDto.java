@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 public class QuestionResponseDto {
     private long questionId;
     private long memberId;
+    private String name;
     private String title;
     private String content;
     private LocalDateTime createdAt;

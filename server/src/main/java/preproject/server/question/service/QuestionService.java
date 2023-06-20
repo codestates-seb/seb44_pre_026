@@ -3,11 +3,14 @@ package preproject.server.question.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import preproject.server.exception.BusinessLogicException;
+import preproject.server.exception.ExceptionCode;
 import preproject.server.member.entity.Member;
 import preproject.server.member.repository.MemberRepository;
 import preproject.server.question.entity.Question;
 import preproject.server.question.repository.QuestionRepository;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -32,6 +35,7 @@ public class QuestionService {
                 .ifPresent(title -> findQuestion.setTitle(title));
         Optional.ofNullable(question.getContent())
                 .ifPresent(content -> findQuestion.setContent(content));
+        findQuestion.setModifiedAt(LocalDateTime.now());
 
         return questionRepository.save(findQuestion);
     }
@@ -52,7 +56,7 @@ public class QuestionService {
     public Question findVerifiedQuestion(long questionId) {
         Optional<Question> optionalQuestion = questionRepository.findById(questionId);
         Question findQuestion = optionalQuestion.orElseThrow(()
-                -> new NullPointerException("질문을 조회할 수 없습니다."));
+                -> new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
         return findQuestion;
     }
 }

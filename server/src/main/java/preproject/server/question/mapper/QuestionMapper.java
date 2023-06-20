@@ -15,7 +15,7 @@ public interface QuestionMapper {
     @Mapping(source = "memberId", target = "member.memberId")
     Question questionPatchDtoToQuestion(QuestionDto.QuestionPatchDto questionPatchDto);
     @Mapping(source = "member.memberId", target = "memberId")
-    //@Mapping(source = "member.name", target = "name")
+    @Mapping(source = "member.name", target = "name")
     QuestionResponseDto questionToQuestionResponseDto(Question question);
     @Mapping(source = "member.memberId", target = "memberId")
     @Mapping(source = "member.name", target = "name")
