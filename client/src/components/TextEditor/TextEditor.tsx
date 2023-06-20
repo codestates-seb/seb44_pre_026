@@ -4,12 +4,12 @@ import "react-quill/dist/quill.snow.css";
 
 interface EditorProps {
   bodyValue: string;
-  setBodyValue: React.Dispatch<React.SetStateAction<string>>;
+  changeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-function TextEditor({ bodyValue, setBodyValue }: EditorProps) {
+function TextEditor({ bodyValue, changeHandler }: EditorProps) {
   const onChangeHandler = (e: any) => {
-    setBodyValue(e);
+    changeHandler(e);
   };
 
   const modules = useMemo(
