@@ -3,43 +3,45 @@ import { useState, useEffect } from "react";
 import * as S from "./style";
 import Posting from "../../components/Posting/Posting";
 import Answer from "../../components/Answer/Answer";
+import { useParams } from "react-router-dom";
 
 export interface AnswerProps {
-  username: string;
-  question_id: number;
-  answer_id: string;
+  memberId: string;
+  questionId: number;
+  answerId: string;
   content: string;
-  created_at: string;
-  modified_at: string;
+  createdAt: string;
+  modifiedAt: string;
   isAsk: boolean;
 }
 export interface DetailProps {
-  username: string;
-  question_id: number;
+  memberId: string;
+  questionId: number;
   title: string;
   content: string;
-  created_at: string;
-  modified_at: string;
+  createdAt: string;
+  modifiedAt: string;
 }
 
 function Detail() {
   const initialState: DetailProps = {
-    username: "",
-    question_id: 0,
+    memberId: "",
+    questionId: 0,
     title: "",
     content: "",
-    created_at: "",
-    modified_at: "",
+    createdAt: "",
+    modifiedAt: "",
   };
 
   const [answerData, setAnswerData] = useState<AnswerProps[]>([]);
   const [askData, setAskData] = useState<DetailProps>(initialState);
 
+  const { id } = useParams();
+  console.log(id);
+
   const fetch = async () => {
-    const response = await axios.get(
-      "http://localhost:5173/src/moks/question.json"
-    );
-    setAskData(response?.data);
+    const response = await axios.get(`/api/questions/${id}`);
+    setAskData(response?.data.data);
   };
 
   useEffect(() => {
@@ -62,11 +64,11 @@ function Detail() {
         <S.DetailInfoBox>
           <S.DetailInfo>
             <span>Asked</span>
-            <span>{askData.created_at}</span>
+            <span>{askData.createdAt}</span>
           </S.DetailInfo>
           <S.DetailInfo>
             <span>Modified</span>
-            <span>{askData.modified_at}</span>
+            <span>{askData.modifiedAt}</span>
           </S.DetailInfo>
         </S.DetailInfoBox>
       </S.Header>

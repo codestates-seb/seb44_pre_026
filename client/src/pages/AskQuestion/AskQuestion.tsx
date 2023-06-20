@@ -1,24 +1,36 @@
 import QuestionBody from "../../components/QuestionBody/QuestionBody";
 import QuestionNotice from "../../components/QuestionNotice/QuestionNotice";
 import QuestionTitle from "../../components/QuestionTitle/QuestionTitle";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as S from "./style";
 import useInput from "../../hooks/useInput";
+import axios from "axios";
 
-// TODO: Submit API 통신
 // TODO: 텍스트 에디터 focus
 // TODO: focus 대상만 Tip 노출되도록 조건 걸기
 
 function AskQuestion() {
-  const [titleValue, changeTitleHandler, TitleReset] = useInput("");
-  const [bodyValue, changeBodyHandler, BodyReset] = useInput("");
+  const [titleValue, changeTitleHandler, titleReset] = useInput("");
+  const [bodyValue, changeBodyHandler, bodyReset] = useInput("");
+
+  const navigate = useNavigate();
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("titleValue = ", titleValue);
-    console.log("bodyValue = ", bodyValue);
-    TitleReset();
-    BodyReset();
+
+    axios
+      .post("/api/questions", {
+        title: titleValue,
+        content: bodyValue,
+        memberId: 1,
+      })
+      .then(res => {
+        console.log(res);
+        navigate(`/questions/${res.data.questionId}`);
+      });
+
+    titleReset();
+    bodyReset();
   };
 
   return (

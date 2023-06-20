@@ -2,7 +2,7 @@ import * as S from "./style";
 import arrowUp from "../../assets/arrowup.png";
 import arrowDown from "../../assets/arrowdown.png";
 import { AnswerProps, DetailProps } from "../../pages/Detail/Detail";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 interface PostingProps {
   content: DetailProps | AnswerProps;
@@ -10,6 +10,9 @@ interface PostingProps {
 }
 
 function Posting({ content, isAsk }: PostingProps) {
+  const { id } = useParams();
+  console.log("posing component id = ", id);
+
   return (
     <S.PostLayout
       style={{
@@ -33,7 +36,7 @@ function Posting({ content, isAsk }: PostingProps) {
         />
         <S.ContentFooter>
           <S.FooterMenu>
-            <Link to={isAsk ? "/questions/1/edit" : "/answer/1/edit"}>
+            <Link to={isAsk ? `/questions/${id}/edit` : `/answer/${id}/edit`}>
               <span>Edit</span>
             </Link>
             <span>Delete</span>
@@ -49,7 +52,7 @@ function Posting({ content, isAsk }: PostingProps) {
                 style={{ width: "36px", height: "36px" }}
               />
               <span>
-                <a href="#">{content.username}</a>
+                <a href="#">{content.memberId}</a>
               </span>
             </div>
             {/* <div>👋 New Contributor</div> */}

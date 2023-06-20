@@ -8,12 +8,12 @@ import EditTip from "../../components/EditTip/EditTip";
 
 function AnswerEdit() {
   const [question, setQuestion] = useState<DetailProps>({
-    username: "",
-    question_id: 0,
+    memberId: "",
+    questionId: 0,
     title: "",
     content: "",
-    created_at: "",
-    modified_at: "",
+    createdAt: "",
+    modifiedAt: "",
   });
 
   const [bodyValue, setBodyValue] = useState("");
