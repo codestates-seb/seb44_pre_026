@@ -3,21 +3,32 @@ import QuestionTip from "../QuestionTip/QuestionTip";
 import * as S from "./style";
 
 interface BodyProps {
-  setBodyValue: React.Dispatch<React.SetStateAction<string>>;
+  changeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  bodyValue: string;
+  focusing: string;
+  setFocusing: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function QuestionBody({ setBodyValue }: BodyProps) {
+function QuestionBody({
+  changeHandler,
+  bodyValue,
+  focusing,
+  setFocusing,
+}: BodyProps) {
   return (
     <S.Container>
-      <S.InputBodyLayout>
+      <S.InputBodyLayout
+        onFocus={() => setFocusing("body")}
+        onBlur={() => setFocusing("")}
+      >
         <S.SubHeading>Body</S.SubHeading>
         <S.SubContent>
           The body of your question contains your problem details and results.
           Minimum 220 characters.
         </S.SubContent>
-        <TextEditor setBodyValue={setBodyValue} />
+        <TextEditor bodyValue={bodyValue} changeHandler={changeHandler} />
       </S.InputBodyLayout>
-      <QuestionTip isTitle={false} />
+      {focusing === "body" && <QuestionTip isTitle={false} />}
     </S.Container>
   );
 }

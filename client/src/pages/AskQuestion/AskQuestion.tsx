@@ -1,22 +1,36 @@
 import QuestionBody from "../../components/QuestionBody/QuestionBody";
 import QuestionNotice from "../../components/QuestionNotice/QuestionNotice";
 import QuestionTitle from "../../components/QuestionTitle/QuestionTitle";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as S from "./style";
+import useInput from "../../hooks/useInput";
+import axios from "axios";
 import { useState } from "react";
 
-// TODO: Submit API 통신
-// TODO: 텍스트 에디터 focus
-// TODO: focus 대상만 Tip 노출되도록 조건 걸기
+// TODO: 하드코딩된 focus 로직 수정
 
 function AskQuestion() {
-  const [titleValue, setTitleValue] = useState<string>("");
-  const [bodyValue, setBodyValue] = useState<string>("");
+  const [titleValue, changeTitleHandler, titleReset] = useInput("");
+  const [bodyValue, changeBodyHandler, bodyReset] = useInput("");
+  const [focusing, setFocusing] = useState("title");
+
+  const navigate = useNavigate();
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("titleValue = ", titleValue);
-    console.log("bodyValue = ", bodyValue);
+
+    axios
+      .post("/api/questions", {
+        title: titleValue,
+        content: bodyValue,
+        memberId: 1,
+      })
+      .then(res => {
+        navigate(`/questions/${res.data.questionId}`);
+      });
+
+    titleReset();
+    bodyReset();
   };
 
   return (
@@ -28,8 +42,18 @@ function AskQuestion() {
         </S.Header>
         <QuestionNotice />
         <S.FormLayout onSubmit={e => submitHandler(e)}>
-          <QuestionTitle setTitleValue={setTitleValue} />
-          <QuestionBody setBodyValue={setBodyValue} />
+          <QuestionTitle
+            changeHandler={changeTitleHandler}
+            titleValue={titleValue}
+            focusing={focusing}
+            setFocusing={setFocusing}
+          />
+          <QuestionBody
+            changeHandler={changeBodyHandler}
+            bodyValue={bodyValue}
+            focusing={focusing}
+            setFocusing={setFocusing}
+          />
           <S.ButtonLayout>
             <button type="submit">Post your question</button>
             <Link to="/questions">
