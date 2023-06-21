@@ -25,7 +25,6 @@ function AskQuestion() {
         memberId: 1,
       })
       .then(res => {
-        console.log(res);
         navigate(`/questions/${res.data.questionId}`);
       });
 

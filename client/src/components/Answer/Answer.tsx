@@ -8,20 +8,24 @@ import { useNavigate, useParams } from "react-router-dom";
 
 interface Props {
   answerData: AnswerProps[];
+  setComplete: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Answer({ answerData }: Props) {
+function Answer({ answerData, setComplete }: Props) {
   const [bodyValue, changeBodyHandler, resetBody] = useInput("");
 
   const { id } = useParams();
   const navigate = useNavigate();
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     axios.post(`/api/answers/`, {
       content: bodyValue,
     });
 
     navigate(`/questions/${id}`);
+    setComplete(true);
 
     resetBody();
   };
@@ -47,6 +51,7 @@ function Answer({ answerData }: Props) {
             content={e}
             isAsk={false}
             answerId={e.answerId}
+            setComplete={setComplete}
           />
         ))}
       </S.AnswerLayout>

@@ -9,16 +9,17 @@ interface PostingProps {
   content: DetailProps | AnswerProps;
   isAsk: boolean;
   answerId?: string;
+  setComplete: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Posting({ content, isAsk, answerId }: PostingProps) {
+function Posting({ content, isAsk, answerId, setComplete }: PostingProps) {
   const { id } = useParams();
 
   const deleteHandler = () => {
     const url = isAsk ? `/api/questions/${id}` : `/api/answers/${answerId}`;
     if (window.confirm("삭제하시겠습니까?")) {
       axios.delete(url);
-      window.location.reload();
+      setComplete(true);
     }
   };
 

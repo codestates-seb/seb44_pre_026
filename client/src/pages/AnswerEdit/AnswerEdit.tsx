@@ -2,7 +2,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import * as S from "./style";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { AnswerProps, DetailProps } from "../Detail/Detail";
+import { DetailProps } from "../Detail/Detail";
 import TextEditor from "../../components/TextEditor/TextEditor";
 import EditTip from "../../components/EditTip/EditTip";
 import useInput from "../../hooks/useInput";
@@ -74,7 +74,7 @@ function AnswerEdit() {
             />
             <S.ButtonLayout>
               <button>Save edits</button>
-              <Link to="/questions">
+              <Link to={`/questions/${qid}`}>
                 <button>Cancel</button>
               </Link>
             </S.ButtonLayout>

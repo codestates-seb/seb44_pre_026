@@ -35,22 +35,22 @@ function Detail() {
 
   const [answerData, setAnswerData] = useState<AnswerProps[]>([]);
   const [askData, setAskData] = useState<DetailProps>(initialState);
+  const [complete, setComplete] = useState(false);
 
   const { id } = useParams();
-  console.log(id);
 
   const fetch = async () => {
     const response = await axios.get(`/api/questions/${id}`);
     setAskData(response?.data.data);
+    setComplete(false);
   };
 
   useEffect(() => {
     axios.get("/api/answers").then(res => setAnswerData(res.data.data));
 
     fetch();
-  }, []);
+  }, [complete]);
 
-  console.log(askData);
   console.log(answerData);
 
   return (
@@ -75,9 +75,11 @@ function Detail() {
           src="https://tpc.googlesyndication.com/simgad/13962158573275624079"
           style={{ width: "850px", height: "90px" }}
         />
-        <Posting content={askData} isAsk={true} />
+        <Posting content={askData} isAsk={true} setComplete={setComplete} />
       </S.DetailLayout>
-      {answerData.length > 0 && <Answer answerData={answerData} />}
+      {answerData.length > 0 && (
+        <Answer answerData={answerData} setComplete={setComplete} />
+      )}
     </S.Section>
   );
 }
