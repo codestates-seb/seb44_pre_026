@@ -14,6 +14,11 @@ button:hover {
   cursor: pointer;
 }
 
+.ql-editor:focus {
+  outline: 1px solid rgba(0, 195, 255, 0.2);
+  box-shadow: 0 0 6px 2px rgba(4, 137, 247, 0.555);
+}
+
 * {
   margin: 0;
   padding: 0;

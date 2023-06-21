@@ -5,13 +5,14 @@ import { Link, useNavigate } from "react-router-dom";
 import * as S from "./style";
 import useInput from "../../hooks/useInput";
 import axios from "axios";
+import { useState } from "react";
 
-// TODO: 텍스트 에디터 focus
-// TODO: focus 대상만 Tip 노출되도록 조건 걸기
+// TODO: 하드코딩된 focus 로직 수정
 
 function AskQuestion() {
   const [titleValue, changeTitleHandler, titleReset] = useInput("");
   const [bodyValue, changeBodyHandler, bodyReset] = useInput("");
+  const [focusing, setFocusing] = useState("title");
 
   const navigate = useNavigate();
 
@@ -44,10 +45,14 @@ function AskQuestion() {
           <QuestionTitle
             changeHandler={changeTitleHandler}
             titleValue={titleValue}
+            focusing={focusing}
+            setFocusing={setFocusing}
           />
           <QuestionBody
             changeHandler={changeBodyHandler}
             bodyValue={bodyValue}
+            focusing={focusing}
+            setFocusing={setFocusing}
           />
           <S.ButtonLayout>
             <button type="submit">Post your question</button>

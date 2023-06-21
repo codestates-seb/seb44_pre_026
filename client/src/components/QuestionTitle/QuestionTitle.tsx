@@ -4,13 +4,23 @@ import QuestionTip from "../QuestionTip/QuestionTip";
 interface TitleProps {
   changeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
   titleValue: string;
+  focusing: string;
+  setFocusing: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function QuestionTitle({ changeHandler, titleValue }: TitleProps) {
+function QuestionTitle({
+  changeHandler,
+  titleValue,
+  focusing,
+  setFocusing,
+}: TitleProps) {
   return (
     <>
       <S.Container>
-        <S.InputTitleLayout>
+        <S.InputTitleLayout
+          onFocus={() => setFocusing("title")}
+          onBlur={() => setFocusing("")}
+        >
           <S.SubHeading>Title</S.SubHeading>
           <S.SubContent>
             Be specific and imagine you are asking a question to another person
@@ -23,7 +33,7 @@ function QuestionTitle({ changeHandler, titleValue }: TitleProps) {
             autoFocus
           />
         </S.InputTitleLayout>
-        <QuestionTip isTitle={true} />
+        {focusing === "title" && <QuestionTip isTitle={true} />}
       </S.Container>
     </>
   );

@@ -5,12 +5,22 @@ import * as S from "./style";
 interface BodyProps {
   changeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
   bodyValue: string;
+  focusing: string;
+  setFocusing: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function QuestionBody({ changeHandler, bodyValue }: BodyProps) {
+function QuestionBody({
+  changeHandler,
+  bodyValue,
+  focusing,
+  setFocusing,
+}: BodyProps) {
   return (
     <S.Container>
-      <S.InputBodyLayout>
+      <S.InputBodyLayout
+        onFocus={() => setFocusing("body")}
+        onBlur={() => setFocusing("")}
+      >
         <S.SubHeading>Body</S.SubHeading>
         <S.SubContent>
           The body of your question contains your problem details and results.
@@ -18,7 +28,7 @@ function QuestionBody({ changeHandler, bodyValue }: BodyProps) {
         </S.SubContent>
         <TextEditor bodyValue={bodyValue} changeHandler={changeHandler} />
       </S.InputBodyLayout>
-      <QuestionTip isTitle={false} />
+      {focusing === "body" && <QuestionTip isTitle={false} />}
     </S.Container>
   );
 }
