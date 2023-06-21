@@ -29,7 +29,7 @@ public class Question extends Auditable {
     public void setContent(String content) {
         this.content = content;
     }
-    @Column(nullable = false)
+    @Column(nullable = false, name = "CREATED_AT")
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(nullable = false, name = "LAST_MODIFIED_AT")

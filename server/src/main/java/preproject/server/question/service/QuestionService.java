@@ -1,6 +1,10 @@
 package preproject.server.question.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import preproject.server.exception.BusinessLogicException;
@@ -22,6 +26,10 @@ public class QuestionService {
 
     public Question createQuestion(Question question) { //질문 생성
         Member member = question.getMember();
+        Optional<Member> verifiedMember = memberRepository.findById(member.getMemberId());
+        if(!verifiedMember.isPresent()) {
+            throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_CREATING_POST);
+        }
         question.setMember(member);
         return questionRepository.save(question);
     }
@@ -30,6 +38,10 @@ public class QuestionService {
         Question findQuestion = findVerifiedQuestion(question.getQuestionId());
 
         Member member = question.getMember();
+        Optional<Member> verifiedMember = memberRepository.findById(member.getMemberId());
+        if(!verifiedMember.isPresent() || findQuestion.getMember().getMemberId()!=member.getMemberId()) {
+            throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_EDITING_POST);
+        }
 
         Optional.ofNullable(question.getTitle())
                 .ifPresent(title -> findQuestion.setTitle(title));
@@ -46,11 +58,20 @@ public class QuestionService {
         return findQuestion;
     }
 
+    public Page<Question> getQuestions(Pageable pageable) { //질문 전체 조회
+        Pageable pageRequest = PageRequest.of(pageable.getPageNumber() - 1,
+                pageable.getPageSize(), Sort.by("createdAt").descending());
+        return questionRepository.findAll(pageRequest);
+    }
+
     public void deleteQuestion(long questionId) { //질문 삭제
         Question findQuestion = findVerifiedQuestion(questionId);
 
         Member member = findQuestion.getMember();
         Optional<Member> verifiedMember = memberRepository.findById(member.getMemberId());
+        if (!verifiedMember.isPresent() || findQuestion.getMember().getMemberId()!=member.getMemberId()) {
+            throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_DELETING_POST);
+        }
         questionRepository.deleteById(questionId);
     }
     public Question findVerifiedQuestion(long questionId) {
