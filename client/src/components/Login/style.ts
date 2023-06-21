@@ -41,7 +41,7 @@ export const Main = styled(Div)`
   justify-content: center;
   max-width: 100%;
   box-sizing: border-box;
-  height: calc(100vh - 47.33px);
+  height: calc(100vh);
   background-color: var(--black-050);
 `;
 
