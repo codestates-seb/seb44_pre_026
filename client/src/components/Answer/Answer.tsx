@@ -2,19 +2,34 @@ import Posting from "../Posting/Posting";
 import { AnswerProps } from "../../pages/Detail/Detail";
 import * as S from "./style";
 import TextEditor from "../TextEditor/TextEditor";
-import { useState } from "react";
+import useInput from "../../hooks/useInput";
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 
 interface Props {
   answerData: AnswerProps[];
+  setComplete: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Answer({ answerData }: Props) {
-  const [bodyValue, setBodyValue] = useState<string>("");
+function Answer({ answerData, setComplete }: Props) {
+  const [bodyValue, changeBodyHandler, resetBody] = useInput("");
+
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("bodyValue = ", bodyValue);
+
+    axios.post(`/api/answers/`, {
+      content: bodyValue,
+    });
+
+    navigate(`/questions/${id}`);
+    setComplete(true);
+
+    resetBody();
   };
+
   return (
     <>
       <S.AnswerLayout>
@@ -31,13 +46,19 @@ function Answer({ answerData }: Props) {
           </S.SortMenu>
         </S.Header>
         {answerData.map(e => (
-          <Posting key={e.answer_id} content={e} isAsk={false} />
+          <Posting
+            key={e.answerId}
+            content={e}
+            isAsk={false}
+            answerId={e.answerId}
+            setComplete={setComplete}
+          />
         ))}
       </S.AnswerLayout>
       <S.FormLayout>
         <S.FormBox onSubmit={e => submitHandler(e)}>
           <div>Your Answer</div>
-          <TextEditor setBodyValue={setBodyValue} />
+          <TextEditor bodyValue={bodyValue} changeHandler={changeBodyHandler} />
           <S.ButtonLayout>
             <button type="submit">Post your answer</button>
           </S.ButtonLayout>

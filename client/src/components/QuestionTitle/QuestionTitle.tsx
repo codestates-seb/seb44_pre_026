@@ -2,14 +2,25 @@ import * as S from "./style";
 import QuestionTip from "../QuestionTip/QuestionTip";
 
 interface TitleProps {
-  setTitleValue: React.Dispatch<React.SetStateAction<string>>;
+  changeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  titleValue: string;
+  focusing: string;
+  setFocusing: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function QuestionTitle({ setTitleValue }: TitleProps) {
+function QuestionTitle({
+  changeHandler,
+  titleValue,
+  focusing,
+  setFocusing,
+}: TitleProps) {
   return (
     <>
       <S.Container>
-        <S.InputTitleLayout>
+        <S.InputTitleLayout
+          onFocus={() => setFocusing("title")}
+          onBlur={() => setFocusing("")}
+        >
           <S.SubHeading>Title</S.SubHeading>
           <S.SubContent>
             Be specific and imagine you are asking a question to another person
@@ -17,11 +28,12 @@ function QuestionTitle({ setTitleValue }: TitleProps) {
           <S.InputTitle
             type="text"
             placeholder="e.g. Is ther R function for finding the index of an element in a vector?"
-            onChange={e => setTitleValue(e.target.value)}
+            onChange={changeHandler}
+            value={titleValue}
             autoFocus
           />
         </S.InputTitleLayout>
-        <QuestionTip isTitle={true} />
+        {focusing === "title" && <QuestionTip isTitle={true} />}
       </S.Container>
     </>
   );

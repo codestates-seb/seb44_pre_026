@@ -10,9 +10,9 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/questions/ask" element={<AskQuestion />} />
-        <Route path="/questions/1" element={<Detail />} />
-        <Route path="/questions/1/edit" element={<QuestionEdit />} />
-        <Route path="/answer/1/edit" element={<AnswerEdit />} />
+        <Route path="/questions/:id" element={<Detail />} />
+        <Route path="/questions/:id/edit" element={<QuestionEdit />} />
+        <Route path="/questions/:qid/:id" element={<AnswerEdit />} />
       </Routes>
     </BrowserRouter>
   );

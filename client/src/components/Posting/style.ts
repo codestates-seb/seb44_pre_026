@@ -1,7 +1,8 @@
 import { styled } from "styled-components";
 
 export const PostLayout = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: max-content 1fr;
   margin-top: 24px;
   padding-right: 16px;
   padding-bottom: 12px;
