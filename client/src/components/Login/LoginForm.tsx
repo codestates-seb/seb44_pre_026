@@ -56,18 +56,17 @@ function LoginPage() {
       await axios
         .post("http://localhost:5173/src/moks/user.json", loginInfo)
         .then((response) => {
-          setLoginInfo(response.data)
+          setLoginInfo(response.data);
           // console.log(response.data);
           // const accessToken = response.data.authorization;
           if (!email || !password) {
             localStorage.setItem(
-              "invalidMSG",
+              "invalidMsg",
               "invalid email address or password"
             );
             setLoginFailedMsg(true);
           } else {
             console.log("Login Success");
-            alert(`Welcome back!`);
             navigation("/");
           }
           // window.location.reload();
@@ -79,46 +78,47 @@ function LoginPage() {
   };
 
   return (
-    <div className="SIFormContainer">
-      <S.SignInForm>
-        <div className="SIEmail">
-          <label id="SILabelEmail" htmlFor="SIEmail">
+    <div className="OauthFormContainer">
+      <S.LoginForm>
+        {/* Email Input */}
+        <div className="LoginEmail">
+          <label id="LoginLabelEmail" htmlFor="SIEmail">
             Email
           </label>
           <input
-            id="SIInputE"
-            name="SIEmail"
+            id="LoginInputEmail"
+            name="LoginEmail"
             type="text"
             onChange={handleIdValue}
           />
         </div>
-        {/* 유효성 검사 탈락 메세지 */}
+        {/* 유효성 검사 Msg */}
         {loginFailedMsg && (
-          <div className="invalid">{localStorage.getItem("invalidMSG")}</div>
+          <div className="invalid">{localStorage.getItem("invalidMsg")}</div>
         )}
-        {/* SECTION #3-2 PW */}
-        <div className="SIPassword">
-          <label id="SILabelPW" htmlFor="SIPassword">
+        {/* Password Input */}
+        <div className="LoginPassword">
+          <label id="LoginLabelPassword" htmlFor="LoginPassword">
             Password
           </label>
           <input
-            id="SIInputP"
-            name="SIPassword"
+            id="LoginInputPassword"
+            name="LoginPassword"
             type="password"
             onChange={handlePasswordValue}
           />
         </div>
-        {/* SECTION #3-3 Sign in button */}
-        <S.SignInButton
-          bgcolor="var(--blue-500)"
+        {/* Login button */}
+        <S.LoginButton
           paddings="10px"
           radius="5px"
           color="white"
+          bgcolor="var(--blue-500)"
           onClick={handleSubmit}
         >
           Sign in
-        </S.SignInButton>
-      </S.SignInForm>
+        </S.LoginButton>
+      </S.LoginForm>
     </div>
   );
 }
