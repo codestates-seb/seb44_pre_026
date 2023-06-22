@@ -1,5 +1,9 @@
 package preproject.server.answer.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import preproject.server.answer.entity.Answer;
@@ -44,9 +48,11 @@ public class AnswerService {
                 .orElseThrow(() -> new RuntimeException("Answer not found"));
     }
 
-    public List<Answer> findAnswers() {
+    public Page<Answer> findAnswers(Pageable pageable) {
+        Pageable pageRequest = PageRequest.of(pageable.getPageNumber() - 1,
+                pageable.getPageSize(), Sort.by("createdAt").descending());
         return answerRepository
-                .findAll();
+                .findAll(pageRequest);
     }
 
     public void deleteAnswer(long answerId) {
