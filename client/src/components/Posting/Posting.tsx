@@ -66,7 +66,7 @@ function Posting({ content, isAsk, answerId, setComplete }: PostingProps) {
                 style={{ width: "36px", height: "36px" }}
               />
               <span>
-                <a href="#">{content.memberId}</a>
+                <a href="#">{content.name}</a>
               </span>
             </div>
             {/* <div>👋 New Contributor</div> */}

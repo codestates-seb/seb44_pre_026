@@ -10,6 +10,7 @@ export interface AnswerProps {
   questionId: number;
   answerId: string;
   content: string;
+  name: string;
   createdAt: string;
   modifiedAt: string;
   isAsk: boolean;
@@ -19,6 +20,7 @@ export interface DetailProps {
   questionId: number;
   title: string;
   content: string;
+  name: string;
   createdAt: string;
   modifiedAt: string;
 }
@@ -29,6 +31,7 @@ function Detail() {
     questionId: 0,
     title: "",
     content: "",
+    name: "",
     createdAt: "",
     modifiedAt: "",
   };
@@ -51,7 +54,8 @@ function Detail() {
     fetch();
   }, [complete]);
 
-  console.log(answerData);
+  console.log("answerData = ", answerData);
+  console.log("askData = ", askData);
 
   return (
     <S.Section>
