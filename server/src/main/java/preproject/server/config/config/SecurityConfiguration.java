@@ -32,12 +32,12 @@ import static org.springframework.security.config.Customizer.withDefaults;
  */
 @Configuration
 @EnableWebSecurity(debug = true)
-public class SecurityConfigurationV6 {
+public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils; // 추가
 
-    public SecurityConfigurationV6(JwtTokenizer jwtTokenizer,
-                                   CustomAuthorityUtils authorityUtils) {
+    public SecurityConfiguration(JwtTokenizer jwtTokenizer,
+                                 CustomAuthorityUtils authorityUtils) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
     }
@@ -63,9 +63,18 @@ public class SecurityConfigurationV6 {
                     .antMatchers(HttpMethod.POST, "/members").permitAll()
                     .antMatchers(HttpMethod.PATCH, "/members/**").hasRole("USER")
                     .antMatchers(HttpMethod.GET, "/members").hasRole("ADMIN")
-//                    .mvcMatchers(HttpMethod.GET, "/*/members").hasRole("ADMIN")
                     .antMatchers(HttpMethod.GET, "/members/**").hasAnyRole("USER", "ADMIN")
                     .antMatchers(HttpMethod.DELETE, "/members/**").hasRole("USER")
+                    .antMatchers(HttpMethod.POST, "/questions").hasRole("USER")
+                    .antMatchers(HttpMethod.PATCH, "/questions/**").hasRole("USER")
+                    .antMatchers(HttpMethod.GET, "/questions").hasRole("ADMIN")
+                    .antMatchers(HttpMethod.GET, "/questions/**").hasAnyRole("USER", "ADMIN")
+                    .antMatchers(HttpMethod.DELETE, "/questions/**").hasRole("USER")
+                    .antMatchers(HttpMethod.POST, "/answers").hasRole("USER")
+                    .antMatchers(HttpMethod.PATCH, "/answers/**").hasRole("USER")
+                    .antMatchers(HttpMethod.GET, "/answers").hasRole("ADMIN")
+                    .antMatchers(HttpMethod.GET, "/answers/**").hasAnyRole("USER", "ADMIN")
+                    .antMatchers(HttpMethod.DELETE, "/answers/**").hasRole("USER")
 //                    .antMatchers(HttpMethod.POST, "/*/coffees").hasRole("ADMIN")
 //                    .antMatchers(HttpMethod.PATCH, "/*/coffees/**").hasRole("ADMIN")
 //                    .antMatchers(HttpMethod.GET, "/*/coffees/**").hasAnyRole("USER", "ADMIN")
