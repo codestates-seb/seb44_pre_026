@@ -9,7 +9,7 @@ import preproject.server.answer.entity.Answer;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-06-20T13:52:56+0900",
+    date = "2023-06-22T15:53:50+0900",
     comments = "version: 1.5.3.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.18 (Azul Systems, Inc.)"
 )
 @Component
@@ -50,6 +50,7 @@ public class AnswerMapperImpl implements AnswerMapper {
 
         AnswerDto.Response.ResponseBuilder response = AnswerDto.Response.builder();
 
+        response.name( answer.getName() );
         response.answerId( answer.getAnswerId() );
         response.content( answer.getContent() );
         response.createdAt( answer.getCreatedAt() );

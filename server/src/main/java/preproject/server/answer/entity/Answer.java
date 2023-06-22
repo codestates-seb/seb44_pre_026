@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import preproject.server.audit.Auditable;
 import preproject.server.member.entity.Member;
 import preproject.server.question.entity.Question;
 
@@ -16,7 +17,10 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Answer {
+public class Answer extends Auditable {
+
+    @Column(nullable = false)
+    private String name;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ANSWER_ID")
