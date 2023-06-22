@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import * as S from "./style";
 
-function LoginPage() {
+function LoginForm() {
   /** usenavigate */
   const navigation = useNavigate();
 
@@ -123,4 +123,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default LoginForm;
