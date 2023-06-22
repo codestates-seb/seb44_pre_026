@@ -11,10 +11,6 @@ interface EditorProps {
 }
 
 function TextEditor({ bodyValue, changeHandler }: EditorProps) {
-  const onChangeHandler = (e: any) => {
-    changeHandler(e);
-  };
-
   const modules = useMemo(
     () => ({
       syntax: {
@@ -37,7 +33,7 @@ function TextEditor({ bodyValue, changeHandler }: EditorProps) {
   return (
     <ReactQuill
       modules={modules}
-      onChange={onChangeHandler}
+      onChange={(e: any) => changeHandler(e)}
       value={bodyValue}
       style={{
         height: "210px",

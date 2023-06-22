@@ -16,6 +16,8 @@ function AskQuestion() {
 
   const navigate = useNavigate();
 
+  console.log("askQ bodyVal = ", bodyValue);
+
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 

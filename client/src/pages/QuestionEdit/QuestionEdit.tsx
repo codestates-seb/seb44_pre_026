@@ -39,6 +39,8 @@ function QuestionEdit() {
     navigate(`/questions/${id}`);
   };
 
+  console.log("QuestionEdit bodyValue = ", bodyValue);
+
   return (
     <S.Section>
       <S.EditLayout>

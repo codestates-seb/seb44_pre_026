@@ -13,6 +13,7 @@ function AnswerEdit() {
     questionId: 0,
     title: "",
     content: "",
+    name: "",
     createdAt: "",
     modifiedAt: "",
   });
