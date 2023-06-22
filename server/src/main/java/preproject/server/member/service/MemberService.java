@@ -78,9 +78,11 @@ public class MemberService {
     }
 
     public void deleteMember(long memberId) {
+        // DB에서 삭제하지 않고 status를 변경
         Member findMember = findVerifiedMember(memberId);
+        findMember.setMemberStatus(Member.MemberStatus.MEMBER_QUIT);
 
-        memberRepository.delete(findMember);
+        memberRepository.save(findMember);
     }
 
     public Member findVerifiedMember(long memberId) {
