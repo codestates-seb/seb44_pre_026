@@ -22,3 +22,14 @@ logging:
       springframework:
         orm:
           jpa: DEBUG
+server:
+  servlet:
+    encoding:
+      force-response: true
+mail:
+  address:
+    admin: admin@gmail.com
+jwt:
+  key: mySecretKey026mySecretKey026mySecretKey026 # ${JWT_SECRET_KEY}
+  access-token-expiration-minutes: 40
+  refresh-token-expiration-minutes: 420
