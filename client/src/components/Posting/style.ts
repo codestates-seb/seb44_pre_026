@@ -7,7 +7,10 @@ export const PostLayout = styled.div`
   padding-right: 16px;
   padding-bottom: 12px;
   width: 70%;
-  min-width: 0;
+
+  & > div:nth-child(2) {
+    min-width: 0;
+  }
 `;
 
 export const VoteBox = styled.div`
@@ -92,14 +95,4 @@ export const UserInfo = styled.div`
       color: var(--blue-600);
     }
   }
-
-  /* & > div:nth-child(2) {
-    font-size: 14px;
-    padding: 7px;
-    background-color: var(--powder-200);
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-    width: 178px;
-    color: var(--fc-medium);
-  } */
 `;
