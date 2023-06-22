@@ -1,5 +1,8 @@
 package preproject.server.answer.controller;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +12,7 @@ import preproject.server.answer.mapper.AnswerMapper;
 import preproject.server.answer.service.AnswerService;
 import preproject.server.dto.MultiResponseDto;
 import preproject.server.dto.SingleResponseDto;
+import preproject.server.question.entity.Question;
 import preproject.server.utils.UriCreator;
 
 import javax.validation.Valid;
@@ -63,11 +67,12 @@ public class AnswerController {
     }
 
     @GetMapping
-    public ResponseEntity getAnswers() {
-        List<Answer> answers = answerService.findAnswers();
-        List<AnswerDto.Response> response = mapper.answerToAnswerResponses(answers);
+    public ResponseEntity getAnswers(@PageableDefault(page = 1, size = 15)Pageable pageable) {
+
+        Page<Answer> pageAnswers = answerService.findAnswers(pageable);
+        List<Answer> answers = pageAnswers.getContent();
         return new ResponseEntity<>(
-                new MultiResponseDto<>(mapper.answerToAnswerResponses(answers))
+                new MultiResponseDto<>(mapper.answerToAnswerResponses(answers), pageAnswers)
                 ,HttpStatus.OK);
     }
 
