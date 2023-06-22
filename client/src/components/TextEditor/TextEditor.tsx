@@ -2,6 +2,8 @@ import { useMemo } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import React from "react";
+import hljs from "highlight.js";
+import "highlight.js/styles/atom-one-dark.css";
 
 interface EditorProps {
   bodyValue: string;
@@ -15,6 +17,9 @@ function TextEditor({ bodyValue, changeHandler }: EditorProps) {
 
   const modules = useMemo(
     () => ({
+      syntax: {
+        highlight: (text: string) => hljs.highlightAuto(text).value,
+      },
       toolbar: {
         container: [
           [{ header: [1, 2, 3, 4, 5, 6, false] }],
