@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 
 export const Container = styled.div`
   display: flex;
-  height: 100vh;
+  height: auto;
   width: 250px;
   position: fixed;
   background-color: white;
@@ -47,6 +47,10 @@ export const Nav = styled.div`
 
   .logout {
     margin-top: 2rem;
+  }
+
+  .logout,
+  .delete {
     font-size: 20px;
     color: rgb(108, 117, 126);
     list-style: none;
