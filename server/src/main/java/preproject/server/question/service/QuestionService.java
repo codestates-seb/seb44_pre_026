@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import preproject.server.exception.BusinessLogicException;
@@ -25,29 +26,28 @@ public class QuestionService {
     private final MemberRepository memberRepository;
 
     public Question createQuestion(Question question) { //질문 생성
-        Member member = question.getMember();
-        Optional<Member> verifiedMember = memberRepository.findById(member.getMemberId());
-        if(!verifiedMember.isPresent()) {
-            throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_CREATING_POST);
-        }
-        question.setMember(member);
+        String principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        Optional<Member> verifiedMember = memberRepository.findByEmail(principal);
+
+        Member Member = verifiedMember.
+                orElseThrow(() -> new BusinessLogicException(ExceptionCode.NO_PERMISSION_CREATING_POST));
+
+        question.setMember(Member);
         return questionRepository.save(question);
     }
 
     public Question updateQuestion(Question question) { //질문 수정
         Question findQuestion = findVerifiedQuestion(question.getQuestionId());
 
-        Member member = question.getMember();
-        Optional<Member> verifiedMember = memberRepository.findById(member.getMemberId());
-        if(!verifiedMember.isPresent() || findQuestion.getMember().getMemberId()!=member.getMemberId()) {
+        String principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        if (!findQuestion.getMember().getEmail().equals(principal))
             throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_EDITING_POST);
-        }
 
         Optional.ofNullable(question.getTitle())
                 .ifPresent(title -> findQuestion.setTitle(title));
         Optional.ofNullable(question.getContent())
                 .ifPresent(content -> findQuestion.setContent(content));
-        findQuestion.setModifiedAt(LocalDateTime.now());
+//        findQuestion.setModifiedAt(LocalDateTime.now());
 
         return questionRepository.save(findQuestion);
     }
@@ -66,12 +66,11 @@ public class QuestionService {
 
     public void deleteQuestion(long questionId) { //질문 삭제
         Question findQuestion = findVerifiedQuestion(questionId);
+        String principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 
-        Member member = findQuestion.getMember();
-        Optional<Member> verifiedMember = memberRepository.findById(member.getMemberId());
-        if (!verifiedMember.isPresent() || findQuestion.getMember().getMemberId()!=member.getMemberId()) {
+        if (!findQuestion.getMember().getEmail().equals(principal))
             throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_DELETING_POST);
-        }
+
         questionRepository.deleteById(questionId);
     }
     public Question findVerifiedQuestion(long questionId) {

@@ -19,7 +19,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 
-public class Question extends Auditable {
+public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long questionId;
@@ -29,7 +29,7 @@ public class Question extends Auditable {
     public void setContent(String content) {
         this.content = content;
     }
-    @Column(nullable = false, name = "CREATED_AT")
+    @Column(nullable = false, name = "CREATED_AT", updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(nullable = false, name = "LAST_MODIFIED_AT")
@@ -39,13 +39,12 @@ public class Question extends Auditable {
     @OneToMany(mappedBy = "question", cascade = {CascadeType.ALL})
     private List<Answer> answerList = new ArrayList<>();
     @ManyToOne
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
     public void setMember(Member member) {
         this.member = member;
         }
-
 
     public void setAnswer(Answer answer) {
         this.getAnswerList().add(answer);
