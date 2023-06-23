@@ -7,19 +7,24 @@ import QuestionEdit from "./pages/QuestionEdit/QuestionEdit";
 import AnswerEdit from "./pages/AnswerEdit/AnswerEdit";
 import LoginPage from "./pages/Login/LoginPage";
 import Layout from "./layout/Layout";
+import GlobalStyle from "./GlobalStyles";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/questions/ask" element={<AskQuestion />} />
-        <Route path="/questions/:id" element={<Detail />} />
-        <Route path="/questions/:id/edit" element={<QuestionEdit />} />
-        <Route path="/questions/:qid/:id" element={<AnswerEdit />} />
-        <Route path="/login" element={<LoginPage />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/questions/ask" element={<AskQuestion />} />
+            <Route path="/questions/:id" element={<Detail />} />
+            <Route path="/questions/:id/edit" element={<QuestionEdit />} />
+            <Route path="/questions/:qid/:id" element={<AnswerEdit />} />
+            <Route path="/login" element={<LoginPage />} />
+          </Routes>
+        </Layout>
+      </BrowserRouter>
+    </>
   );
 }
 
