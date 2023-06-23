@@ -29,6 +29,7 @@ export const AskButton = styled.button`
   border-radius: 3px;
   cursor: pointer;
   border: none;
+  position: relative;
 `;
 
 export const ButtonWrapper = styled.section`

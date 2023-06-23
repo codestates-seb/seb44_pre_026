@@ -1,21 +1,25 @@
 import { styled } from "styled-components";
 
 export const Question = styled.div`
-  margin: 2rem;
   display: flex;
   justify-content: column;
 `;
 
 export const ContentWrapper = styled.div`
-  margin: 2rem;
-  border-top: grey solid 1px;
+  margin-top: 3rem;
+  width: 100%;
   border-bottom: grey solid 1px;
 `;
 
 export const Answers = styled.div`
-  margin: 2rem;
+  padding-left: 2rem;
   display: flex;
   align-items: center;
+  width: 100%;
+  border-top: grey solid 1px;
+  div {
+    margin-top: 20px;
+  }
 `;
 
 export const QuestionInfo = styled.div`

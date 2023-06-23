@@ -26,11 +26,13 @@ function Home() {
   });
 
   return (
-    <S.Content>
-      <Top />
-      <Question questions={data} />
-      <Bottom />
-    </S.Content>
+    <S.Home>
+      <S.Content>
+        <Top />
+        <Question questions={data} />
+        <Bottom />
+      </S.Content>
+    </S.Home>
   );
 }
 
