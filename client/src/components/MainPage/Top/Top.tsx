@@ -1,6 +1,6 @@
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import { useState } from "react";
 
 function Top() {
   // Ask Question 버튼 클릭시 질문 등록 페이지로 이동

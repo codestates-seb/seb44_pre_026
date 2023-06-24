@@ -6,7 +6,6 @@ import Detail from "./pages/Detail/Detail";
 import QuestionEdit from "./pages/QuestionEdit/QuestionEdit";
 import AnswerEdit from "./pages/AnswerEdit/AnswerEdit";
 import LoginPage from "./pages/Login/LoginPage";
-import Layout from "./layout/Layout";
 
 function App() {
   return (

@@ -1,7 +1,6 @@
 import * as S from "./style";
 import { QuestionsProps } from "../../../pages/Home/Home";
 import { Link } from "react-router-dom";
-import GlobalStyle from "../../../GlobalStyles";
 
 interface Props {
   questions: QuestionsProps[];
@@ -11,7 +10,7 @@ function Question({ questions }: Props) {
   return (
     <S.Question>
       <S.ContentWrapper className="contentWrapper">
-        {questions.map((e) => (
+        {questions.map(e => (
           <>
             <S.Answers key={e.questionId} className="answer">
               {/* 답변수 */}
