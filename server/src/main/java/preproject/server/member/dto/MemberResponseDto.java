@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 public class MemberResponseDto {
     private Long memberId;
     private String email;
-    private String name;
     private String nickName;
-    private String createdAt;
-    private String modifiedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
 }
+

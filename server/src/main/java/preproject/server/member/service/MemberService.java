@@ -6,7 +6,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import preproject.server.auth.utils.CustomAuthorityUtils;
 import preproject.server.exception.BusinessLogicException;
 import preproject.server.exception.ExceptionCode;
@@ -21,20 +20,16 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final ApplicationEventPublisher publisher;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
 
     public MemberService(MemberRepository memberRepository,
-                         ApplicationEventPublisher publisher,
                          PasswordEncoder passwordEncoder,
                          CustomAuthorityUtils authorityUtils) {
         this.memberRepository = memberRepository;
-        this.publisher = publisher;
         this.passwordEncoder = passwordEncoder;
         this.authorityUtils = authorityUtils;
     }
-
     public Member createMember(Member member) {
         verifyExistsEmail(member.getEmail());
 
@@ -52,19 +47,16 @@ public class MemberService {
     public Member updateMember(Member member) {
         Member findMember = findVerifiedMember(member.getMemberId());
 
-        Optional.ofNullable(member.getName())
-                .ifPresent(name -> findMember.setName(name));
         Optional.ofNullable(member.getPassword())
                 .ifPresent(password -> findMember.setPassword(password));
         Optional.ofNullable(member.getNickName())
-                        .ifPresent(nickName -> findMember.setNickName(nickName));
+                .ifPresent(nickName -> findMember.setNickName(nickName));
         Optional.ofNullable(member.getMemberStatus())
                 .ifPresent(status -> findMember.setMemberStatus(status));
         findMember.setModifiedAt(LocalDateTime.now());
 
         return memberRepository.save(findMember);
     }
-
     public Member findMember(long memberId) {
         Member findMember = findVerifiedMember(memberId);
 
@@ -98,4 +90,4 @@ public class MemberService {
         if(optionalMember.isPresent())
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
     }
-}
+}//^

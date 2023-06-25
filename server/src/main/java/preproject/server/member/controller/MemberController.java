@@ -39,7 +39,15 @@ public class MemberController {
         Member member = mapper.memberPostDtoToMember(memberPostDto);
         Member createdMember = memberService.createMember(member);
 
-        return new ResponseEntity(mapper.memberToMemberResponseDto(createdMember), HttpStatus.CREATED);
+ feat/BE/Member
+        URI location = UriComponentsBuilder.newInstance()
+                .path(MEMBER_DEFAULT_URL + "{member-id}")
+                .buildAndExpand(createdMember.getMemberId())
+                .toUri();
+
+        return ResponseEntity.created(location).body(mapper.memberToMemberResponseDto(createdMember));
+
+        
     }
 
     @PatchMapping("/{member-id}")
@@ -86,5 +94,5 @@ public class MemberController {
         memberService.deleteMember(memberId);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
-    }
+    }//^
 }
