@@ -10,7 +10,6 @@ public class QuestionDto {
     @Setter
     @Getter
     @NoArgsConstructor
-    @AllArgsConstructor
     public static class QuestionPostDto {
         @NotBlank(message = "질문 제목을 작성해야 합니다.")
         private String title;
@@ -28,10 +27,7 @@ public class QuestionDto {
         private String title;
         @NotBlank(message = "질문 내용을 작성해야 합니다.")
         private String content;
-//        private long memberId;
-//        private long questionId;
     }
-
     @Getter @Setter
     @Builder
     @AllArgsConstructor

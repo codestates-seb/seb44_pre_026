@@ -1,7 +1,11 @@
 package preproject.server.answer.controller;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import preproject.server.answer.dto.AnswerDto;
 import preproject.server.answer.entity.Answer;
@@ -9,6 +13,7 @@ import preproject.server.answer.mapper.AnswerMapper;
 import preproject.server.answer.service.AnswerService;
 import preproject.server.dto.MultiResponseDto;
 import preproject.server.dto.SingleResponseDto;
+import preproject.server.question.entity.Question;
 import preproject.server.utils.UriCreator;
 
 import javax.validation.Valid;
@@ -18,8 +23,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/answers")
+@Validated
 public class AnswerController {
-    private final static String  ANSWER_DEFAULT_URL = "/answers";
+    //private final static String  ANSWER_DEFAULT_URL = "/answers";
     private final AnswerService answerService;
     private final AnswerMapper mapper;
 
@@ -29,13 +35,12 @@ public class AnswerController {
     }
 
     @PostMapping
-    public ResponseEntity postAnswer(@Valid  @RequestBody AnswerDto.Post requestBody) {
+    public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.Post requestBody) {
         Answer answer = mapper.answerPostDtoToAnswer(requestBody);
 
         Answer createAnswer = answerService.createAnswer(answer);
-        URI location = UriCreator.createUri(ANSWER_DEFAULT_URL, createAnswer.getAnswerId());
 
-        return ResponseEntity.created(location).build();
+        return new ResponseEntity(mapper.answerToAnswerResponse(createAnswer), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{answer-id}")
@@ -63,11 +68,12 @@ public class AnswerController {
     }
 
     @GetMapping
-    public ResponseEntity getAnswers() {
-        List<Answer> answers = answerService.findAnswers();
-        List<AnswerDto.Response> response = mapper.answerToAnswerResponses(answers);
+    public ResponseEntity getAnswers(@PageableDefault(page = 1, size = 15)Pageable pageable) {
+
+        Page<Answer> pageAnswers = answerService.findAnswers(pageable);
+        List<Answer> answers = pageAnswers.getContent();
         return new ResponseEntity<>(
-                new MultiResponseDto<>(mapper.answerToAnswerResponses(answers))
+                new MultiResponseDto<>(mapper.answerToAnswerResponses(answers), pageAnswers)
                 ,HttpStatus.OK);
     }
 

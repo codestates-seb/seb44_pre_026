@@ -2,7 +2,9 @@ package preproject.server.question.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,20 +57,15 @@ public class QuestionController {
     }
 
     @GetMapping
-    public ResponseEntity getQuestions(@PageableDefault(page = 1, size = 15) Pageable pageable) {
-        Page<Question> questionPage = questionService.getQuestions(pageable);
-        List<Question> questionList = questionPage.getContent();
+    public ResponseEntity getQuestions(@Positive @RequestParam int page,
+                                       @Positive @RequestParam int size) {
 
-        return new ResponseEntity<>(
-                new MultiResponseDto<>(mapper.questionsToResponseDto(questionList), questionPage), HttpStatus.OK
-        );
-    }
+        Pageable pageable = PageRequest.of(page - 1, size, Sort.by("createdAt").descending());
+        Page<Question> pageQuestions = questionService.getQuestions(pageable);
+        List<Question> questions = pageQuestions.getContent();
 
-
-    @DeleteMapping("/{question_id}")
-    public ResponseEntity deleteQuestion(@PathVariable("question_id") @Positive long questionId) {
-        questionService.deleteQuestion(questionId);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(new MultiResponseDto<>(mapper.questionsToResponseDto(questions), pageQuestions),
+                HttpStatus.OK);
     }
 
     @GetMapping("/search")
@@ -80,5 +77,11 @@ public class QuestionController {
 
         return new ResponseEntity<>(new MultiResponseDto<>(mapper.QuestionsToQuestionSearchResponseDtos(questions),pageQuestions),
                 HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{question_id}")
+    public ResponseEntity deleteQuestion(@PathVariable("question_id") @Positive long questionId) {
+        questionService.deleteQuestion(questionId);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

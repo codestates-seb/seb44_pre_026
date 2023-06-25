@@ -20,9 +20,7 @@ public interface QuestionMapper {
     @Mapping(source = "member.memberId", target = "memberId")
     @Mapping(source = "member.name", target = "name")
     List<QuestionResponseDto> questionsToResponseDto(List<Question>questions);
-
     List<QuestionDto.SearchResponse> QuestionsToQuestionSearchResponseDtos(List<Question> questions);
-
     default QuestionDto.SearchResponse QuestionToQuestionSearchResponseDto(Question question){
 
         QuestionDto.SearchResponse questionSearchResponseDto =
@@ -35,5 +33,4 @@ public interface QuestionMapper {
 
         return questionSearchResponseDto;
     }
-
 }

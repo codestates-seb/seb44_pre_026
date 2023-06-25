@@ -16,10 +16,10 @@ import java.time.format.DateTimeFormatter;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class Auditable {
     @CreatedDate
-    @Column(name = "CREATED_AT", updatable = false)
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column(name = "MODIFIED_AT")
+    @Column(name = "LAST_MODIFIED_AT")
     private LocalDateTime modifiedAt;
 }

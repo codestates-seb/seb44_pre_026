@@ -29,10 +29,11 @@ public class QuestionService {
         String principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         Optional<Member> verifiedMember = memberRepository.findByEmail(principal);
 
-        Member Member = verifiedMember.
+        Member member = verifiedMember.
                 orElseThrow(() -> new BusinessLogicException(ExceptionCode.NO_PERMISSION_CREATING_POST));
 
-        question.setMember(Member);
+        question.setMember(member);
+        member.addQuestion(question);
         return questionRepository.save(question);
     }
 
@@ -48,6 +49,7 @@ public class QuestionService {
         Optional.ofNullable(question.getContent())
                 .ifPresent(content -> findQuestion.setContent(content));
         findQuestion.setModifiedAt(LocalDateTime.now());
+
         return questionRepository.save(findQuestion);
     }
 
@@ -62,7 +64,6 @@ public class QuestionService {
                 pageable.getPageSize(), Sort.by("createdAt").descending());
         return questionRepository.findAll(pageRequest);
     }
-
     public Page<Question> searchQuestion(int page, String keyword){//질문 검색
 
         return questionRepository.searchByKeyword(keyword, PageRequest.of(page,5,Sort.by("questionId").descending()));
@@ -77,7 +78,6 @@ public class QuestionService {
 
         questionRepository.deleteById(questionId);
     }
-
     public Question findVerifiedQuestion(long questionId) {
         Optional<Question> optionalQuestion = questionRepository.findById(questionId);
         Question findQuestion = optionalQuestion.orElseThrow(()
