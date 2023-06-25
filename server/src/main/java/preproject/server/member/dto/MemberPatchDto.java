@@ -18,4 +18,4 @@ public class MemberPatchDto {
     private String nickName;
 
     private String memberStatus;
-}
+}//^

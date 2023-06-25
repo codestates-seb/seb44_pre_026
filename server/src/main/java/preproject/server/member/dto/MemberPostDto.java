@@ -18,4 +18,4 @@ public class MemberPostDto {
     @NotBlank(message = "비밀번호를 입력해주세요.")
     @Pattern(regexp = "^([a-zA-Z_0-9]+){8,}$", message = "숫자와 영문(대,소문자)을 섞어서 입력해주세요.(8자이상)")
     private String password;
-}
+}//^

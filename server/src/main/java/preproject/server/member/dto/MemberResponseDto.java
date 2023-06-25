@@ -13,4 +13,4 @@ public class MemberResponseDto {
     private String nickName;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-}
+}//^

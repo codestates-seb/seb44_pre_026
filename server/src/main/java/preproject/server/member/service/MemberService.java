@@ -89,4 +89,4 @@ public class MemberService {
         if(optionalMember.isPresent())
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
     }
-}
+}//^
