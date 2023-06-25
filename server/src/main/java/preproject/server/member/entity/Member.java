@@ -24,15 +24,18 @@ public class Member {
     @Column(length = 100, nullable = false, unique = true)
     private String email;
 
-    @Column(length = 50, nullable = false)
-    @NotBlank
-    private String name;
-
     @Column(length = 100, nullable = false)
     private String password;
 
+    @Column(length = 100, nullable = false)
+    private String nickName;
+
     @Enumerated(value = EnumType.STRING)
     private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
+
 
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();

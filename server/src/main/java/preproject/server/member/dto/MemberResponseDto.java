@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class MemberResponseDto {
     private Long memberId;
     private String email;
-    private String name;
+    private String nickName;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 }

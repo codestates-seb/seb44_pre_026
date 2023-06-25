@@ -44,7 +44,7 @@ public class MemberController {
                 .buildAndExpand(createdMember.getMemberId())
                 .toUri();
 
-        return ResponseEntity.created(location).build();
+        return ResponseEntity.created(location).body(mapper.memberToMemberResponseDto(createdMember));
     }
 
     @PatchMapping("/{member-id}")
