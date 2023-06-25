@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import preproject.server.answer.entity.Answer;
+import preproject.server.audit.Auditable;
 import preproject.server.question.entity.Question;
 
 import javax.persistence.*;
@@ -16,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Member {
+public class Member extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long memberId;
@@ -31,6 +32,9 @@ public class Member {
     @Column(length = 100, nullable = false)
     private String password;
 
+    @Column(length = 20, nullable = false, unique = true)
+    private String nickName;
+
     @Enumerated(value = EnumType.STRING)
     private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
 
@@ -39,6 +43,9 @@ public class Member {
 
     @Column(nullable = false, name = "LAST_MODIFIED_AT")
     private LocalDateTime modifiedAt = LocalDateTime.now();
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
 
     @OneToMany(mappedBy = "member") //회원에서 등록한 질문 조회 가능
     private List<Question> questions = new ArrayList<>();
