@@ -5,6 +5,7 @@ import TextEditor from "../TextEditor/TextEditor";
 import useInput from "../../hooks/useInput";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { BASE_URL } from "../../constants/constants";
 
 interface Props {
   answerData: AnswerProps[];
@@ -20,7 +21,7 @@ function Answer({ answerData, setComplete }: Props) {
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    axios.post(`/api/answers/`, {
+    axios.post(BASE_URL + `/answers/`, {
       content: bodyValue,
     });
 

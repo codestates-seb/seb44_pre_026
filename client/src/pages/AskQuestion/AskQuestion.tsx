@@ -6,6 +6,7 @@ import * as S from "./style";
 import useInput from "../../hooks/useInput";
 import axios from "axios";
 import { useState } from "react";
+import { BASE_URL } from "../../constants/constants";
 
 // TODO: 하드코딩된 focus 로직 수정
 
@@ -20,7 +21,7 @@ function AskQuestion() {
     e.preventDefault();
 
     axios
-      .post("/api/questions", {
+      .post(BASE_URL + "/questions", {
         title: titleValue,
         content: bodyValue,
         memberId: 1,

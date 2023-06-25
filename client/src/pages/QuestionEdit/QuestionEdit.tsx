@@ -5,6 +5,7 @@ import EditTip from "../../components/EditTip/EditTip";
 import useInput from "../../hooks/useInput";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { BASE_URL } from "../../constants/constants";
 
 // TODO: initial, useEffect 부분 리팩토링 필요
 
@@ -19,7 +20,7 @@ function QuestionEdit() {
   const { id } = useParams();
 
   useEffect(() => {
-    axios.get(`/api/questions/${id}`).then(res => {
+    axios.get(BASE_URL + `/questions/${id}`).then(res => {
       setInitialTitle(res.data.data.title);
       setInitialBody(res.data.data.content);
       titleReset();
@@ -30,7 +31,7 @@ function QuestionEdit() {
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    axios.patch(`/api/questions/${id}`, {
+    axios.patch(BASE_URL + `/questions/${id}`, {
       title: titleValue,
       content: bodyValue,
       memberId: 1,

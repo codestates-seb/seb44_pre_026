@@ -6,6 +6,7 @@ import { DetailProps } from "../Detail/Detail";
 import TextEditor from "../../components/TextEditor/TextEditor";
 import EditTip from "../../components/EditTip/EditTip";
 import useInput from "../../hooks/useInput";
+import { BASE_URL } from "../../constants/constants";
 
 function AnswerEdit() {
   const [question, setQuestion] = useState<DetailProps>({
@@ -27,7 +28,7 @@ function AnswerEdit() {
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    axios.patch(`/api/answers/${id}`, {
+    axios.patch(BASE_URL + `/answers/${id}`, {
       content: bodyValue,
     });
 
@@ -35,12 +36,12 @@ function AnswerEdit() {
   };
 
   const fetch = async () => {
-    const response = await axios.get(`/api/questions/${qid}`);
+    const response = await axios.get(BASE_URL + `/questions/${qid}`);
     setQuestion(response?.data.data);
   };
 
   useEffect(() => {
-    axios.get(`/api/answers/${id}`).then(res => {
+    axios.get(BASE_URL + `/answers/${id}`).then(res => {
       setInitialBody(res.data.data.content);
       bodyReset();
       fetch();

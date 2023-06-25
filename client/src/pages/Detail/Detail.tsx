@@ -4,6 +4,7 @@ import * as S from "./style";
 import Posting from "../../components/Posting/Posting";
 import Answer from "../../components/Answer/Answer";
 import { useParams } from "react-router-dom";
+import { BASE_URL } from "../../constants/constants";
 
 export interface AnswerProps {
   memberId: string;
@@ -43,13 +44,13 @@ function Detail() {
   const { id } = useParams();
 
   const fetch = async () => {
-    const response = await axios.get(`/api/questions/${id}`);
+    const response = await axios.get(BASE_URL + `/${id}`);
     setAskData(response?.data.data);
     setComplete(false);
   };
 
   useEffect(() => {
-    axios.get("/api/answers").then(res => setAnswerData(res.data.data));
+    axios.get(BASE_URL + "/answers").then(res => setAnswerData(res.data.data));
 
     fetch();
   }, [complete]);
