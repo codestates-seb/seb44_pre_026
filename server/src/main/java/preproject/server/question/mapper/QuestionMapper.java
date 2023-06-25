@@ -10,14 +10,30 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface QuestionMapper {
-    @Mapping(source = "memberId", target = "member.memberId")
+//    @Mapping(source = "memberId", target = "member.memberId")
     Question questionPostDtoToQuestion(QuestionDto.QuestionPostDto questionPostDto);
-    @Mapping(source = "memberId", target = "member.memberId")
+//    @Mapping(source = "memberId", target = "member.memberId")
     Question questionPatchDtoToQuestion(QuestionDto.QuestionPatchDto questionPatchDto);
     @Mapping(source = "member.memberId", target = "memberId")
-    //@Mapping(source = "member.name", target = "name")
+    @Mapping(source = "member.name", target = "name")
     QuestionResponseDto questionToQuestionResponseDto(Question question);
     @Mapping(source = "member.memberId", target = "memberId")
     @Mapping(source = "member.name", target = "name")
     List<QuestionResponseDto> questionsToResponseDto(List<Question>questions);
+
+    List<QuestionDto.SearchResponse> QuestionsToQuestionSearchResponseDtos(List<Question> questions);
+
+    default QuestionDto.SearchResponse QuestionToQuestionSearchResponseDto(Question question){
+
+        QuestionDto.SearchResponse questionSearchResponseDto =
+                QuestionDto.SearchResponse.builder()
+                        .questionId(question.getQuestionId())
+                        .nickname(question.getMember().getNickName())
+                        .title(question.getTitle())
+                        .content(question.getContent())
+                        .build();
+
+        return questionSearchResponseDto;
+    }
+
 }
