@@ -25,7 +25,7 @@ import java.util.List;
 @RequestMapping("/members")
 @Validated
 public class MemberController {
-    private final String MEMBER_DEFAULT_URL = "/members";
+    //private final String MEMBER_DEFAULT_URL = "/members";
     private final MemberService memberService;
     private final MemberMapper mapper;
 
@@ -39,12 +39,7 @@ public class MemberController {
         Member member = mapper.memberPostDtoToMember(memberPostDto);
         Member createdMember = memberService.createMember(member);
 
-        URI location = UriComponentsBuilder.newInstance()
-                .path(MEMBER_DEFAULT_URL + "{member-id}")
-                .buildAndExpand(createdMember.getMemberId())
-                .toUri();
-
-        return ResponseEntity.created(location).build();
+        return new ResponseEntity(mapper.memberToMemberResponseDto(createdMember), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{member-id}")

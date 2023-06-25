@@ -11,6 +11,7 @@ public class MemberResponseDto {
     private Long memberId;
     private String email;
     private String name;
-    private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
+    private String nickName;
+    private String createdAt;
+    private String modifiedAt;
 }

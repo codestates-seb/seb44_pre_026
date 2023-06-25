@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import preproject.server.audit.Auditable;
 import preproject.server.member.entity.Member;
 import preproject.server.question.entity.Question;
 
@@ -27,12 +28,11 @@ public class Answer {
 
     @Column(nullable = false, updatable = false)
     @CreatedDate
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "LAST_MODIFIED_AT")
     @LastModifiedDate
-    private LocalDateTime modifiedAt;
-
+    private LocalDateTime modifiedAt = LocalDateTime.now();
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
@@ -41,8 +41,12 @@ public class Answer {
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
 
-    public Answer(long answerId, String content) {
-        this.answerId = answerId;
-        this.content = content;
-    }
+    @Transient
+    private long memberId;
+
+    @Transient
+    private long questionId;
+
+    @Transient
+    private String nickName;
 }

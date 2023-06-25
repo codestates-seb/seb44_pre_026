@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import preproject.server.answer.entity.Answer;
+import preproject.server.audit.Auditable;
 import preproject.server.question.entity.Question;
 
 import javax.persistence.*;
@@ -31,14 +32,20 @@ public class Member {
     @Column(length = 100, nullable = false)
     private String password;
 
+    @Column(length = 20, nullable = false, unique = true)
+    private String nickName;
+
     @Enumerated(value = EnumType.STRING)
     private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
 
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(nullable = false, name = "LAST_MODIFIED_AT")
     private LocalDateTime modifiedAt = LocalDateTime.now();
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
 
     @OneToMany(mappedBy = "member") //회원에서 등록한 질문 조회 가능
     private List<Question> questions = new ArrayList<>();
@@ -57,7 +64,6 @@ public class Member {
 
     public enum MemberStatus {
         MEMBER_ACTIVE("활동중"),
-        MEMBER_SLEEP("휴면 계정"),
         MEMBER_QUIT("탈퇴 회원");
 
         @Getter

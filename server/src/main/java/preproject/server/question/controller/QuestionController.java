@@ -70,15 +70,4 @@ public class QuestionController {
         questionService.deleteQuestion(questionId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
-
-    @GetMapping("/search")
-    public ResponseEntity SearchQuestion(@Positive @RequestParam int page,
-                                         @RequestParam String keyword){
-
-        Page<Question> pageQuestions = questionService.searchQuestion(page-1, keyword);
-        List<Question> questions = pageQuestions.getContent();
-
-        return new ResponseEntity<>(new MultiResponseDto<>(mapper.QuestionsToQuestionSearchResponseDtos(questions),pageQuestions),
-                HttpStatus.OK);
-    }
 }
