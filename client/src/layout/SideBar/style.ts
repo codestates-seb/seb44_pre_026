@@ -29,8 +29,7 @@ export const Nav = styled.div`
     &:hover {
       color: black;
     }
-    &:focus,
-    &:active,
+
     &.active {
       background-color: white;
       width: 250px;

@@ -4,20 +4,21 @@ import { IoEarthSharp } from "react-icons/io5";
 import React, { useState } from "react";
 import { handleLogout } from "../../components/Logout/Logout";
 
-
 const SideBar = () => {
-  const [tab, setTab] = useState(false);
-  function handleClick() {
-    setTab(!tab);
-  }
+  const [tab, setTab] = useState<string>("");
 
   return (
     <S.Container>
       <S.NavBarContainer>
         <S.Nav>
-          <li className={tab ? "active" : ""} onClick={handleClick}>
-            <Link to="/">HOME</Link>
-          </li>
+          <div className="home">
+            <li
+              className={tab === "curr" ? "active" : ""}
+              onClick={() => setTab("curr")}
+            >
+              <Link to="/">HOME</Link>
+            </li>
+          </div>
 
           <div>
             <li className="title">
