@@ -44,7 +44,7 @@ function Detail() {
   const { id } = useParams();
 
   const fetch = async () => {
-    const response = await axios.get(BASE_URL + `/${id}`);
+    const response = await axios.get(BASE_URL + `/questions/${id}`);
     setAskData(response?.data.data);
     setComplete(false);
   };

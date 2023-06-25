@@ -18,10 +18,12 @@ function Answer({ answerData, setComplete }: Props) {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  console.log("[Answer] param id = ", id);
+
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    axios.post(BASE_URL + `/answers/`, {
+    axios.post(BASE_URL + `/answers/${id}`, {
       content: bodyValue,
     });
 
