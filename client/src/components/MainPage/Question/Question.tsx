@@ -1,7 +1,6 @@
 import * as S from "./style";
 import { QuestionsProps } from "../../../pages/Home/Home";
 import { Link } from "react-router-dom";
-import GlobalStyle from "../../../GlobalStyles";
 
 interface Props {
   questions: QuestionsProps[];
@@ -20,7 +19,7 @@ function Question({ questions }: Props) {
 
             <S.QuestionInfo className="questionInfo">
               <div>
-                <Link to="/questions/1" className="title">
+                <Link to="/questions/{e.questionId}" className="title">
                   {e.title}
                 </Link>
               </div>
