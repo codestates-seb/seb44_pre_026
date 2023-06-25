@@ -64,6 +64,10 @@ public class QuestionService {
                 pageable.getPageSize(), Sort.by("createdAt").descending());
         return questionRepository.findAll(pageRequest);
     }
+    public Page<Question> searchQuestion(int page, String keyword){//질문 검색
+
+        return questionRepository.searchByKeyword(keyword, PageRequest.of(page,5,Sort.by("questionId").descending()));
+    }
 
     public void deleteQuestion(long questionId) { //질문 삭제
         Question findQuestion = findVerifiedQuestion(questionId);

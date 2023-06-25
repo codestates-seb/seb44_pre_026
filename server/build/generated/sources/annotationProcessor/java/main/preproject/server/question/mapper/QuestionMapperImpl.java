@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
+import preproject.server.answer.dto.AnswerDto;
+import preproject.server.answer.entity.Answer;
 import preproject.server.member.entity.Member;
 import preproject.server.question.dto.QuestionDto;
 import preproject.server.question.dto.QuestionResponseDto;
@@ -11,7 +13,7 @@ import preproject.server.question.entity.Question;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-06-25T00:44:44+0900",
+    date = "2023-06-25T15:31:24+0900",
     comments = "version: 1.5.3.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.18 (Azul Systems, Inc.)"
 )
 @Component
@@ -62,6 +64,7 @@ public class QuestionMapperImpl implements QuestionMapper {
         questionResponseDto.content( question.getContent() );
         questionResponseDto.createdAt( question.getCreatedAt() );
         questionResponseDto.modifiedAt( question.getModifiedAt() );
+        questionResponseDto.answers( answerListToResponseList( question.getAnswers() ) );
 
         return questionResponseDto.build();
     }
@@ -75,6 +78,20 @@ public class QuestionMapperImpl implements QuestionMapper {
         List<QuestionResponseDto> list = new ArrayList<QuestionResponseDto>( questions.size() );
         for ( Question question : questions ) {
             list.add( questionToQuestionResponseDto( question ) );
+        }
+
+        return list;
+    }
+
+    @Override
+    public List<QuestionDto.SearchResponse> QuestionsToQuestionSearchResponseDtos(List<Question> questions) {
+        if ( questions == null ) {
+            return null;
+        }
+
+        List<QuestionDto.SearchResponse> list = new ArrayList<QuestionDto.SearchResponse>( questions.size() );
+        for ( Question question : questions ) {
+            list.add( QuestionToQuestionSearchResponseDto( question ) );
         }
 
         return list;
@@ -105,5 +122,36 @@ public class QuestionMapperImpl implements QuestionMapper {
             return null;
         }
         return name;
+    }
+
+    protected AnswerDto.Response answerToResponse(Answer answer) {
+        if ( answer == null ) {
+            return null;
+        }
+
+        AnswerDto.Response.ResponseBuilder response = AnswerDto.Response.builder();
+
+        response.nickName( answer.getNickName() );
+        response.answerId( answer.getAnswerId() );
+        response.questionId( answer.getQuestionId() );
+        response.memberId( answer.getMemberId() );
+        response.content( answer.getContent() );
+        response.createdAt( answer.getCreatedAt() );
+        response.modifiedAt( answer.getModifiedAt() );
+
+        return response.build();
+    }
+
+    protected List<AnswerDto.Response> answerListToResponseList(List<Answer> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<AnswerDto.Response> list1 = new ArrayList<AnswerDto.Response>( list.size() );
+        for ( Answer answer : list ) {
+            list1.add( answerToResponse( answer ) );
+        }
+
+        return list1;
     }
 }
