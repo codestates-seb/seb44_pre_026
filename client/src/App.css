@@ -19,6 +19,11 @@ button:hover {
   box-shadow: 0 0 6px 2px rgba(4, 137, 247, 0.555);
 }
 
+.contents {
+  display: flex;
+  justify-content: center;
+}
+
 * {
   margin: 0;
   padding: 0;

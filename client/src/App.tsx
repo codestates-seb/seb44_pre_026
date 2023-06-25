@@ -6,14 +6,17 @@ import Detail from "./pages/Detail/Detail";
 import QuestionEdit from "./pages/QuestionEdit/QuestionEdit";
 import AnswerEdit from "./pages/AnswerEdit/AnswerEdit";
 import Login from "./pages/Login/LoginPage";
-import Layout from "./layout/Layout";
-import GlobalStyle from "./GlobalStyles";
+import Header from "./layout/Header/Header";
+import SideBar from "./layout/SideBar/SideBar";
+import Footer from "./layout/Footer/Footer";
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <Layout>
+        <Header />
+        <SideBar />
+        <div className="contents">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/questions/ask" element={<AskQuestion />} />
@@ -22,7 +25,8 @@ function App() {
             <Route path="/questions/:qid/:id" element={<AnswerEdit />} />
             <Route path="/login" element={<Login />} />
           </Routes>
-        </Layout>
+        </div>
+        <Footer />
       </BrowserRouter>
     </>
   );
