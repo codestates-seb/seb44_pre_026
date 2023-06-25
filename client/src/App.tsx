@@ -4,7 +4,8 @@ import AskQuestion from "./pages/AskQuestion/AskQuestion";
 import Detail from "./pages/Detail/Detail";
 import QuestionEdit from "./pages/QuestionEdit/QuestionEdit";
 import AnswerEdit from "./pages/AnswerEdit/AnswerEdit";
-import LoginPage from "./pages/Login/LoginPage";
+import Login from "./pages/Login/LoginPage";
+import Layout from "./layout/Layout";
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
         <Route path="/questions/:id" element={<Detail />} />
         <Route path="/questions/:id/edit" element={<QuestionEdit />} />
         <Route path="/questions/:qid/:id" element={<AnswerEdit />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );
