@@ -9,11 +9,13 @@ export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-left: 4rem;
+  padding-right: 4rem;
+  position: sticky;
+  top: 0;
 `;
 
-export const LogoContainer = styled.div`
-  margin-inline-start: 150px;
-`;
+export const LogoContainer = styled.div``;
 
 export const LogoImg = styled.div`
   img {
@@ -25,13 +27,19 @@ export const TextWrapper = styled.div`
   display: flex;
   justify-content: column;
   font-size: 20px;
-  margin: 4px;
+  left: 20;
+  color: #51595f;
 
-  .text {
+  .text,
+  .hide {
     font-size: 18px;
     color: solid rgb(81, 89, 95);
     margin: 8px;
   }
+`;
+
+export const Button = styled.div`
+  display: flex;
 `;
 
 export const LoginBtn = styled.button`
@@ -54,16 +62,16 @@ export const SignUpBtn = styled.button`
   color: white;
   border: none;
   outline: rgb(9, 149, 255);
-  margin-inline-end: 150px;
   border-radius: 5px;
 `;
 
 export const Searchbar = styled.div`
-  width: 800px;
+  width: 50rem;
   height: 48px;
   border-radius: 5px;
   border: solid 1px black;
   display: flex;
+  flex-direction: row;
   align-items: center;
 
   .icon {
@@ -73,7 +81,8 @@ export const Searchbar = styled.div`
   .searchbar_input {
     border: none;
     height: 43px;
-    width: 700px;
+    width: 48rem;
     font-size: 18px;
+    position: relative;
   }
 `;
