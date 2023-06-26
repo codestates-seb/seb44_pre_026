@@ -2,11 +2,17 @@ import * as S from "./style";
 import { QuestionsProps } from "../../../pages/Home/Home";
 import { Link } from "react-router-dom";
 
+// 검색창
+
 interface Props {
   questions: QuestionsProps[];
 }
 
 function Question({ questions }: Props) {
+  const truncate = (str: string, n: number) => {
+    return str?.length > n ? str.substr(0, n - 1) + "..." : str;
+  };
+
   return (
     <S.Question>
       <S.ContentWrapper className="contentWrapper">
@@ -22,6 +28,7 @@ function Question({ questions }: Props) {
                 <Link to="/questions/{e.questionId}" className="title">
                   {e.title}
                 </Link>
+                <div className="contetns">{truncate(e.content, 200)}</div>
               </div>
               <button className="tag">태그</button>
               <div className="info">
