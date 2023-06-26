@@ -22,12 +22,10 @@ function App() {
 
   const handleSearch = () => {
     axios
-      .get(`/api/search?page=0&keyword=${search}`)
+      .get(`/api/questions/search?page=1&keyword=${search}`)
       .then((res) => setData(res.data));
     navigate(`/questions/${search}`);
   };
-
-  console.log("search", search);
 
   return (
     <>
