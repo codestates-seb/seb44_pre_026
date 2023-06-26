@@ -28,60 +28,44 @@ import java.util.Optional;
 public class AnswerService {
     private final AnswerRepository answerRepository;
     private final MemberRepository memberRepository;
-    private final QuestionRepository questionRepository;
+    private final QuestionService questionService;
 
-    public AnswerService(AnswerRepository answerRepository, MemberRepository memberRepository, QuestionRepository questionRepository) {
+    public AnswerService(AnswerRepository answerRepository, MemberRepository memberRepository, QuestionService questionService) {
         this.answerRepository = answerRepository;
         this.memberRepository = memberRepository;
-        this.questionRepository = questionRepository;
+        this.questionService = questionService;
     }
 
-    public Answer createAnswer(Answer answer) {
-        String email = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-        Optional<Member> optionalMember = memberRepository.findByEmail(email);
-        Member member = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
-        answer.setMember(member);
-        member.addAnswer(answer);
-        answer.setMemberId(answer.getMember().getMemberId());
-        answer.setNickName(answer.getMember().getNickName());
+    public Answer createAnswer(Answer answer,Long questionId) {
+        Question question = questionService.findVerifiedQuestion(questionId);
 
+        String principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        Optional<Member> optionalUser = memberRepository.findByEmail(principal);
+
+        Member member = optionalUser.
+                orElseThrow(() -> new BusinessLogicException(ExceptionCode.NO_PERMISSION_CREATING_POST));
+
+        answer.setMember(member);
+        answer.setQuestion(question);
         return answerRepository.save(answer);
     }
 
     public Answer updateAnswer(Answer answer) {
-        String email = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-        Optional<Member> optionalMember = memberRepository.findByEmail(email);
-        Member member = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
-        answer.setMember(member);
+        Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
 
-        if (!answer.getMember().getEmail().equals(email))
-            throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_EDITING_POST);
-
-        Optional<Answer> optionalAnswer = answerRepository.findById(answer.getAnswerId());
-        Answer findAnswer = optionalAnswer.orElseThrow(() -> new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
+        String principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 
         Optional.ofNullable(answer.getContent())
                 .ifPresent(content -> findAnswer.setContent(content));
-        findAnswer.setNickName(member.getNickName());
-        findAnswer.setMemberId(member.getMemberId());
-
         findAnswer.setModifiedAt(LocalDateTime.now());
 
         return answerRepository.save(findAnswer);
     }
 
     public Answer findAnswer(long answerId) {
-        Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
-        Answer answer = optionalAnswer.orElseThrow(() -> new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
-        String email = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-        if (!answer.getMember().getEmail().equals(email))
-            throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_EDITING_POST);
+        Answer findAnswer = findVerifiedAnswer(answerId);
 
-        Member member = answer.getMember();
-        answer.setMemberId(member.getMemberId());
-        answer.setNickName(member.getNickName());
-
-        return answer;
+        return findAnswer;
     }
 
     public Page<Answer> findAnswers(Pageable pageable) {
@@ -92,11 +76,22 @@ public class AnswerService {
     }
 
     public void deleteAnswer(long answerId) {
-        Answer findAnswer = findAnswer(answerId);
-        String email = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-        if (!findAnswer.getMember().getEmail().equals(email))
+        Answer findAnswer = findVerifiedAnswer(answerId);
+        String principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+
+        if (!findAnswer.getMember().getEmail().equals(principal))
             throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_DELETING_POST);
 
-        answerRepository.delete(findAnswer);
+        answerRepository.deleteById(answerId);
+    }
+
+    public Answer findVerifiedAnswer(long answerId) {
+
+        Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
+        Answer findAnswer =
+                optionalAnswer.orElseThrow(() ->
+                        new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
+
+        return findAnswer;
     }
 }

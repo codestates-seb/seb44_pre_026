@@ -40,13 +40,4 @@ public class Answer {
     @ManyToOne
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
-
-    @Transient
-    private long memberId;
-
-    @Transient
-    private long questionId;
-
-    @Transient
-    private String nickName;
 }

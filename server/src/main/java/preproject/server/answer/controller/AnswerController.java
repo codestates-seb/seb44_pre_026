@@ -34,27 +34,23 @@ public class AnswerController {
         this.mapper = mapper;
     }
 
-    @PostMapping
-    public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.Post requestBody) {
+    @PostMapping("/{question_id}")
+    public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.Post requestBody,
+                                     @PathVariable("question_id") @Positive long questionId) {
         Answer answer = mapper.answerPostDtoToAnswer(requestBody);
-
-        Answer createAnswer = answerService.createAnswer(answer);
-
+        Answer createAnswer = answerService.createAnswer(answer, questionId);
         return new ResponseEntity(mapper.answerToAnswerResponse(createAnswer), HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{answer-id}")
-    public ResponseEntity patchAnswer(
-            @PathVariable("answer-id") @Positive long answerId,
-            @Valid @RequestBody AnswerDto.Patch requestBody) {
-        requestBody.setAnswerId(answerId);
+        @PatchMapping("/{answer-id}")
+    public ResponseEntity patchAnswer(@PathVariable("answer-id") @Positive long answerId,
+                                      @Valid @RequestBody AnswerDto.Patch requestBody) {
         Answer answer = mapper.answerPatchDtoToAnswer(requestBody);
-
+        answer.setAnswerId(answerId);
         Answer updateAnswer = answerService.updateAnswer(answer);
 
         return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.answerToAnswerResponse(updateAnswer)),
-                HttpStatus.OK);
+                new SingleResponseDto<>(mapper.answerToAnswerResponse(updateAnswer)), HttpStatus.OK);
     }
 
     @GetMapping("/{answer-id}")

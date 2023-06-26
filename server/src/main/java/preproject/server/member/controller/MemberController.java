@@ -39,9 +39,8 @@ public class MemberController {
         Member member = mapper.memberPostDtoToMember(memberPostDto);
         Member createdMember = memberService.createMember(member);
 
- feat/BE/Member
         URI location = UriComponentsBuilder.newInstance()
-                .path(MEMBER_DEFAULT_URL + "{member-id}")
+                .path("{member-id}")
                 .buildAndExpand(createdMember.getMemberId())
                 .toUri();
 
