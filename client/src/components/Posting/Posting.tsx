@@ -2,9 +2,9 @@ import * as S from "./style";
 import arrowUp from "../../assets/arrowup.png";
 import arrowDown from "../../assets/arrowdown.png";
 import { AnswerProps, DetailProps } from "../../pages/Detail/Detail";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { BASE_URL } from "../../constants/constants";
+import { ACCESS_TOKEN, BASE_URL } from "../../constants/constants";
 
 interface PostingProps {
   content: DetailProps | AnswerProps;
@@ -15,13 +15,22 @@ interface PostingProps {
 
 function Posting({ content, isAsk, answerId, setComplete }: PostingProps) {
   const { id } = useParams();
+  const token = localStorage.getItem(ACCESS_TOKEN);
+
+  const navigate = useNavigate();
 
   const deleteHandler = () => {
     const url = isAsk
       ? BASE_URL + `/questions/${id}`
       : BASE_URL + `/answers/${answerId}`;
     if (window.confirm("삭제하시겠습니까?")) {
-      axios.delete(url);
+      axios.delete(url, {
+        headers: {
+          Authorization: token,
+          withCredentials: true,
+        },
+      });
+      navigate("/");
       setComplete(true);
     }
   };
@@ -69,7 +78,7 @@ function Posting({ content, isAsk, answerId, setComplete }: PostingProps) {
                 style={{ width: "36px", height: "36px" }}
               />
               <span>
-                <a href="#">{content.name}</a>
+                <a href="#">{content.nickName}</a>
               </span>
             </div>
             {/* <div>👋 New Contributor</div> */}

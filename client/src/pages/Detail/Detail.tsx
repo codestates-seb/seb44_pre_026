@@ -11,7 +11,7 @@ export interface AnswerProps {
   questionId: number;
   answerId: string;
   content: string;
-  name: string;
+  nickName: string;
   createdAt: string;
   modifiedAt: string;
   isAsk: boolean;
@@ -21,7 +21,7 @@ export interface DetailProps {
   questionId: number;
   title: string;
   content: string;
-  name: string;
+  nickName: string;
   createdAt: string;
   modifiedAt: string;
 }
@@ -32,7 +32,7 @@ function Detail() {
     questionId: 0,
     title: "",
     content: "",
-    name: "",
+    nickName: "",
     createdAt: "",
     modifiedAt: "",
   };
@@ -43,8 +43,6 @@ function Detail() {
 
   const { id } = useParams();
   const token = localStorage.getItem(ACCESS_TOKEN);
-
-  console.log("[Detail] token = ", token);
 
   const fetch = async () => {
     const response = await axios.get(BASE_URL + `/questions/${id}`, {

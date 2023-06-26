@@ -13,7 +13,7 @@ interface Props {
 }
 
 const Header = ({ handleSearch, setSearch, search }: Props) => {
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleSearch;
     }
@@ -44,7 +44,7 @@ const Header = ({ handleSearch, setSearch, search }: Props) => {
             className="searchbar_input"
             placeholder="Search..."
             onChange={(e) => setSearch(e.target.value)}
-            onKeyDown={handleKeyDown}
+            onKeyUp={handleKeyUp}
             value={search}
           ></input>
         </form>

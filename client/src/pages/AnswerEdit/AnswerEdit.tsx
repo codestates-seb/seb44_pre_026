@@ -14,7 +14,7 @@ function AnswerEdit() {
     questionId: 0,
     title: "",
     content: "",
-    name: "",
+    nickName: "",
     createdAt: "",
     modifiedAt: "",
   });
