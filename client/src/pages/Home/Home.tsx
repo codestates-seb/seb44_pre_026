@@ -5,24 +5,14 @@ import Bottom from "../../components/MainPage/Bottom/Bottom";
 import Top from "../../components/MainPage/Top/Top";
 import Question from "../../components/MainPage/Question/Question";
 import { BASE_URL } from "../../constants/constants";
-
-export interface QuestionsProps {
-  memberId: string;
-  questionId: number;
-  answerId: string;
-  title: string;
-  content: string;
-  name: string;
-  createdAt: string;
-  modifiedAt: string;
-}
+import { DetailProps } from "../Detail/Detail";
 
 function Home() {
-  const [data, setData] = useState<QuestionsProps[]>([]);
+  const [data, setData] = useState<DetailProps[]>([]);
 
   useEffect(() => {
     axios
-      .get(BASE_URL + "/questions?page=2&size=15")
+      .get(BASE_URL + "/questions?page=1&size=15")
       .then(res => setData(res.data.data));
   }, []);
 

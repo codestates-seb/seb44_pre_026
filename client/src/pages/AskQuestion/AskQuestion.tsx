@@ -68,7 +68,7 @@ function AskQuestion() {
           />
           <S.ButtonLayout>
             <button type="submit">Post your question</button>
-            <Link to="/questions">
+            <Link to="/">
               <button>Discard draft</button>
             </Link>
           </S.ButtonLayout>

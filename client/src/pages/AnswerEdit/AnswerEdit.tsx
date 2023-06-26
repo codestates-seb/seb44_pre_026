@@ -17,6 +17,7 @@ function AnswerEdit() {
     nickName: "",
     createdAt: "",
     modifiedAt: "",
+    answers: [],
   });
 
   const [initialBody, setInitialBody] = useState("");

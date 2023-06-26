@@ -1,11 +1,10 @@
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import { QuestionsProps } from "../src/pages/Home/Home";
 import "./App.css";
 import Home from "./pages/Home/Home";
 import AskQuestion from "./pages/AskQuestion/AskQuestion";
-import Detail from "./pages/Detail/Detail";
+import Detail, { DetailProps } from "./pages/Detail/Detail";
 import QuestionEdit from "./pages/QuestionEdit/QuestionEdit";
 import AnswerEdit from "./pages/AnswerEdit/AnswerEdit";
 import Login from "./pages/Login/LoginPage";
@@ -20,7 +19,7 @@ import ScrollTop from "./components/ScrollTop/ScrollTop";
 function App() {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
-  const [data, setData] = useState<QuestionsProps[]>([]);
+  const [data, setData] = useState<DetailProps[]>([]);
 
   const token = localStorage.getItem(ACCESS_TOKEN);
 

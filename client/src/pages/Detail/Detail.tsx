@@ -24,6 +24,7 @@ export interface DetailProps {
   nickName: string;
   createdAt: string;
   modifiedAt: string;
+  answers: AnswerProps[];
 }
 
 function Detail() {
@@ -35,35 +36,25 @@ function Detail() {
     nickName: "",
     createdAt: "",
     modifiedAt: "",
+    answers: [],
   };
 
-  const [answerData, setAnswerData] = useState<AnswerProps[]>([]);
+  // const [answerData, setAnswerData] = useState<AnswerProps[]>([]);
   const [askData, setAskData] = useState<DetailProps>(initialState);
   const [complete, setComplete] = useState(false);
 
   const { id } = useParams();
   const token = localStorage.getItem(ACCESS_TOKEN);
 
-  const fetch = async () => {
-    const response = await axios.get(BASE_URL + `/questions/${id}`, {
-      headers: {
-        Authorization: token,
-      },
-    });
-    setAskData(response?.data.data);
-    setComplete(false);
-  };
-
   useEffect(() => {
     axios
-      .get(BASE_URL + "/answers", {
+      .get(BASE_URL + `/questions/${id}`, {
         headers: {
           Authorization: token,
         },
       })
-      .then(res => setAnswerData(res.data.data));
-
-    fetch();
+      .then(res => setAskData(res.data.data));
+    setComplete(false);
   }, [complete]);
 
   return (
@@ -90,7 +81,7 @@ function Detail() {
         />
         <Posting content={askData} isAsk={true} setComplete={setComplete} />
       </S.DetailLayout>
-      <Answer answerData={answerData} setComplete={setComplete} />
+      <Answer answerData={askData.answers} setComplete={setComplete} />
     </S.Section>
   );
 }
