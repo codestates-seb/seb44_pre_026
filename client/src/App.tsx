@@ -14,7 +14,7 @@ import Header from "./layout/Header/Header";
 import SideBar from "./layout/SideBar/SideBar";
 import Footer from "./layout/Footer/Footer";
 import Search from "./pages/Search/Search";
-import { ACCESS_TOKEN } from "./constants/constants";
+import { ACCESS_TOKEN, BASE_URL } from "./constants/constants";
 
 function App() {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ function App() {
     e.preventDefault();
 
     await axios
-      .get(`/api/questions/search?page=1&keyword=${search}`, {
+      .get(BASE_URL + `/questions/search?page=1&keyword=${search}`, {
         headers: {
           Authorization: token,
         },
