@@ -4,6 +4,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import preproject.server.auth.utils.CustomAuthorityUtils;
@@ -69,12 +70,26 @@ public class MemberService {
         return members;
     }
 
-    public void deleteMember(long memberId) {
+/*    public void deleteMember(long memberId) {
         // DB에서 삭제하지 않고 status를 변경
         Member findMember = findVerifiedMember(memberId);
         findMember.setMemberStatus(Member.MemberStatus.MEMBER_QUIT);
 
         memberRepository.save(findMember);
+    }*/
+
+    public void deleteMember() {
+        // DB에서 삭제하지 않고 status를 변경
+        String principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        Optional<Member> findMember = memberRepository.findByEmail(principal);
+
+        if (findMember.isPresent()) {
+            Member member = findMember.get();
+            member.setMemberStatus(Member.MemberStatus.MEMBER_QUIT);
+            memberRepository.save(member);
+        } else {
+            throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
+        }
     }
 
     public Member findVerifiedMember(long memberId) {

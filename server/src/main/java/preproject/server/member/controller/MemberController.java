@@ -88,9 +88,16 @@ public class MemberController {
         return new ResponseEntity(new PageResponseDto(response,pageInfo), HttpStatus.OK);
     } // 순수 회원 정보만 리턴
 
-    @DeleteMapping("/{member-id}")
+/*    @DeleteMapping("/{member-id}")
     public ResponseEntity deleteMember(@PathVariable("member-id") @Positive long memberId) {
         memberService.deleteMember(memberId);
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }//^*/
+
+    @DeleteMapping
+    public ResponseEntity deleteMember() {
+        memberService.deleteMember();
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }//^
