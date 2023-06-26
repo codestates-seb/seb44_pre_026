@@ -59,15 +59,11 @@ public class MemberService {
         return memberRepository.save(findMember);
     }
     public Member findMember(long memberId) {
-        Member findMember = findVerifiedMember(memberId);
-
-        return findMember;
+        return findVerifiedMember(memberId);
     }
 
     public Page<Member> findMembers(int page, int size) {
-        Page<Member> members = memberRepository.findAll(PageRequest.of(page, size, Sort.by("memberId").descending()));
-
-        return members;
+        return memberRepository.findAllByMemberStatus(PageRequest.of(page, size), Member.MemberStatus.MEMBER_ACTIVE);
     }
 
 /*    public void deleteMember(long memberId) {
@@ -93,7 +89,7 @@ public class MemberService {
     }
 
     public Member findVerifiedMember(long memberId) {
-        Optional<Member> optionalMember = memberRepository.findById(memberId);
+        Optional<Member> optionalMember = memberRepository.findByMemberIdAndMemberStatus(memberId, Member.MemberStatus.MEMBER_ACTIVE);
 
         Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
 
