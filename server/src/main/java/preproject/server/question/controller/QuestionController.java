@@ -57,10 +57,9 @@ public class QuestionController {
     }
 
     @GetMapping
-    public ResponseEntity getQuestions(@Positive @RequestParam int page,
-                                       @Positive @RequestParam int size) {
+    public ResponseEntity getQuestions(@Positive @RequestParam int page) {
 
-        Pageable pageable = PageRequest.of(page - 1, size, Sort.by("createdAt").descending());
+        Pageable pageable = PageRequest.of(page, 15, Sort.by("createdAt").descending());
         Page<Question> pageQuestions = questionService.getQuestions(pageable);
         List<Question> questions = pageQuestions.getContent();
 
