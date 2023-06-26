@@ -48,7 +48,12 @@ public class SecurityConfiguration {
             .headers().frameOptions().sameOrigin()
             .and()
             .csrf().disable()
-            .cors(withDefaults())
+//            .cors(withDefaults())
+//            .cors().and()
+            .cors()
+            .configurationSource(corsConfigurationSource())
+
+            .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .formLogin().disable()
@@ -65,25 +70,19 @@ public class SecurityConfiguration {
                     .antMatchers(HttpMethod.GET, "/members").hasAnyRole("USER", "ADMIN")
                     .antMatchers(HttpMethod.GET, "/members/**").hasAnyRole("USER", "ADMIN")
                     .antMatchers(HttpMethod.DELETE, "/members/**").hasRole("USER")
+
+//                    .antMatchers(HttpMethod.GET, "/questions/**").hasAnyRole("USER", "ADMIN")
+                    .antMatchers(HttpMethod.GET, "/questions**").permitAll()
+                    .antMatchers(HttpMethod.GET, "/questions/**").hasAnyRole("USER", "ADMIN")
                     .antMatchers(HttpMethod.POST, "/questions").hasRole("USER")
                     .antMatchers(HttpMethod.PATCH, "/questions/**").hasRole("USER")
-                    .antMatchers(HttpMethod.GET, "/questions").hasAnyRole("USER", "ADMIN")
-                    .antMatchers(HttpMethod.GET, "/questions/**").hasAnyRole("USER", "ADMIN")
                     .antMatchers(HttpMethod.DELETE, "/questions/**").hasRole("USER")
+
                     .antMatchers(HttpMethod.POST, "/answers").hasRole("USER")
                     .antMatchers(HttpMethod.PATCH, "/answers/**").hasRole("USER")
                     .antMatchers(HttpMethod.GET, "/answers").hasAnyRole("USER", "ADMIN")
                     .antMatchers(HttpMethod.GET, "/answers/**").hasAnyRole("USER", "ADMIN")
                     .antMatchers(HttpMethod.DELETE, "/answers/**").hasRole("USER")
-//                    .antMatchers(HttpMethod.POST, "/*/coffees").hasRole("ADMIN")
-//                    .antMatchers(HttpMethod.PATCH, "/*/coffees/**").hasRole("ADMIN")
-//                    .antMatchers(HttpMethod.GET, "/*/coffees/**").hasAnyRole("USER", "ADMIN")
-//                    .antMatchers(HttpMethod.GET, "/*/coffees").permitAll()
-//                    .antMatchers(HttpMethod.DELETE, "/*/coffees").hasRole("ADMIN")
-//                    .antMatchers(HttpMethod.POST, "/*/orders").hasRole("USER")
-//                    .antMatchers(HttpMethod.PATCH, "/*/orders").hasAnyRole("USER", "ADMIN")
-//                    .antMatchers(HttpMethod.GET, "/*/orders/**").hasAnyRole("USER", "ADMIN")
-//                    .antMatchers(HttpMethod.DELETE, "/*/orders").hasRole("USER")
                     .anyRequest().permitAll()
             );
         return http.build();
@@ -95,15 +94,48 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH", "DELETE"));
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.addAllowedOriginPattern("*");
+        corsConfiguration.addAllowedOriginPattern("http://whatmerge-bucket.s3-website.ap-northeast-2.amazonaws.com");
+        corsConfiguration.addAllowedOriginPattern("https://d1ezuold66jmq2.cloudfront.net");
+        corsConfiguration.addAllowedMethod("*");
+        corsConfiguration.addAllowedHeader("*");
+        corsConfiguration.addExposedHeader("Authorization");
+        corsConfiguration.addExposedHeader("RefreshToken");
+        corsConfiguration.setAllowCredentials(true);
+
+        corsConfiguration.setMaxAge(3600L);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration("/**", corsConfiguration);
         return source;
     }
 
+//    @Bean
+//    CorsConfigurationSource corsConfigurationSource() {
+//        CorsConfiguration configuration = new CorsConfiguration();
+//        configuration.setAllowedOrigins(Arrays.asList("*"));
+//        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH", "DELETE"));
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", configuration);
+//        return source;
+//    }
+
+//    @Bean
+//    public CorsConfigurationSource corsConfigurationSource() {
+//        CorsConfiguration corsConfiguration = new CorsConfiguration();
+//        corsConfiguration.setAllowedOrigins(Arrays.asList("*"));
+//        corsConfiguration.setAllowedMethods(Arrays.asList("POST", "PATCH", "GET", "DELETE", "OPTIONS"));
+//        corsConfiguration.setAllowedHeaders(Arrays.asList("*"));
+//        corsConfiguration.setExposedHeaders(Arrays.asList("*"));
+//        corsConfiguration.addAllowedHeader("*");
+//        corsConfiguration.setAllowCredentials(false);
+//
+//        corsConfiguration.setMaxAge(3600L);
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", corsConfiguration);
+//        return source;
+//    }
 
     public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
         @Override
