@@ -35,6 +35,7 @@ function AskQuestion() {
         {
           headers: {
             Authorization: token,
+            withCredentials: true,
           },
         }
       )
