@@ -1,21 +1,21 @@
 import * as S from "./style";
 import LogoImg from "../../assets/Stack_Overflow_logo.png";
 import { FaSearch } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { Link } from "react-router-dom";
 
 //로그인 전 헤더
-const Header = () => {
-  const navigate = useNavigate();
-  const [search, setSearch] = useState("");
+
+interface Props {
+  handleSearch: (e: React.FormEvent<HTMLFormElement>) => void;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  search: string;
+}
+
+const Header = ({ handleSearch, setSearch, search }: Props) => {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      handleSearch();
+      handleSearch;
     }
-  };
-
-  const handleSearch = () => {
-    navigate(`/search/?q=${search}`);
   };
 
   return (
@@ -36,11 +36,15 @@ const Header = () => {
 
       <S.Searchbar>
         <FaSearch className="icon"></FaSearch>
-        <input
-          className="searchbar_input"
-          placeholder="Search..."
-          onKeyDown={handleKeyDown}
-        ></input>
+        <form onSubmit={handleSearch}>
+          <input
+            className="searchbar_input"
+            placeholder="Search..."
+            onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={handleKeyDown}
+            value={search}
+          ></input>
+        </form>
       </S.Searchbar>
 
       <S.Button>
@@ -48,7 +52,7 @@ const Header = () => {
           <Link to="/login"> Log in</Link>{" "}
         </S.LoginBtn>
         <S.SignUpBtn>
-          <Link to="/sign up">Sign up</Link>
+          <Link to="/signup">Sign up</Link>
         </S.SignUpBtn>
       </S.Button>
     </S.HeaderContainer>
