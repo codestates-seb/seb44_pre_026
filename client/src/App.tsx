@@ -14,17 +14,27 @@ import Header from "./layout/Header/Header";
 import SideBar from "./layout/SideBar/SideBar";
 import Footer from "./layout/Footer/Footer";
 import Search from "./pages/Search/Search";
+import { ACCESS_TOKEN } from "./constants/constants";
 
 function App() {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [data, setData] = useState<QuestionsProps[]>([]);
 
-  const handleSearch = () => {
-    axios
-      .get(`/api/questions/search?page=1&keyword=${search}`)
-      .then(res => setData(res.data));
-    navigate(`/questions/${search}`);
+  const token = localStorage.getItem(ACCESS_TOKEN);
+
+  const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    await axios
+      .get(`/api/questions/search?page=1&keyword=${search}`, {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then(res => setData(res.data.data));
+    navigate(`/questions/search/${search}`);
+    setSearch("");
   };
 
   return (
@@ -43,7 +53,10 @@ function App() {
           <Route path="/questions/:id/edit" element={<QuestionEdit />} />
           <Route path="/questions/:qid/:id" element={<AnswerEdit />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/questions/:keyword" element={<Search data={data} />} />
+          <Route
+            path="/questions/search/:keyword"
+            element={<Search data={data} />}
+          />
           <Route path="/signup" element={<SignUp />} />
         </Routes>
       </div>
