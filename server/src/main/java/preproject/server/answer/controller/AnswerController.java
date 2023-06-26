@@ -63,14 +63,17 @@ public class AnswerController {
                 ,HttpStatus.OK);
     }
 
-    @GetMapping
-    public ResponseEntity getAnswers(@PageableDefault(page = 1, size = 15)Pageable pageable) {
+    @GetMapping("/questions/{question-id}")
+    public ResponseEntity getAnswers(@PathVariable("question-id") @Positive Long questionId,
+                                     @Positive @RequestParam(value = "page", defaultValue = "1") int page,
+                                     @Positive @RequestParam(value = "size", defaultValue = "5") int size) {
 
-        Page<Answer> pageAnswers = answerService.findAnswers(pageable);
-        List<Answer> answers = pageAnswers.getContent();
+        Page<Answer> answerPage = answerService.findAnswers(questionId, page - 1, size);
+        List<Answer> answerList = answerPage.getContent();
+        List<AnswerDto.Response> responseList = mapper.answerToAnswerResponses(answerList);
+
         return new ResponseEntity<>(
-                new MultiResponseDto<>(mapper.answerToAnswerResponses(answers), pageAnswers)
-                ,HttpStatus.OK);
+                new MultiResponseDto<>(responseList,answerPage), HttpStatus.OK);
     }
 
     @DeleteMapping("/{answerId}")

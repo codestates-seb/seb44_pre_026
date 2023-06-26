@@ -68,11 +68,12 @@ public class AnswerService {
         return findAnswer;
     }
 
-    public Page<Answer> findAnswers(Pageable pageable) {
-        Pageable pageRequest = PageRequest.of(pageable.getPageNumber() - 1,
-                pageable.getPageSize(), Sort.by("createdAt").descending());
-        return answerRepository
-                .findAll(pageRequest);
+    public Page<Answer> findAnswers(long questionId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("answerId").descending());
+        Optional<Page<Answer>> optionalAnswers =answerRepository.findByQuestionQuestionId(questionId,pageable);
+
+        Page<Answer> answerPage = optionalAnswers.orElseThrow(() ->  new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
+        return answerPage;
     }
 
     public void deleteAnswer(long answerId) {

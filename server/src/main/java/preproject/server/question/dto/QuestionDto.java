@@ -18,7 +18,7 @@ public class QuestionDto {
         private long memberId;
     }
 
-    @AllArgsConstructor
+
     @NoArgsConstructor
     @Setter
     @Getter
@@ -27,6 +27,7 @@ public class QuestionDto {
         private String title;
         @NotBlank(message = "질문 내용을 작성해야 합니다.")
         private String content;
+        private long memberId;
     }
     @Getter @Setter
     @Builder
