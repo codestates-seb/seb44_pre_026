@@ -26,18 +26,18 @@ button:hover {
   background-color: var(--highlight-bg);
   color: var(--highlight-color);
   border-radius: 3px;
+}
 
-  &::-webkit-scrollbar {
-    width: 8px;
-    height: 10px;
-    border-radius: 5px;
-  }
+.ql-syntax::-webkit-scrollbar {
+  width: 8px;
+  height: 10px;
+  border-radius: 5px;
+}
 
-  &::-webkit-scrollbar-thumb {
-    height: 30%;
-    background-color: var(--black-150);
-    border-radius: 10px;
-  }
+.ql-syntax::-webkit-scrollbar-thumb {
+  height: 30%;
+  background-color: var(--black-150);
+  border-radius: 10px;
 }
 
 .contents {

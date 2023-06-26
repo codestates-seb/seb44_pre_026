@@ -6,7 +6,7 @@ import { DetailProps } from "../Detail/Detail";
 import TextEditor from "../../components/TextEditor/TextEditor";
 import EditTip from "../../components/EditTip/EditTip";
 import useInput from "../../hooks/useInput";
-import { BASE_URL } from "../../constants/constants";
+import { ACCESS_TOKEN, BASE_URL } from "../../constants/constants";
 
 function AnswerEdit() {
   const [question, setQuestion] = useState<DetailProps>({
@@ -23,29 +23,49 @@ function AnswerEdit() {
   const [bodyValue, changeBodyHandler, bodyReset] = useInput(initialBody);
 
   const { qid, id } = useParams();
+  const token = localStorage.getItem(ACCESS_TOKEN);
+
   const navigate = useNavigate();
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    axios.patch(BASE_URL + `/answers/${id}`, {
-      content: bodyValue,
-    });
+    axios.patch(
+      BASE_URL + `/answers/${id}`,
+      {
+        content: bodyValue,
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
 
     navigate(-1);
   };
 
   const fetch = async () => {
-    const response = await axios.get(BASE_URL + `/questions/${qid}`);
+    const response = await axios.get(BASE_URL + `/questions/${qid}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
     setQuestion(response?.data.data);
   };
 
   useEffect(() => {
-    axios.get(BASE_URL + `/answers/${id}`).then(res => {
-      setInitialBody(res.data.data.content);
-      bodyReset();
-      fetch();
-    });
+    axios
+      .get(BASE_URL + `/answers/${id}`, {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then(res => {
+        setInitialBody(res.data.data.content);
+        bodyReset();
+        fetch();
+      });
 
     fetch();
   }, [initialBody]);

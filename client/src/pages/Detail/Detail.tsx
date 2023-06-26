@@ -4,7 +4,7 @@ import * as S from "./style";
 import Posting from "../../components/Posting/Posting";
 import Answer from "../../components/Answer/Answer";
 import { useParams } from "react-router-dom";
-import { BASE_URL } from "../../constants/constants";
+import { ACCESS_TOKEN, BASE_URL } from "../../constants/constants";
 
 export interface AnswerProps {
   memberId: string;
@@ -42,21 +42,29 @@ function Detail() {
   const [complete, setComplete] = useState(false);
 
   const { id } = useParams();
+  const token = localStorage.getItem(ACCESS_TOKEN);
 
   const fetch = async () => {
-    const response = await axios.get(BASE_URL + `/questions/${id}`);
+    const response = await axios.get(BASE_URL + `/questions/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
     setAskData(response?.data.data);
     setComplete(false);
   };
 
   useEffect(() => {
-    axios.get(BASE_URL + "/answers").then(res => setAnswerData(res.data.data));
+    axios
+      .get(BASE_URL + "/answers", {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then(res => setAnswerData(res.data.data));
 
     fetch();
   }, [complete]);
-
-  console.log("answerData = ", answerData);
-  console.log("askData = ", askData);
 
   return (
     <S.Section>

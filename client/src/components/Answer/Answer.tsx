@@ -5,7 +5,7 @@ import TextEditor from "../TextEditor/TextEditor";
 import useInput from "../../hooks/useInput";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import { BASE_URL } from "../../constants/constants";
+import { ACCESS_TOKEN, BASE_URL } from "../../constants/constants";
 
 interface Props {
   answerData: AnswerProps[];
@@ -16,16 +16,24 @@ function Answer({ answerData, setComplete }: Props) {
   const [bodyValue, changeBodyHandler, resetBody] = useInput("");
 
   const { id } = useParams();
-  const navigate = useNavigate();
+  const token = localStorage.getItem(ACCESS_TOKEN);
 
-  console.log("[Answer] param id = ", id);
+  const navigate = useNavigate();
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    axios.post(BASE_URL + `/answers/${id}`, {
-      content: bodyValue,
-    });
+    axios.post(
+      BASE_URL + `/answers/${id}`,
+      {
+        content: bodyValue,
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
 
     navigate(`/questions/${id}`);
     setComplete(true);
