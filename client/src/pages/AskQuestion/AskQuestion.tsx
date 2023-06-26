@@ -26,8 +26,7 @@ function AskQuestion() {
 
     axios
       .post(
-        // BASE_URL + "/questions",
-        "/api/questions",
+        BASE_URL + "/questions",
         {
           title: titleValue,
           content: bodyValue,

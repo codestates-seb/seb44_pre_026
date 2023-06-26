@@ -44,6 +44,8 @@ function Detail() {
   const { id } = useParams();
   const token = localStorage.getItem(ACCESS_TOKEN);
 
+  console.log("[Detail] token = ", token);
+
   const fetch = async () => {
     const response = await axios.get(BASE_URL + `/questions/${id}`, {
       headers: {

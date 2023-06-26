@@ -1,7 +1,7 @@
 import * as S from "./style";
 import { Link } from "react-router-dom";
 import { IoEarthSharp } from "react-icons/io5";
-import React, { useState } from "react";
+import { useState } from "react";
 import { handleLogout } from "../../components/Logout/Logout";
 
 const SideBar = () => {

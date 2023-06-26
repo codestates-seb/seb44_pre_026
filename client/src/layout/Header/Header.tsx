@@ -1,13 +1,13 @@
 import * as S from "./style";
 import LogoImg from "../../assets/Stack_Overflow_logo.png";
 import { FaSearch } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { Link } from "react-router-dom";
+// import { useState } from "react";
 
 //로그인 전 헤더
 const Header = () => {
-  const navigate = useNavigate();
-  const [search, setSearch] = useState("");
+  // const navigate = useNavigate();
+  // const [search, setSearch] = useState("");
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleSearch();
@@ -15,7 +15,7 @@ const Header = () => {
   };
 
   const handleSearch = () => {
-    navigate(`/search/?q=${search}`);
+    // navigate(`/search/?q=${search}`);
   };
 
   return (
