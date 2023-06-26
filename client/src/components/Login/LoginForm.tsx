@@ -13,9 +13,6 @@ function LoginForm() {
     password: "",
   });
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
   const [emailFailedMsg, setEmailFailedMsg] = useState(false);
   const [passwordFailedMsg, setPasswordFailedMsg] = useState(false);
 
@@ -27,10 +24,10 @@ function LoginForm() {
   const handleIdValue = (e: any) => {
     setLoginInfo({ ...loginInfo, email: e.target.value });
     if (idValidation.test(e.target.value) && e.target.value !== null) {
-      setEmail(e.target.value);
       setEmailFailedMsg(false);
     } else {
       setEmailFailedMsg(true);
+      localStorage.setItem("loginEmailFailedMsg", "invalid email");
     }
   };
 
@@ -38,10 +35,10 @@ function LoginForm() {
   const handlePasswordValue = (e: any) => {
     setLoginInfo({ ...loginInfo, password: e.target.value });
     if (pwValidation.test(e.target.value) && e.target.value !== null) {
-      setPassword(e.target.value);
       setPasswordFailedMsg(false);
     } else {
       setPasswordFailedMsg(true);
+      localStorage.setItem("loginPasswordFailedMsg", "invalid password");
     }
   };
 
@@ -49,12 +46,6 @@ function LoginForm() {
     event: React.MouseEvent
   ) => {
     event.preventDefault();
-    if (!email) {
-      localStorage.setItem("loginEmailFailedMsg", "invalid email");
-    }
-    if (!password) {
-      localStorage.setItem("loginPasswordFailedMsg", "invalid password");
-    }
 
     try {
       await axios.post(BASE_URL + "/auth/login", loginInfo).then(response => {

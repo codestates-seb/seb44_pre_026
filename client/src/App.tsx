@@ -6,6 +6,7 @@ import Detail from "./pages/Detail/Detail";
 import QuestionEdit from "./pages/QuestionEdit/QuestionEdit";
 import AnswerEdit from "./pages/AnswerEdit/AnswerEdit";
 import Login from "./pages/Login/LoginPage";
+import SignUp from "./pages/SignUp/SignUpPage";
 import Header from "./layout/Header/Header";
 import SideBar from "./layout/SideBar/SideBar";
 import Footer from "./layout/Footer/Footer";
@@ -24,6 +25,7 @@ function App() {
             <Route path="/questions/:id/edit" element={<QuestionEdit />} />
             <Route path="/questions/:qid/:id" element={<AnswerEdit />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/SignUp" element={<SignUp />} />
           </Routes>
         </div>
         <Footer />
