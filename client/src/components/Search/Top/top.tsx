@@ -2,6 +2,7 @@ import * as S from "./style";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
+//검색창
 function Top() {
   // Ask Question 버튼 클릭시 질문 등록 페이지로 이동
   const navigate = useNavigate();
@@ -18,9 +19,12 @@ function Top() {
   return (
     <S.Top>
       <S.TitleWrapper>
-        <S.Title>All Questions</S.Title>
+        <S.Title>Search Results</S.Title>
         <S.AskButton onClick={goUrl}>Ask Question</S.AskButton>
       </S.TitleWrapper>
+
+      <div>Results for</div>
+      <div>Search options not deleted</div>
 
       <S.ButtonWrapper>
         <div className="TagButtons">
@@ -32,13 +36,7 @@ function Top() {
             <span>More</span>
           </S.TagButton>
           <S.TagButton>
-            <span>Unanswered</span>
-          </S.TagButton>
-          <S.TagButton>
-            <span>Bountied</span>
-          </S.TagButton>
-          <S.TagButton>
-            <span>Active</span>
+            <span>Relevance</span>
           </S.TagButton>
           <S.TagButton className={tab ? "active" : ""} onClick={handleClick}>
             <span>Newest</span>
