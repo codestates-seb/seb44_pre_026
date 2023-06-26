@@ -23,8 +23,8 @@ function Home() {
   useEffect(() => {
     axios
       .get(BASE_URL + "/questions?page=2&size=15")
-      .then(res => setData(res.data));
-  });
+      .then(res => setData(res.data.data));
+  }, []);
 
   return (
     <S.Home>

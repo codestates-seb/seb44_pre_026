@@ -16,7 +16,7 @@ function Question({ questions }: Props) {
   return (
     <S.Question>
       <S.ContentWrapper className="contentWrapper">
-        {questions.map((e) => (
+        {questions.map(e => (
           <>
             <S.Answers key={e.questionId} className="answer">
               {/* 답변수 */}
@@ -25,10 +25,10 @@ function Question({ questions }: Props) {
 
             <S.QuestionInfo className="questionInfo">
               <div>
-                <Link to="/questions/{e.questionId}" className="title">
+                <Link to={`/questions/${e.questionId}`} className="title">
                   {e.title}
                 </Link>
-                <div className="contetns">{truncate(e.content, 200)}</div>
+                <div className="contents">{truncate(e.content, 200)}</div>
               </div>
               <button className="tag">태그</button>
               <div className="info">
