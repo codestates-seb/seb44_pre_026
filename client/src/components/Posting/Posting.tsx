@@ -24,14 +24,13 @@ function Posting({ content, isAsk, answerId, setComplete }: PostingProps) {
       ? BASE_URL + `/questions/${id}`
       : BASE_URL + `/answers/${answerId}`;
     if (window.confirm("삭제하시겠습니까?")) {
-      axios
-        .delete(url, {
-          headers: {
-            Authorization: token,
-            withCredentials: true,
-          },
-        })
-        .then(res => navigate("/"));
+      axios.delete(url, {
+        headers: {
+          Authorization: token,
+          withCredentials: true,
+        },
+      });
+      navigate("/");
       setComplete(true);
     }
   };
