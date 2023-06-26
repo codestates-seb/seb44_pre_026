@@ -23,7 +23,7 @@ function App() {
   const handleSearch = () => {
     axios
       .get(`/api/questions/search?page=1&keyword=${search}`)
-      .then((res) => setData(res.data));
+      .then(res => setData(res.data));
     navigate(`/questions/${search}`);
   };
 
@@ -44,7 +44,7 @@ function App() {
           <Route path="/questions/:qid/:id" element={<AnswerEdit />} />
           <Route path="/login" element={<Login />} />
           <Route path="/questions/:keyword" element={<Search data={data} />} />
-          <Route path="/SignUp" element={<SignUp />} />
+          <Route path="/signup" element={<SignUp />} />
         </Routes>
       </div>
       <Footer />

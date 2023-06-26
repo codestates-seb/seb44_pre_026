@@ -18,6 +18,11 @@ export const EditLayout = styled.article`
 export const FormLayout = styled.form`
   display: flex;
   width: 70%;
+  flex-direction: column;
+
+  & > div:first-child {
+    width: 835px;
+  }
 
   & h2 {
     font-size: 17px;

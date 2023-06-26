@@ -2,6 +2,8 @@ import { useMemo } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import React from "react";
+import hljs from "highlight.js";
+import "highlight.js/styles/github.css";
 
 interface EditorProps {
   bodyValue: string;
@@ -9,12 +11,11 @@ interface EditorProps {
 }
 
 function TextEditor({ bodyValue, changeHandler }: EditorProps) {
-  const onChangeHandler = (e: any) => {
-    changeHandler(e);
-  };
-
   const modules = useMemo(
     () => ({
+      syntax: {
+        highlight: (text: string) => hljs.highlightAuto(text).value,
+      },
       toolbar: {
         container: [
           [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -32,7 +33,7 @@ function TextEditor({ bodyValue, changeHandler }: EditorProps) {
   return (
     <ReactQuill
       modules={modules}
-      onChange={onChangeHandler}
+      onChange={(e: any) => changeHandler(e)}
       value={bodyValue}
       style={{
         height: "210px",

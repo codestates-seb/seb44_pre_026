@@ -4,6 +4,7 @@ import arrowDown from "../../assets/arrowdown.png";
 import { AnswerProps, DetailProps } from "../../pages/Detail/Detail";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import { BASE_URL } from "../../constants/constants";
 
 interface PostingProps {
   content: DetailProps | AnswerProps;
@@ -16,7 +17,9 @@ function Posting({ content, isAsk, answerId, setComplete }: PostingProps) {
   const { id } = useParams();
 
   const deleteHandler = () => {
-    const url = isAsk ? `/api/questions/${id}` : `/api/answers/${answerId}`;
+    const url = isAsk
+      ? BASE_URL + `/questions/${id}`
+      : BASE_URL + `/answers/${answerId}`;
     if (window.confirm("삭제하시겠습니까?")) {
       axios.delete(url);
       setComplete(true);
@@ -66,7 +69,7 @@ function Posting({ content, isAsk, answerId, setComplete }: PostingProps) {
                 style={{ width: "36px", height: "36px" }}
               />
               <span>
-                <a href="#">{content.memberId}</a>
+                <a href="#">{content.name}</a>
               </span>
             </div>
             {/* <div>👋 New Contributor</div> */}

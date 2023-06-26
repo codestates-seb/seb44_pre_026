@@ -5,6 +5,7 @@ import EditTip from "../../components/EditTip/EditTip";
 import useInput from "../../hooks/useInput";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { ACCESS_TOKEN, BASE_URL } from "../../constants/constants";
 
 // TODO: initial, useEffect 부분 리팩토링 필요
 
@@ -17,24 +18,39 @@ function QuestionEdit() {
   const navigate = useNavigate();
 
   const { id } = useParams();
+  const token = localStorage.getItem(ACCESS_TOKEN);
 
   useEffect(() => {
-    axios.get(`/api/questions/${id}`).then(res => {
-      setInitialTitle(res.data.data.title);
-      setInitialBody(res.data.data.content);
-      titleReset();
-      bodyReset();
-    });
+    axios
+      .get(BASE_URL + `/questions/${id}`, {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then(res => {
+        setInitialTitle(res.data.data.title);
+        setInitialBody(res.data.data.content);
+        titleReset();
+        bodyReset();
+      });
   }, [initialTitle, initialBody]);
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    axios.patch(`/api/questions/${id}`, {
-      title: titleValue,
-      content: bodyValue,
-      memberId: 1,
-    });
+    axios.patch(
+      BASE_URL + `/questions/${id}`,
+      {
+        title: titleValue,
+        content: bodyValue,
+        memberId: 1,
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
 
     navigate(`/questions/${id}`);
   };

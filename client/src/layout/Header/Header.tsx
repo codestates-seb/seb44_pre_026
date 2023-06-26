@@ -43,7 +43,7 @@ const Header = ({ handleSearch, setSearch, search }: Props) => {
           <input
             className="searchbar_input"
             placeholder="Search..."
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={e => setSearch(e.target.value)}
             onKeyDown={handleKeyDown}
             value={search}
           ></input>

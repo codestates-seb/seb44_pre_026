@@ -25,7 +25,7 @@ function SignUpForm() {
 
   const idValidation = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const pwValidation = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/;
-  // const nickNameValidation = / /;
+  const nickNameValidation = /^[ㄱ-ㅎ가-힣a-zA-Z0-9]+$/;
 
   const handleNameValue = (e: any) => {
     setSignUpInfo({ ...signUpInfo, nickName: e.target.value });
@@ -33,15 +33,15 @@ function SignUpForm() {
   };
 
   const handleNickNameValue = (e: any) => {
-    // const nickNameVal = e.target.value;
+    const nickNameVal = e.target.value;
     setSignUpInfo({ ...signUpInfo, nickName: e.target.value });
-    // if (nickNameValidation.test(nickNameVal) && nickNameVal !== null) {
-    //   setNickName(e.target.value);
-    //   setNickNameFailedMsg(false);
-    // } else {
-    //   setNickNameFailedMsg(true);
-    //   localStorage.setItem("nickNameFailedMsg", "Invalid Nick Name");
-    // }
+    if (nickNameValidation.test(nickNameVal) && nickNameVal !== null) {
+      setNickName(e.target.value);
+      setNickNameFailedMsg(false);
+    } else {
+      setNickNameFailedMsg(true);
+      localStorage.setItem("nickNameFailedMsg", "Invalid Nick Name");
+    }
   };
 
   const handleEmailValue = (e: any) => {
@@ -84,7 +84,7 @@ function SignUpForm() {
           nickName: nickName,
           password: password,
         })
-        .then((response) => {
+        .then(response => {
           console.log(response.data);
           navigation("/");
         });
