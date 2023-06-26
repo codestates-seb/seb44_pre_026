@@ -1,30 +1,14 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
 import * as S from "./style";
 import Top from "../../components/Search/Top/top";
 import Question from "../../components/Search/Question/Question";
 import Bottom from "../../components/Search/Bottom/Bottom";
+import { QuestionsProps } from "../Home/Home";
 
-export interface QuestionsProps {
-  memberId: string;
-  questionId: number;
-  answerId: string;
-  title: string;
-  content: string;
-  name: string;
-  createdAt: string;
-  modifiedAt: string;
+interface Props {
+  data: QuestionsProps[];
 }
 
-function Search() {
-  const [data, setData] = useState<QuestionsProps[]>([]);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:5173/src/moks/questions.json")
-      .then((res) => setData(res.data));
-  });
-
+function Search({ data }: Props) {
   return (
     <S.Search>
       <S.Content>
