@@ -15,6 +15,7 @@ import SideBar from "./layout/SideBar/SideBar";
 import Footer from "./layout/Footer/Footer";
 import Search from "./pages/Search/Search";
 import { ACCESS_TOKEN, BASE_URL } from "./constants/constants";
+import ScrollTop from "./components/ScrollTop/ScrollTop";
 
 function App() {
   const navigate = useNavigate();
@@ -46,6 +47,7 @@ function App() {
       />
       <SideBar />
       <div className="contents">
+        <ScrollTop />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/questions/ask" element={<AskQuestion />} />

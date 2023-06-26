@@ -1,12 +1,15 @@
 import * as S from "./style";
 import { QuestionsProps } from "../../../pages/Home/Home";
 import { Link } from "react-router-dom";
+import { ACCESS_TOKEN } from "../../../constants/constants";
 
 interface Props {
   questions: QuestionsProps[];
 }
 
 function Question({ questions }: Props) {
+  const token = localStorage.getItem(ACCESS_TOKEN);
+
   return (
     <S.Question>
       <S.ContentWrapper className="contentWrapper">
@@ -19,7 +22,10 @@ function Question({ questions }: Props) {
 
             <S.QuestionInfo className="questionInfo">
               <div>
-                <Link to={`/questions/${e.questionId}`} className="title">
+                <Link
+                  to={token ? `/questions/${e.questionId}` : "/login"}
+                  className="title"
+                >
                   {e.title}
                 </Link>
               </div>
