@@ -47,9 +47,10 @@ public class MemberService {
 
     public Member updateMember(Member member) {
         Member findMember = findVerifiedMember(member.getMemberId());
+        String encryptedPassword = passwordEncoder.encode(member.getPassword());
+        findMember.setPassword(encryptedPassword);
 
-        Optional.ofNullable(member.getPassword())
-                .ifPresent(password -> findMember.setPassword(password));
+
         Optional.ofNullable(member.getNickName())
                 .ifPresent(nickName -> findMember.setNickName(nickName));
         Optional.ofNullable(member.getMemberStatus())
