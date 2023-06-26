@@ -57,15 +57,17 @@ function Answer({ answerData, setComplete }: Props) {
           </S.SortMenu>
         </S.Header>
         {answerData.length > 0 &&
-          answerData.map(e => (
-            <Posting
-              key={e.answerId}
-              content={e}
-              isAsk={false}
-              answerId={e.answerId}
-              setComplete={setComplete}
-            />
-          ))}
+          answerData
+            .sort((a, b) => parseInt(a.answerId) - parseInt(b.answerId))
+            .map(e => (
+              <Posting
+                key={e.answerId}
+                content={e}
+                isAsk={false}
+                answerId={e.answerId}
+                setComplete={setComplete}
+              />
+            ))}
       </S.AnswerLayout>
       <S.FormLayout>
         <S.FormBox onSubmit={e => submitHandler(e)}>
