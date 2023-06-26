@@ -2,6 +2,7 @@ import * as S from "./style";
 import LogoImg from "../../assets/Stack_Overflow_logo.png";
 import { FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { handleLogout } from "../../components/Logout/Logout";
 
 //로그인 전 헤더
 
@@ -17,6 +18,8 @@ const Header = ({ handleSearch, setSearch, search }: Props) => {
       handleSearch;
     }
   };
+
+  const token = localStorage.getItem("accessToken");
 
   return (
     <S.HeaderContainer>
@@ -48,12 +51,20 @@ const Header = ({ handleSearch, setSearch, search }: Props) => {
       </S.Searchbar>
 
       <S.Button>
-        <S.LoginBtn>
-          <Link to="/login"> Log in</Link>{" "}
-        </S.LoginBtn>
-        <S.SignUpBtn>
-          <Link to="/signup">Sign up</Link>
-        </S.SignUpBtn>
+        {token ? (
+          <div className="logout" onClick={handleLogout}>
+            <S.LogoutBtn>Log Out </S.LogoutBtn>
+          </div>
+        ) : (
+          <>
+            <S.LoginBtn>
+              <Link to="/login"> Log in</Link>{" "}
+            </S.LoginBtn>
+            <S.SignUpBtn>
+              <Link to="/signup">Sign up</Link>
+            </S.SignUpBtn>{" "}
+          </>
+        )}
       </S.Button>
     </S.HeaderContainer>
   );

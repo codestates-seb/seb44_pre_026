@@ -65,6 +65,18 @@ export const SignUpBtn = styled.button`
   border-radius: 5px;
 `;
 
+export const LogoutBtn = styled.button`
+  width: 95px;
+  height: 48px;
+  font-size: 20px;
+  background-color: rgb(225, 236, 244);
+  color: rgb(9, 149, 255);
+  border: none;
+  outline: rgb(121, 167, 199);
+  margin-inline-end: 10px;
+  border-radius: 5px;
+`;
+
 export const Searchbar = styled.div`
   width: 50rem;
   height: 48px;
