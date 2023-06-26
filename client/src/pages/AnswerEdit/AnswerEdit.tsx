@@ -42,7 +42,7 @@ function AnswerEdit() {
       }
     );
 
-    navigate(-1);
+    navigate(`/questions/${qid}`);
   };
 
   const fetch = async () => {

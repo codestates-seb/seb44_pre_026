@@ -4,6 +4,7 @@ import * as S from "./style";
 import Bottom from "../../components/MainPage/Bottom/Bottom";
 import Top from "../../components/MainPage/Top/Top";
 import Question from "../../components/MainPage/Question/Question";
+import { BASE_URL } from "../../constants/constants";
 
 export interface QuestionsProps {
   memberId: string;
@@ -21,8 +22,8 @@ function Home() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5173/src/moks/questions.json")
-      .then((res) => setData(res.data));
+      .get(BASE_URL + "/questions?page=2&size=15")
+      .then(res => setData(res.data));
   });
 
   return (

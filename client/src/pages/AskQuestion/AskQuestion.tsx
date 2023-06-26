@@ -15,8 +15,6 @@ function AskQuestion() {
   const [bodyValue, changeBodyHandler, bodyReset] = useInput("");
   const [focusing, setFocusing] = useState("title");
 
-  console.log("[askQuestion] bodyValue = ", bodyValue);
-
   const navigate = useNavigate();
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
