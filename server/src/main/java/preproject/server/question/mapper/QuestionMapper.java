@@ -38,6 +38,7 @@ public interface QuestionMapper {
         QuestionResponseDto questionResponseDto =
                 QuestionResponseDto.builder()
                         .questionId(question.getQuestionId())
+                        .memberId(question.getMember().getMemberId())
                         .nickName(question.getMember().getNickName())
                         .title(question.getTitle())
                         .content(question.getContent())
