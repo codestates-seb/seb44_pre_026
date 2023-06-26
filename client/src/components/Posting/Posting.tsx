@@ -30,7 +30,9 @@ function Posting({ content, isAsk, answerId, setComplete }: PostingProps) {
           withCredentials: true,
         },
       });
-      navigate(`/questions/${id}`);
+      {
+        isAsk ? navigate("/") : navigate(`/questions/${id}`);
+      }
       setComplete(true);
     }
   };
