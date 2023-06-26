@@ -90,9 +90,7 @@ function Detail() {
         />
         <Posting content={askData} isAsk={true} setComplete={setComplete} />
       </S.DetailLayout>
-      {answerData.length > 0 && (
-        <Answer answerData={answerData} setComplete={setComplete} />
-      )}
+      <Answer answerData={answerData} setComplete={setComplete} />
     </S.Section>
   );
 }

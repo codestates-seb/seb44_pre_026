@@ -1,12 +1,18 @@
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { ACCESS_TOKEN } from "../../../constants/constants";
 
 function Top() {
+  const token = localStorage.getItem(ACCESS_TOKEN);
   // Ask Question 버튼 클릭시 질문 등록 페이지로 이동
   const navigate = useNavigate();
   const goUrl = () => {
-    navigate("/questions/ask");
+    if (token) navigate("/questions/ask");
+    else {
+      window.alert("로그인을 해주세요!");
+      navigate("/login");
+    }
   };
 
   //newest 버튼 클릭시
