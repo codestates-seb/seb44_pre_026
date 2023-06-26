@@ -1,11 +1,11 @@
+import { DetailProps } from "../../../pages/Detail/Detail";
 import * as S from "./style";
-import { QuestionsProps } from "../../../pages/Home/Home";
 import { Link } from "react-router-dom";
 
 // 검색창
 
 interface Props {
-  questions: QuestionsProps[];
+  questions: DetailProps[];
 }
 
 function Question({ questions }: Props) {
@@ -33,7 +33,7 @@ function Question({ questions }: Props) {
               <button className="tag">태그</button>
               <div className="info">
                 <span className="createdAt">{e.createdAt}</span>
-                <span className="nickname">{e.name}</span>
+                <span className="nickname">{e.nickName}</span>
               </div>
             </S.QuestionInfo>
           </>
