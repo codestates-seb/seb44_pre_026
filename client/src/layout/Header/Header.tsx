@@ -39,7 +39,7 @@ const Header = ({ handleSearch, setSearch, search }: Props) => {
 
       <S.Searchbar>
         <FaSearch className="icon"></FaSearch>
-        <form onSubmit={e => handleSearch(e)}>
+        <form onSubmit={(e) => handleSearch(e)}>
           <input
             className="searchbar_input"
             placeholder="Search..."
