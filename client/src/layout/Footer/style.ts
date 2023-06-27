@@ -2,7 +2,6 @@ import { styled } from "styled-components";
 
 export const Footer = styled.footer`
   width: 100vw;
-  margin-top: 40px;
 `;
 
 export const FooterContainer = styled.ul`

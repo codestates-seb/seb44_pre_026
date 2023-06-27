@@ -5,6 +5,7 @@ export const Section = styled.section`
   width: 100%;
   justify-content: center;
   padding: 24px;
+  padding-bottom: 50px;
 `;
 
 export const EditLayout = styled.article`
