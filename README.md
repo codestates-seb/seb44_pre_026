@@ -30,7 +30,7 @@ src="https://blog.kakaocdn.net/dn/bh2mu9/btslA5eD6VB/pqY0UuLYH7h84CmCl3nyfK/img.
 
 ### 🔎 검색
 <a href=""><img 
-src=" https://blog.kakaocdn.net/dn/b2LqHq/btslwqDCMZd/NaTkGTKKyXSMDEcOhWWaTk/img.gif" alt="검색 gif" width="540" height="300"/></a>
+src="https://blog.kakaocdn.net/dn/b2LqHq/btslwqDCMZd/NaTkGTKKyXSMDEcOhWWaTk/img.gif" alt="검색 gif" width="540" height="300"/></a>
 <p>• 검색 키워드가 제목에 포함된 질문 리스트를 가져온다.</p>
 <br>
 
