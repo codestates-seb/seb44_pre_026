@@ -7,6 +7,7 @@ export const Section = styled.section`
   justify-content: center;
   align-items: center;
   padding: 24px;
+  padding-bottom: 50px;
 `;
 
 export const Header = styled.header`

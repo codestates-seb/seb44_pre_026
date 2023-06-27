@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import { IoEarthSharp } from "react-icons/io5";
 import { useState } from "react";
 import { MemberDelete } from "../../components/MemberDelete/MemberDelete";
+import { ACCESS_TOKEN } from "../../constants/constants";
 
 const SideBar = () => {
   const [tab, setTab] = useState<string>("");
+  const token = localStorage.getItem(ACCESS_TOKEN);
 
   return (
     <S.Container>
@@ -30,7 +32,11 @@ const SideBar = () => {
           <li className="selected">Tags</li>
           <li className="selected">Users</li>
           <li className="selected">Companies</li>
-          <div className="delete" onClick={MemberDelete}>Delete Account</div>
+          {token && (
+            <div className="delete" onClick={MemberDelete}>
+              Delete Account
+            </div>
+          )}
         </S.Nav>
       </S.NavBarContainer>
     </S.Container>

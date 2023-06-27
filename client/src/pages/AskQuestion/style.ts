@@ -7,6 +7,7 @@ export const Section = styled.section`
   justify-content: center;
   background-color: hsl(210deg 10.63% 97.52%);
   padding: 24px;
+  padding-bottom: 50px;
 `;
 
 export const Header = styled.header`

@@ -2,15 +2,13 @@ import * as S from "./style";
 import Top from "../../components/Search/Top/top";
 import Question from "../../components/MainPage/Question/Question";
 import Bottom from "../../components/Search/Bottom/Bottom";
-import { QuestionsProps } from "../Home/Home";
+import { DetailProps } from "../Detail/Detail";
 
 interface Props {
-  data: QuestionsProps[];
+  data: DetailProps[];
 }
 
 function Search({ data }: Props) {
-  console.log(data);
-
   return (
     <S.Search>
       <S.Content>

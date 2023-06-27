@@ -5,6 +5,7 @@ export const Home = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-bottom: 50px;
 `;
 
 export const Content = styled.section`
