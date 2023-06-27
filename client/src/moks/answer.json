@@ -1,0 +1,18 @@
+[
+  {
+    "answer_id": 1,
+    "question_id": 1,
+    "username": "whatmerge",
+    "content": "<p>You need to create what is called a stage barrier, something that will force spark not to push the coalesce and the join into the same stage.</p> <p>If you can manage holding the whole result on a single partition, the join result probably isn't too large. Consider replacing coalesce with repartition, which will do a full shuffle but also create a stage barrier and perform the join in parallel. This was fast enough for my use cases but might not be best practice.</p> <p>It might be faster to call df.localCheckpoint which writes intermediate results to disk (but unlike cache creates a stage barrier) then coalesce but I haven't personally tried it.</p>",
+    "created_at": "2023-06-17T12:28:30.851",
+    "modified_at": "2023-06-17T12:28:30.851"
+  },
+  {
+    "answer_id": 2,
+    "question_id": 1,
+    "username": "howhow",
+    "content": "<p>You need to create what is called a stage barrier, something that will force spark not to push the coalesce and the join into the same stage.</p> <p>If you can manage holding the whole result on a single partition, the join result probably isn't too large. Consider replacing coalesce with repartition, which will do a full shuffle but also create a stage barrier and perform the join in parallel. This was fast enough for my use cases but might not be best practice.</p> <p>It might be faster to call df.localCheckpoint which writes intermediate results to disk (but unlike cache creates a stage barrier) then coalesce but I haven't personally tried it.</p>",
+    "created_at": "2023-06-17T12:28:30.853",
+    "modified_at": "2023-06-17T12:28:30.853"
+  }
+]
