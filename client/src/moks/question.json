@@ -1,0 +1,8 @@
+{
+  "question_id": 1,
+  "username": "whatmerge",
+  "title": "Logging messages to file in Python not working when running outside interactive mode in VS Code",
+  "content": "<p>I have a simple Python code that logs messages to a file using the logging module.</p> <p>However, when I run this code in Visual Studio Code (VS Code) outside of the interactive mode, I do not see any logs in the file.</p> <p>Strangely, when I run the same code in the interactive mode, the logs are successfully written to the file. Here is my code</p>",
+  "created_at": "2023-06-17T12:28:30.851",
+  "modified_at": "2023-06-17T12:28:30.851"
+}
