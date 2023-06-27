@@ -1,22 +1,65 @@
 # 🧐 팀명 : merge가 머지 (seb44_pre_026)
 
-<a href=""><img 
-src="" alt="서비스 페이지 gif" width="540" height="300"/></a>
-
 ## 👀 주제
 
 ### Stack Overflow 클론코딩
 
 <br>
+<br>
 
 ## 📅 프로젝트 기간
 
 - 2023.06.09 ~ 2023.06.27
-  <br>
+<br>
+<br>
 
-<!-- ## ⭐ 주요 기능 -->
+## ⭐ 주요 기능
+### 👤 회원가입
+<a href=""><img 
+src="https://blog.kakaocdn.net/dn/oQnOr/btsltVqXxMI/anGMPM4qOfNIAK0cj2mvkK/img.gif" alt="회원가입 gif" width="540" height="300"/></a>
+<p>• 사용자가 회원가입을 할 수 있다.</p>
+<br>
+
+
+### 🖥 로그인 & 로그아웃
+<a href=""><img 
+src="https://blog.kakaocdn.net/dn/bh2mu9/btslA5eD6VB/pqY0UuLYH7h84CmCl3nyfK/img.gif" alt="로그인 & 로그아웃 gif" width="540" height="300"/></a>
+<p>• 사용자가 email(=id)과 비밀번호를 입력해 로그인한다.</p>
+<p>• 사용자가 로그아웃을 하면 access token을 삭제하고 로그인 전 상태로 돌아간다.</p>
+<br>
+
+### 🔎 검색
+<a href=""><img 
+src="https://blog.kakaocdn.net/dn/b2LqHq/btslwqDCMZd/NaTkGTKKyXSMDEcOhWWaTk/img.gif
+" alt="검색 gif" width="540" height="300"/></a>
+<p>• 검색 키워드가 제목에 포함된 질문 리스트를 가져온다.</p>
+<br>
+
+### ⚙ 기능들
+<a href=""><img 
+src="https://blog.kakaocdn.net/dn/OrUxl/btslxKojsaF/mRzRKyUk9h0BphxMSMnJO1/img.gif" alt="기능들 gif" width="540" height="300"/></a>
+<p><strong>질문 등록</strong></p>
+<ul>• 로그인한 사용자가 질문을 등록할 수 있다.</ul>
+<br>
+<p><strong>질문 수정</strong></p>
+<ul>• 해당 질문의 작성자가 질문을 수정할 수 있다.</ul>
+<br>
+<p><strong>질문 삭제</strong></p>
+<ul>• 해당 질문의 작성자가 질문을 수정할 수 있다.</ul>
+<br>
+<p><strong>답변 등록</strong></p>
+<ul>• 로그인한 사용자가 질문에 대한 답변을 등록할 수 있다.</ul>
+<br>
+<p><strong>답변 수정</strong></p>
+<ul>• 해당 답변의 작성자가 답변을 수정할 수 있다.</ul>
+<br>
+<p><strong>답변 삭제</strong></p>
+<ul>• 해당 답변의 작성자가 답변을 삭제할 수 있다.</ul>
 
 <br>
+<br>
+<br>
+
 
 ## ⛏ 기술스택
 
@@ -83,6 +126,8 @@ src="" alt="서비스 페이지 gif" width="540" height="300"/></a>
     </tr>
     
 </table>
+
+<br>
 
 <br>
 
