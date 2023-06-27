@@ -22,6 +22,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import static preproject.server.member.entity.Member.MemberStatus.MEMBER_QUIT;
+
 
 @Transactional
 @Service
@@ -44,7 +46,12 @@ public class AnswerService {
 
         Member member = optionalUser.
                 orElseThrow(() -> new BusinessLogicException(ExceptionCode.NO_PERMISSION_CREATING_POST));
-
+        /**
+         * Exceptioncode
+         */
+        if(member.getMemberStatus().equals(MEMBER_QUIT)){
+            throw new BusinessLogicException(ExceptionCode.MEMBER_UNACTIVE);
+        }
         answer.setMember(member);
         answer.setQuestion(question);
         return answerRepository.save(answer);
@@ -54,7 +61,12 @@ public class AnswerService {
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
 
         String principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-
+        /**
+         * Exceptioncode
+         */
+        if (findAnswer.getMember().getMemberStatus().equals(MEMBER_QUIT)){
+            throw new BusinessLogicException(ExceptionCode.MEMBER_UNACTIVE);
+        }
         Optional.ofNullable(answer.getContent())
                 .ifPresent(content -> findAnswer.setContent(content));
         findAnswer.setModifiedAt(LocalDateTime.now());
@@ -79,7 +91,12 @@ public class AnswerService {
     public void deleteAnswer(long answerId) {
         Answer findAnswer = findVerifiedAnswer(answerId);
         String principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-
+        /**
+         * Exceptioncode
+         */
+        if (findAnswer.getMember().getMemberStatus().equals(MEMBER_QUIT)){
+            throw new BusinessLogicException(ExceptionCode.MEMBER_UNACTIVE);
+        }
         if (!findAnswer.getMember().getEmail().equals(principal))
             throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_DELETING_POST);
 
