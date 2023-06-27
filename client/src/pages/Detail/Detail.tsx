@@ -39,7 +39,6 @@ function Detail() {
     answers: [],
   };
 
-  // const [answerData, setAnswerData] = useState<AnswerProps[]>([]);
   const [askData, setAskData] = useState<DetailProps>(initialState);
   const [complete, setComplete] = useState(false);
 
