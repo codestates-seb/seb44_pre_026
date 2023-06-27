@@ -100,11 +100,11 @@ src="" alt="서비스 페이지 gif" width="540" height="300"/></a>
     <td align="center"><img src="client/src/assets/readme/fe3.jpg" width="100" height="100"/></td>
   </tr>
   <tr>
-    <td align="center"><strong>안지수</strong></td>
+    <td align="center"><strong>안지수(팀장)</strong></td>
     <td align="center"><strong>강민승</strong></td>
     <td align="center"><strong>박신영</strong></td>
   </tr>
-  <tr>
+  <tr></tr>
     <!-- 안지수 -->
     <td align="center"><a href="https://github.com/Scarlett0JS" target='_blank'>github</a></td>
     <!-- 강민승 -->
@@ -126,7 +126,7 @@ src="" alt="서비스 페이지 gif" width="540" height="300"/></a>
     <td align="center"><img src="client/src/assets/readme/be3.jpeg" width="100" height="100"/></td>
   </tr>
   <tr>
-    <td align="center"><strong>정관용</strong></td>
+    <td align="center"><strong>정관용(부팀장)</strong></td>
     <td align="center"><strong>고인수</strong></td>
     <td align="center"><strong>이진우</strong></td>
   </tr>
