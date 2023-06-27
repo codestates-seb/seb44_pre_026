@@ -72,8 +72,8 @@ export const Login = styled(Div)`
     padding: 24px;
     border-radius: 7px;
     background-color: white;
-    width: 278px;
-    height: 234px;
+    width: 17.5rem;
+    height: 17rem;
     box-shadow: 0 10px 24px hsla(0, 0%, 0%, 0.05),
       0 20px 48px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.1);
   }
