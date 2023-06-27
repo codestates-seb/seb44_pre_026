@@ -4,8 +4,7 @@ export function MemberDelete() {
   const accessToken = localStorage.getItem("accessToken");
   // 나중에 탈퇴 의사 한번 더 묻는 alert 만들면 좋을듯 합니다.
   axios
-    // 1은 임시
-    .delete(`/api/members/1`, {
+    .delete(`/api/members/`, {
       headers: {
         Authorization: accessToken,
       },

@@ -10,14 +10,12 @@ function SignUpForm() {
   const [signUpInfo, setSignUpInfo] = useState({
     email: "",
     nickName: "",
-    name: "",
     password: "",
   });
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [nickName, setNickName] = useState("");
-  const [name, setName] = useState("");
 
   const [emailFailedMsg, setEmailFailedMsg] = useState(false);
   const [nickNameFailedMsg, setNickNameFailedMsg] = useState(false);
@@ -26,11 +24,6 @@ function SignUpForm() {
   const idValidation = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const pwValidation = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/;
   const nickNameValidation = /^[ㄱ-ㅎ가-힣a-zA-Z0-9]+$/;
-
-  const handleNameValue = (e: any) => {
-    setSignUpInfo({ ...signUpInfo, nickName: e.target.value });
-    setName(e.target.value);
-  };
 
   const handleNickNameValue = (e: any) => {
     const nickNameVal = e.target.value;
@@ -80,7 +73,6 @@ function SignUpForm() {
       await axios
         .post("/api/members", {
           email: email,
-          name: name,
           nickName: nickName,
           password: password,
         })
@@ -116,17 +108,6 @@ function SignUpForm() {
               </p>
             )}
             {/* SECTION #2 E-mail */}
-            <div className="SUEmail">
-              <label id="SULabelEmail" htmlFor="SUEmail">
-                Name
-              </label>
-              <input
-                id="SUInputE"
-                name="SUEmail"
-                type="text"
-                onChange={handleNameValue}
-              />
-            </div>
             <div className="SUEmail">
               <label id="SULabelEmail" htmlFor="SUEmail">
                 Email
