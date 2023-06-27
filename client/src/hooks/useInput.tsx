@@ -11,7 +11,7 @@ function useInput<T>(initialValue: T): UseInputProps<T> {
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement> | any) => {
     if (e.target) setValue(e.target.value);
-    else setValue(e);
+    else setValue(e === "<p><br></p>" ? "" : e);
   };
 
   const reset = useCallback(() => setValue(initialValue), [initialValue]);

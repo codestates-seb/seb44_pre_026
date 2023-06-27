@@ -19,9 +19,31 @@ button:hover {
   box-shadow: 0 0 6px 2px rgba(4, 137, 247, 0.555);
 }
 
+.ql-syntax {
+  overflow-x: scroll;
+  padding: 12px;
+  margin-top: 16px;
+  background-color: var(--highlight-bg);
+  color: var(--highlight-color);
+  border-radius: 3px;
+}
+
+.ql-syntax::-webkit-scrollbar {
+  width: 8px;
+  height: 10px;
+  border-radius: 5px;
+}
+
+.ql-syntax::-webkit-scrollbar-thumb {
+  height: 30%;
+  background-color: var(--black-150);
+  border-radius: 10px;
+}
+
 .contents {
   display: flex;
   justify-content: center;
+  margin-top: 70px;
 }
 
 * {

@@ -1,22 +1,25 @@
 import * as S from "./style";
 import LogoImg from "../../assets/Stack_Overflow_logo.png";
 import { FaSearch } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { Link } from "react-router-dom";
+import { handleLogout } from "../../components/Logout/Logout";
 
 //로그인 전 헤더
-const Header = () => {
-  const navigate = useNavigate();
-  const [search, setSearch] = useState("");
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+
+interface Props {
+  handleSearch: (e: React.FormEvent<HTMLFormElement>) => void;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  search: string;
+}
+
+const Header = ({ handleSearch, setSearch, search }: Props) => {
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      handleSearch();
+      handleSearch;
     }
   };
 
-  const handleSearch = () => {
-    navigate(`/search/?q=${search}`);
-  };
+  const token = localStorage.getItem("accessToken");
 
   return (
     <S.HeaderContainer>
@@ -36,20 +39,32 @@ const Header = () => {
 
       <S.Searchbar>
         <FaSearch className="icon"></FaSearch>
-        <input
-          className="searchbar_input"
-          placeholder="Search..."
-          onKeyDown={handleKeyDown}
-        ></input>
+        <form onSubmit={(e) => handleSearch(e)}>
+          <input
+            className="searchbar_input"
+            placeholder="Search..."
+            onChange={(e) => setSearch(e.target.value)}
+            onKeyUp={handleKeyUp}
+            value={search}
+          ></input>
+        </form>
       </S.Searchbar>
 
       <S.Button>
-        <S.LoginBtn>
-          <Link to="/login"> Log in</Link>{" "}
-        </S.LoginBtn>
-        <S.SignUpBtn>
-          <Link to="/sign up">Sign up</Link>
-        </S.SignUpBtn>
+        {token ? (
+          <div className="logout" onClick={handleLogout}>
+            <S.LogoutBtn>Log Out </S.LogoutBtn>
+          </div>
+        ) : (
+          <>
+            <S.LoginBtn>
+              <Link to="/login"> Log in</Link>{" "}
+            </S.LoginBtn>
+            <S.SignUpBtn>
+              <Link to="/signup">Sign up</Link>
+            </S.SignUpBtn>{" "}
+          </>
+        )}
       </S.Button>
     </S.HeaderContainer>
   );

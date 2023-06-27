@@ -8,7 +8,7 @@ const LoginPage = () => {
       <S.Login>
         {/* Logo */}
         <S.Div className="LogoContainer">
-          <a href="http://localhost:5173/">
+          <a href="/">
             <img
               className="login-logo"
               src={StackOverflowLogo}
@@ -52,7 +52,7 @@ const LoginPage = () => {
           {/* Sign up link */}
           <S.Div className="MakeAccount">
             Don’t have an account?
-            <a href="http://localhost:5173/signup"> Sign up</a>
+            <a href="/signup"> Sign up</a>
           </S.Div>
           {/* Link for Employer */}
           <S.Div className="Employer">

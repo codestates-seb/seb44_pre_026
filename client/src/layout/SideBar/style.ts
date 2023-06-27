@@ -3,25 +3,25 @@ import { styled } from "styled-components";
 export const Container = styled.div`
   display: flex;
   height: auto;
-  width: 250px;
+  width: 15rem;
   position: fixed;
   background-color: white;
+  margin-top: 70px;
   border-right: 2px solid rgb(214, 217, 220);
 `;
 
 export const NavBarContainer = styled.nav`
   display: flex;
   margin: 30px 0px;
-  height: 80vh;
+  height: 100vh;
   width: 280px;
-  position: sticky;
 `;
 
 export const Nav = styled.div`
   width: 250px;
 
   li {
-    font-size: 20px;
+    font-size: 18px;
     color: rgb(108, 117, 126);
     list-style: none;
     padding: 1rem 2rem;
@@ -32,7 +32,7 @@ export const Nav = styled.div`
 
     &.active {
       background-color: white;
-      width: 250px;
+      width: 15rem;
       color: black;
       background-color: rgb(241, 242, 243);
       border-right: solid rgb(244, 130, 36) 3px;
@@ -50,7 +50,7 @@ export const Nav = styled.div`
 
   .logout,
   .delete {
-    font-size: 20px;
+    font-size: 18px;
     color: rgb(108, 117, 126);
     list-style: none;
     padding: 1rem 2rem;

@@ -6,6 +6,7 @@ import * as S from "./style";
 import useInput from "../../hooks/useInput";
 import axios from "axios";
 import { useState } from "react";
+import { ACCESS_TOKEN, BASE_URL } from "../../constants/constants";
 
 // TODO: 하드코딩된 focus 로직 수정
 
@@ -19,12 +20,23 @@ function AskQuestion() {
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const token = localStorage.getItem(ACCESS_TOKEN);
+
     axios
-      .post("/api/questions", {
-        title: titleValue,
-        content: bodyValue,
-        memberId: 1,
-      })
+      .post(
+        BASE_URL + "/questions",
+        {
+          title: titleValue,
+          content: bodyValue,
+          memberId: 1,
+        },
+        {
+          headers: {
+            Authorization: token,
+            withCredentials: true,
+          },
+        }
+      )
       .then(res => {
         navigate(`/questions/${res.data.questionId}`);
       });
@@ -56,7 +68,7 @@ function AskQuestion() {
           />
           <S.ButtonLayout>
             <button type="submit">Post your question</button>
-            <Link to="/questions">
+            <Link to="/">
               <button>Discard draft</button>
             </Link>
           </S.ButtonLayout>

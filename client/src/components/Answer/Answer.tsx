@@ -5,6 +5,7 @@ import TextEditor from "../TextEditor/TextEditor";
 import useInput from "../../hooks/useInput";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { ACCESS_TOKEN, BASE_URL } from "../../constants/constants";
 
 interface Props {
   answerData: AnswerProps[];
@@ -15,14 +16,24 @@ function Answer({ answerData, setComplete }: Props) {
   const [bodyValue, changeBodyHandler, resetBody] = useInput("");
 
   const { id } = useParams();
+  const token = localStorage.getItem(ACCESS_TOKEN);
+
   const navigate = useNavigate();
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    axios.post(`/api/answers/`, {
-      content: bodyValue,
-    });
+    axios.post(
+      BASE_URL + `/answers/${id}`,
+      {
+        content: bodyValue,
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
 
     navigate(`/questions/${id}`);
     setComplete(true);
@@ -45,15 +56,18 @@ function Answer({ answerData, setComplete }: Props) {
             </select>
           </S.SortMenu>
         </S.Header>
-        {answerData.map(e => (
-          <Posting
-            key={e.answerId}
-            content={e}
-            isAsk={false}
-            answerId={e.answerId}
-            setComplete={setComplete}
-          />
-        ))}
+        {answerData.length > 0 &&
+          answerData
+            .sort((a, b) => parseInt(a.answerId) - parseInt(b.answerId))
+            .map(e => (
+              <Posting
+                key={e.answerId}
+                content={e}
+                isAsk={false}
+                answerId={e.answerId}
+                setComplete={setComplete}
+              />
+            ))}
       </S.AnswerLayout>
       <S.FormLayout>
         <S.FormBox onSubmit={e => submitHandler(e)}>

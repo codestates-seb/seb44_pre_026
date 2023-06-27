@@ -4,26 +4,17 @@ import * as S from "./style";
 import Bottom from "../../components/MainPage/Bottom/Bottom";
 import Top from "../../components/MainPage/Top/Top";
 import Question from "../../components/MainPage/Question/Question";
-
-export interface QuestionsProps {
-  memberId: string;
-  questionId: number;
-  answerId: string;
-  title: string;
-  content: string;
-  name: string;
-  createdAt: string;
-  modifiedAt: string;
-}
+import { BASE_URL } from "../../constants/constants";
+import { DetailProps } from "../Detail/Detail";
 
 function Home() {
-  const [data, setData] = useState<QuestionsProps[]>([]);
+  const [data, setData] = useState<DetailProps[]>([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:5173/src/moks/questions.json")
-      .then((res) => setData(res.data));
-  });
+      .get(BASE_URL + "/questions?page=1&size=15")
+      .then(res => setData(res.data.data));
+  }, []);
 
   return (
     <S.Home>

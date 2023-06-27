@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import * as S from "./style";
+import { BASE_URL } from "../../constants/constants";
 
 function LoginForm() {
   const navigation = useNavigate();
@@ -11,9 +12,6 @@ function LoginForm() {
     email: "",
     password: "",
   });
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   const [emailFailedMsg, setEmailFailedMsg] = useState(false);
   const [passwordFailedMsg, setPasswordFailedMsg] = useState(false);
@@ -26,10 +24,10 @@ function LoginForm() {
   const handleIdValue = (e: any) => {
     setLoginInfo({ ...loginInfo, email: e.target.value });
     if (idValidation.test(e.target.value) && e.target.value !== null) {
-      setEmail(e.target.value);
       setEmailFailedMsg(false);
     } else {
       setEmailFailedMsg(true);
+      localStorage.setItem("loginEmailFailedMsg", "invalid email");
     }
   };
 
@@ -37,10 +35,10 @@ function LoginForm() {
   const handlePasswordValue = (e: any) => {
     setLoginInfo({ ...loginInfo, password: e.target.value });
     if (pwValidation.test(e.target.value) && e.target.value !== null) {
-      setPassword(e.target.value);
       setPasswordFailedMsg(false);
     } else {
       setPasswordFailedMsg(true);
+      localStorage.setItem("loginPasswordFailedMsg", "invalid password");
     }
   };
 
@@ -48,19 +46,12 @@ function LoginForm() {
     event: React.MouseEvent
   ) => {
     event.preventDefault();
-    if (!email) {
-      localStorage.setItem("loginEmailFailedMsg", "invalid email");
-    }
-    if (!password) {
-      localStorage.setItem("loginPasswordFailedMsg", "invalid password");
-    }
 
     try {
-      await axios.post("/api/auth/login", loginInfo)
-      .then((response) => {
+      await axios.post(BASE_URL + "/auth/login", loginInfo).then(response => {
         const accessToken = response.headers.authorization;
 
-        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem("accessToken", accessToken);
         navigation("/");
       });
     } catch (err: unknown | any) {

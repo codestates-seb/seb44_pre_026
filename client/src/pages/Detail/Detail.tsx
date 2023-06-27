@@ -4,12 +4,14 @@ import * as S from "./style";
 import Posting from "../../components/Posting/Posting";
 import Answer from "../../components/Answer/Answer";
 import { useParams } from "react-router-dom";
+import { ACCESS_TOKEN, BASE_URL } from "../../constants/constants";
 
 export interface AnswerProps {
   memberId: string;
   questionId: number;
   answerId: string;
   content: string;
+  nickName: string;
   createdAt: string;
   modifiedAt: string;
   isAsk: boolean;
@@ -19,8 +21,10 @@ export interface DetailProps {
   questionId: number;
   title: string;
   content: string;
+  nickName: string;
   createdAt: string;
   modifiedAt: string;
+  answers: AnswerProps[];
 }
 
 function Detail() {
@@ -29,29 +33,29 @@ function Detail() {
     questionId: 0,
     title: "",
     content: "",
+    nickName: "",
     createdAt: "",
     modifiedAt: "",
+    answers: [],
   };
 
-  const [answerData, setAnswerData] = useState<AnswerProps[]>([]);
+  // const [answerData, setAnswerData] = useState<AnswerProps[]>([]);
   const [askData, setAskData] = useState<DetailProps>(initialState);
   const [complete, setComplete] = useState(false);
 
   const { id } = useParams();
-
-  const fetch = async () => {
-    const response = await axios.get(`/api/questions/${id}`);
-    setAskData(response?.data.data);
-    setComplete(false);
-  };
+  const token = localStorage.getItem(ACCESS_TOKEN);
 
   useEffect(() => {
-    axios.get("/api/answers").then(res => setAnswerData(res.data.data));
-
-    fetch();
+    axios
+      .get(BASE_URL + `/questions/${id}`, {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then(res => setAskData(res.data.data));
+    setComplete(false);
   }, [complete]);
-
-  console.log(answerData);
 
   return (
     <S.Section>
@@ -77,9 +81,7 @@ function Detail() {
         />
         <Posting content={askData} isAsk={true} setComplete={setComplete} />
       </S.DetailLayout>
-      {answerData.length > 0 && (
-        <Answer answerData={answerData} setComplete={setComplete} />
-      )}
+      <Answer answerData={askData.answers} setComplete={setComplete} />
     </S.Section>
   );
 }

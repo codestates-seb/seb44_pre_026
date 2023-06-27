@@ -1,8 +1,8 @@
 import * as S from "./style";
 import { Link } from "react-router-dom";
 import { IoEarthSharp } from "react-icons/io5";
-import React, { useState } from "react";
-import { handleLogout } from "../../components/Logout/Logout";
+import { useState } from "react";
+import { MemberDelete } from "../../components/MemberDelete/MemberDelete";
 
 const SideBar = () => {
   const [tab, setTab] = useState<string>("");
@@ -30,10 +30,7 @@ const SideBar = () => {
           <li className="selected">Tags</li>
           <li className="selected">Users</li>
           <li className="selected">Companies</li>
-          <div className="logout" onClick={handleLogout}>
-            Log Out
-          </div>
-          <div className="delete">Delete Account</div>
+          <div className="delete" onClick={MemberDelete}>Delete Account</div>
         </S.Nav>
       </S.NavBarContainer>
     </S.Container>
