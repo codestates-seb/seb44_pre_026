@@ -41,12 +41,17 @@ public class Answer {
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
 
-    @Transient
-    private long memberId;
+    public void setUser(Member member) { //user와 answer 연관관계매핑 , List<Answer> 에 추가해준다
+        this.member = member;
+        if (!this.member.getAnswers().contains(this)){
+            this.member.getAnswers().add(this);
+        }
+    }
 
-    @Transient
-    private long questionId;
-
-    @Transient
-    private String nickName;
+    public void setQuestion(Question question) {
+        this.question = question;
+        if (!this.question.getAnswers().contains(this)){
+            this.question.getAnswers().add(this);
+        }
+    }
 }

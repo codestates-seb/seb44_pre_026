@@ -18,6 +18,8 @@ import preproject.server.question.repository.QuestionRepository;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import static preproject.server.member.entity.Member.MemberStatus.MEMBER_QUIT;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -31,7 +33,12 @@ public class QuestionService {
 
         Member member = verifiedMember.
                 orElseThrow(() -> new BusinessLogicException(ExceptionCode.NO_PERMISSION_CREATING_POST));
-
+        /**
+         * Exceptioncode
+         */
+        if(member.getMemberStatus().equals(MEMBER_QUIT)){
+            throw new BusinessLogicException(ExceptionCode.MEMBER_UNACTIVE);
+        }
         question.setMember(member);
         member.addQuestion(question);
         return questionRepository.save(question);
@@ -41,6 +48,12 @@ public class QuestionService {
         Question findQuestion = findVerifiedQuestion(question.getQuestionId());
 
         String principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        /**
+         * Exceptioncode
+         */
+        if (findQuestion.getMember().getMemberStatus().equals(MEMBER_QUIT)){
+            throw new BusinessLogicException(ExceptionCode.MEMBER_UNACTIVE);
+        }
         if (!findQuestion.getMember().getEmail().equals(principal))
             throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_EDITING_POST);
 
@@ -64,11 +77,20 @@ public class QuestionService {
                 pageable.getPageSize(), Sort.by("createdAt").descending());
         return questionRepository.findAll(pageRequest);
     }
+    public Page<Question> searchQuestion(int page, String keyword){//질문 검색
+
+        return questionRepository.searchByKeyword(keyword, PageRequest.of(page,5,Sort.by("questionId").descending()));
+    }
 
     public void deleteQuestion(long questionId) { //질문 삭제
         Question findQuestion = findVerifiedQuestion(questionId);
         String principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-
+        /**
+         * Exceptioncode
+         */
+        if (findQuestion.getMember().getMemberStatus().equals(MEMBER_QUIT)){
+            throw new BusinessLogicException(ExceptionCode.MEMBER_UNACTIVE);
+        }
         if (!findQuestion.getMember().getEmail().equals(principal))
             throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_DELETING_POST);
 

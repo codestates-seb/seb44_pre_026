@@ -1,9 +1,11 @@
 package preproject.server.question.dto;
 
 import lombok.*;
+import preproject.server.answer.dto.AnswerDto;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -13,9 +15,10 @@ import java.time.LocalDateTime;
 public class QuestionResponseDto {
     private long questionId;
     private long memberId;
-    private String name;
+    private String nickName;
     private String title;
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+    private List<AnswerDto.Response> answers;
 }

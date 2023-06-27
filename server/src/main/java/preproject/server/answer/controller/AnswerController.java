@@ -34,27 +34,23 @@ public class AnswerController {
         this.mapper = mapper;
     }
 
-    @PostMapping
-    public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.Post requestBody) {
+    @PostMapping("/{question_id}")
+    public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.Post requestBody,
+                                     @PathVariable("question_id") @Positive long questionId) {
         Answer answer = mapper.answerPostDtoToAnswer(requestBody);
-
-        Answer createAnswer = answerService.createAnswer(answer);
-
+        Answer createAnswer = answerService.createAnswer(answer, questionId);
         return new ResponseEntity(mapper.answerToAnswerResponse(createAnswer), HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{answer-id}")
-    public ResponseEntity patchAnswer(
-            @PathVariable("answer-id") @Positive long answerId,
-            @Valid @RequestBody AnswerDto.Patch requestBody) {
-        requestBody.setAnswerId(answerId);
+        @PatchMapping("/{answer-id}")
+    public ResponseEntity patchAnswer(@PathVariable("answer-id") @Positive long answerId,
+                                      @Valid @RequestBody AnswerDto.Patch requestBody) {
         Answer answer = mapper.answerPatchDtoToAnswer(requestBody);
-
+        answer.setAnswerId(answerId);
         Answer updateAnswer = answerService.updateAnswer(answer);
 
         return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.answerToAnswerResponse(updateAnswer)),
-                HttpStatus.OK);
+                new SingleResponseDto<>(mapper.answerToAnswerResponse(updateAnswer)), HttpStatus.OK);
     }
 
     @GetMapping("/{answer-id}")
@@ -67,14 +63,17 @@ public class AnswerController {
                 ,HttpStatus.OK);
     }
 
-    @GetMapping
-    public ResponseEntity getAnswers(@PageableDefault(page = 1, size = 15)Pageable pageable) {
+    @GetMapping("/questions/{question-id}")
+    public ResponseEntity getAnswers(@PathVariable("question-id") @Positive Long questionId,
+                                     @Positive @RequestParam(value = "page", defaultValue = "1") int page,
+                                     @Positive @RequestParam(value = "size", defaultValue = "5") int size) {
 
-        Page<Answer> pageAnswers = answerService.findAnswers(pageable);
-        List<Answer> answers = pageAnswers.getContent();
+        Page<Answer> answerPage = answerService.findAnswers(questionId, page - 1, size);
+        List<Answer> answerList = answerPage.getContent();
+        List<AnswerDto.Response> responseList = mapper.answerToAnswerResponses(answerList);
+
         return new ResponseEntity<>(
-                new MultiResponseDto<>(mapper.answerToAnswerResponses(answers), pageAnswers)
-                ,HttpStatus.OK);
+                new MultiResponseDto<>(responseList,answerPage), HttpStatus.OK);
     }
 
     @DeleteMapping("/{answerId}")

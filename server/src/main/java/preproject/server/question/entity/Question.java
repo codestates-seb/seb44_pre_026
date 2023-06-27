@@ -37,14 +37,14 @@ public class Question {
 
 
     @OneToMany(mappedBy = "question", cascade = {CascadeType.ALL})
-    private List<Answer> answerList = new ArrayList<>();
+    private List<Answer> answers = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
     public void addAnswer(Answer answer) {
-        this.answerList.add(answer);
+        this.answers.add(answer);
     }
 }
 

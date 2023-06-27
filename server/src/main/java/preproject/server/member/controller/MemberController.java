@@ -39,7 +39,14 @@ public class MemberController {
         Member member = mapper.memberPostDtoToMember(memberPostDto);
         Member createdMember = memberService.createMember(member);
 
-        return new ResponseEntity(mapper.memberToMemberResponseDto(createdMember), HttpStatus.CREATED);
+        URI location = UriComponentsBuilder.newInstance()
+                .path("{member-id}")
+                .buildAndExpand(createdMember.getMemberId())
+                .toUri();
+
+        return ResponseEntity.created(location).body(mapper.memberToMemberResponseDto(createdMember));
+
+        
     }
 
     @PatchMapping("/{member-id}")
@@ -81,10 +88,17 @@ public class MemberController {
         return new ResponseEntity(new PageResponseDto(response,pageInfo), HttpStatus.OK);
     } // 순수 회원 정보만 리턴
 
-    @DeleteMapping("/{member-id}")
+/*    @DeleteMapping("/{member-id}")
     public ResponseEntity deleteMember(@PathVariable("member-id") @Positive long memberId) {
         memberService.deleteMember(memberId);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
-    }
+    }//^*/
+
+    @DeleteMapping
+    public ResponseEntity deleteMember() {
+        memberService.deleteMember();
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }//^
 }
