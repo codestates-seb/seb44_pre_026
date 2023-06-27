@@ -38,7 +38,6 @@ src="" alt="서비스 페이지 gif" width="540" height="300"/></a>
         <td>프론트앤드</td>
         <td>
             <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=React&logoColor=black" />
-            <img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=white" />
         </td>
     </tr>
     <tr>
@@ -49,10 +48,10 @@ src="" alt="서비스 페이지 gif" width="540" height="300"/></a>
         </td>
     </tr>
     <tr>
-        <!-- <td>서버환경</td>
+        <td>서버환경</td>
         <td>
-            <img src="https://img.shields.io/badge/Apache Tomcat-D22128?style=for-the-badge&logo=Apache Tomcat&logoColor=white" />
-        </td> -->
+            <img src="https://img.shields.io/badge/Amazon%20AWS-232F3E?style=flat-square&logo=amazonaws&logoColor=white" />
+        </td>
     </tr>
     <tr>
         <td>개발도구</td>
@@ -87,22 +86,6 @@ src="" alt="서비스 페이지 gif" width="540" height="300"/></a>
 
 <br>
 
-## 📌 시스템 아키텍처(구조) 예시
-
-<img src="" alt="시스템 아키텍처 예시 이미지"/>
-<br>
-
-## 📌 서비스 흐름도
-
-<img src="" alt="서비스 흐름도 이미지">
-<br>
-
-## 📌 E-R Diagram
-
-<img src="" alt="E-R Diagram"/>
-<br>
-<br>
-
 ## 👨‍👩‍👦‍👦 팀원 역할
 
 ### 프론트엔드
@@ -110,26 +93,18 @@ src="" alt="서비스 페이지 gif" width="540" height="300"/></a>
 <table>
   <tr>
     <!-- 안지수 -->
-    <td align="center"><img src="" width="100" height="100"/></td>
+    <td align="center"><img src="client/src/assets/readme/fe1.jpeg" width="100" height="100"/></td>
     <!-- 강민승 -->
-    <td align="center"><img src="" width="100" height="100"/></td>
+    <td align="center"><img src="client/src/assets/readme/fe2.jpeg" width="100" height="100"/></td>
     <!-- 박신영 -->
-    <td align="center"><img src="" width="100" height="100"/></td>
+    <td align="center"><img src="client/src/assets/readme/fe3.jpg" width="100" height="100"/></td>
   </tr>
   <tr>
-    <td align="center"><strong>안지수</strong></td>
+    <td align="center"><strong>안지수(팀장)</strong></td>
     <td align="center"><strong>강민승</strong></td>
     <td align="center"><strong>박신영</strong></td>
   </tr>
-  <tr>
-    <!-- 안지수 -->
-    <td align="center"><b>*본인이 담당한 부분*</b></td>
-    <!-- 강민승 -->
-    <td align="center"><b>*본인이 담당한 부분*</b></td>
-    <!-- 박신영 -->
-    <td align="center"><b>*본인이 담당한 부분*</b></td>
-  </tr>
-  <tr>
+  <tr></tr>
     <!-- 안지수 -->
     <td align="center"><a href="https://github.com/Scarlett0JS" target='_blank'>github</a></td>
     <!-- 강민승 -->
@@ -144,24 +119,16 @@ src="" alt="서비스 페이지 gif" width="540" height="300"/></a>
 <table>
   <tr>
     <!-- 정관용 -->
-    <td align="center"><img src="" width="100" height="100"/></td>
+    <td align="center"><img src="client/src/assets/readme/be1.jpeg" width="100" height="100"/></td>
     <!-- 고인수 -->
-    <td align="center"><img src="" width="100" height="100"/></td>
+    <td align="center"><img src="client/src/assets/readme/be2.png" width="100" height="100"/></td>
     <!-- 이진우 -->
-    <td align="center"><img src="" width="100" height="100"/></td>
+    <td align="center"><img src="client/src/assets/readme/be3.jpeg" width="100" height="100"/></td>
   </tr>
   <tr>
-    <td align="center"><strong>정관용</strong></td>
+    <td align="center"><strong>정관용(부팀장)</strong></td>
     <td align="center"><strong>고인수</strong></td>
     <td align="center"><strong>이진우</strong></td>
-  </tr>
-  <tr>
-    <!-- 정관용 -->
-    <td align="center"><b>*본인이 담당한 부분*</b></td>
-    <!-- 고인수 -->
-    <td align="center"><b>*본인이 담당한 부분*</b></td>
-    <!-- 이진우 -->
-    <td align="center"><b>*본인이 담당한 부분*</b></td>
   </tr>
   <tr>
     <!-- 정관용 -->
