@@ -7,68 +7,81 @@ import * as S from "./style";
 function SignUpForm() {
   const navigation = useNavigate();
 
-  const [signUpInfo, setSignUpInfo] = useState({
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [nickName, setNickName] = useState("");
+
+  const [validation, setValidation] = useState({
     email: "",
     nickName: "",
     password: "",
   });
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [nickName, setNickName] = useState("");
+  const isValidEmail = (email: any) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
 
-  const [emailFailedMsg, setEmailFailedMsg] = useState(false);
-  const [nickNameFailedMsg, setNickNameFailedMsg] = useState(false);
-  const [passwordFailedMsg, setPasswordFailedMsg] = useState(false);
+  const isValidPassword = (password: any) => {
+    return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/.test(password);
+  }
 
-  const idValidation = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const pwValidation = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/;
-  const nickNameValidation = /^[ㄱ-ㅎ가-힣a-zA-Z0-9]+$/;
+  const isValidNickname = (nickname: any) => {
+    return /^[ㄱ-ㅎ가-힣a-zA-Z0-9]+$/.test(nickname);
+  }
 
-  const handleNickNameValue = (e: any) => {
-    const nickNameVal = e.target.value;
-    setSignUpInfo({ ...signUpInfo, nickName: e.target.value });
-    if (nickNameValidation.test(nickNameVal) && nickNameVal !== null) {
-      setNickName(e.target.value);
-      setNickNameFailedMsg(false);
-    } else {
-      setNickNameFailedMsg(true);
-      localStorage.setItem("nickNameFailedMsg", "Invalid Nick Name");
+  const handleEmailValidation = (e: any) =>  {
+    const email = e.target.value;
+    let emailValidationMSG = "";
+
+    if (!email) {
+      emailValidationMSG = "Please input email";
+    } else if(!isValidEmail(email)) {
+      emailValidationMSG = "Invalid email adress";
     }
-  };
 
-  const handleEmailValue = (e: any) => {
-    const emailVal = e.target.value;
-    setSignUpInfo({ ...signUpInfo, email: emailVal });
-    if (idValidation.test(emailVal) && emailVal !== null) {
-      setEmail(emailVal);
-      setEmailFailedMsg(false);
-    } else {
-      setEmailFailedMsg(true);
-      localStorage.setItem("emailFailedMsg", "Invalid email adress");
-    }
-  };
+    setValidation({...validation, email: emailValidationMSG});
+    setEmail(email);
+  }
 
-  const handlePasswordValue = (e: any) => {
-    const PWVal = e.target.value;
-    setSignUpInfo({ ...signUpInfo, password: PWVal });
-    if (pwValidation.test(PWVal) && PWVal !== null && PWVal.length >= 8) {
-      setPassword(PWVal);
-      setPasswordFailedMsg(false);
-    } else {
-      setPasswordFailedMsg(true);
-      localStorage.setItem(
-        "passwordFailedMsg",
-        "Passwords must contain at least eight characters, including at least 1 letter and 1 number."
-      );
+  const handlePasswordValidation = (e:any) => {
+    const password = e.target.value;
+    let passwordValidationMSG = "";
+
+    if (!password) {
+      passwordValidationMSG = "Please input password";
+    } else if(!isValidPassword(password)) {
+      passwordValidationMSG = "Passwords must contain at least eight characters, including at least 1 letter and 1 number."
     }
-  };
+
+    setValidation({...validation, password: passwordValidationMSG});
+    setPassword(password);
+  }
+
+  const handleNicknameValidation = (e:any) => {
+    const nickName = e.target.value
+    let nicknameValidationMSG = "";
+
+    if (!nickName) {
+      nicknameValidationMSG = "Please input nickname"
+    } else if(!isValidNickname(nickName)) {
+      nicknameValidationMSG = "Only Korean and English upper and lower case letters and numbers can be entered."
+    }
+
+    setValidation({...validation, nickName: nicknameValidationMSG});
+    setNickName(nickName);
+  }
 
   const handleSignUp: React.MouseEventHandler = async (
     event: React.MouseEvent
   ) => {
     event.preventDefault();
 
+    if (!isValidEmail(email) ||
+        !isValidPassword(password) ||
+        !isValidNickname(nickName)
+    ) {
+      alert("Please make sure your email, password, and nickname are valid.")
+    }
     try {
       await axios
         .post("/api/members", {
@@ -100,14 +113,11 @@ function SignUpForm() {
               id="SUInputD"
               name="SUDisplayname"
               type="text"
-              onChange={handleNickNameValue}
+              onChange={handleNicknameValidation}
             />
-            {nickNameFailedMsg && (
-              <p className="invalid">
-                {localStorage.getItem("nickNameFailedMsg")}
+              <p className="nicknameinvalid">
+                {validation.nickName}
               </p>
-            )}
-            {/* SECTION #2 E-mail */}
             <div className="SUEmail">
               <label id="SULabelEmail" htmlFor="SUEmail">
                 Email
@@ -116,15 +126,13 @@ function SignUpForm() {
                 id="SUInputE"
                 name="SUEmail"
                 type="text"
-                onChange={handleEmailValue}
+                onChange={handleEmailValidation}
               />
             </div>
             {/* Email 유효성 검사 Msg */}
-            {emailFailedMsg && (
               <p className="emailinvalid">
-                {localStorage.getItem("emailFailedMsg")}
+                {validation.email}
               </p>
-            )}
           </div>
           {/* SECTION #3 PW */}
           <div className="SUPassword">
@@ -135,14 +143,12 @@ function SignUpForm() {
               id="SUInputP"
               name="SUPassword"
               type="password"
-              onChange={handlePasswordValue}
+              onChange={handlePasswordValidation}
             />
             {/* Password 유효성 검사 Msg */}
-            {passwordFailedMsg && (
               <p className="pwinvalid">
-                {localStorage.getItem("passwordFailedMsg")}
+                {validation.password}
               </p>
-            )}
           </div>
           <div className="reCAPTCHA" />
           <div className="Opt-inContainer">
