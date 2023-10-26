@@ -201,6 +201,12 @@ export const SignUpForm = styled(Form)`
   margin: 0 0 24px;
   max-height: 400px;
 
+  // nickName validation
+  .nicknameinvalid {
+    font-size: 13px;
+    padding-top: 5px;
+    color: red;
+  }
   // email validation
   .emailinvalid {
     font-size: 13px;
